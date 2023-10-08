@@ -1,37 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-// Импортируйте компоненты страниц
-import AboutPage from './components/AboutPage';
-import MoviesPage from './components/MoviesPage';
-import SavedMoviesPage from './components/SavedMoviesPage';
-import ProfilePage from './components/ProfilePage';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
-import NotFoundPage from './components/NotFoundPage';
+import './App.css';
 
-function App() {
+import Main from '../Main/Main';
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Profile from "../Profile/Profile";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+
+const App = () => {
+  //отслеживанем данные входа
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
-    <Router>
-      <header>
-        <Link to="/">Логотип</Link>
-        <Link to="/movies">Фильмы</Link>
-        <Link to="/saved-movies">Сохранённые фильмы</Link>
-        <Link to="/signup">Регистрация</Link>
-        <Link to="/signin">Авторизация</Link>
-        <Link to="/profile">Аккаунт</Link>
-      </header>
-      <Switch>
-        <Route path="/" exact component={AboutPage} />
-        <Route path="/movies" component={MoviesPage} />
-        <Route path="/saved-movies" component={SavedMoviesPage} />
-        <Route path="/profile" component={ProfilePage} />
-        <Route path="/signin" component={SignInPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </Router>
+    <div className="app">
+      <div>
+        <Routes>
+          <Route path="/" element={<Main loggedIn={isLoggedIn} />} />
+          <Route path="/movies" element={<Movies loggedIn={isLoggedIn} />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile loggedIn={isLoggedIn} />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
-
-export default App;
+export default App

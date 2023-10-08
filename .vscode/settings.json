@@ -1,0 +1,6 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "html.format.contentUnformatted": "",
+  "eslint.codeActionsOnSave.rules": null,
+}

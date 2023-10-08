@@ -1,0 +1,30 @@
+.nav-tab__list {
+  width: 100%;
+  max-width: 1280px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  background: #F5F5F5;
+}
+
+.nav-tab__item {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration-line: underline;
+}
+
+@media screen and (max-width: 750px) {
+  .nav-tab__list {
+    gap: 24px;
+  }
+
+  .nav-tab__item {
+    font-size: 11px;
+  }
+}
