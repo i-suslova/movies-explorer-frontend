@@ -1,0 +1,19 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 42px;
+}
+
+.checkbox__filter {
+  width: 36px;
+  height: 20px;
+}
+
+.checkbox__label {
+  font-size: 14px;
+  line-height: 18px;
+  /* 128.571% */
+  background-color: #FFFFFF;
+}
