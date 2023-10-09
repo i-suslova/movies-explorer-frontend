@@ -14,7 +14,7 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 const App = () => {
   //отслеживанем данные входа
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
+
 
   return (
     <div className="app">
@@ -29,6 +29,7 @@ const App = () => {
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </div>
+
     </div>
   );
 }
