@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from '../Footer/Footer';
-import moviesData from '../../utils/moviesData';
+import { moviesData } from '../../utils/cardsMoviesData';
 // import Preloader from "../Preloader/Preloader";
 
 const Movies = ({ loggedIn }) => {
@@ -16,8 +16,7 @@ const Movies = ({ loggedIn }) => {
       />
       <section className='movies'>
         <SearchForm />
-        <MoviesCardList moviesData={moviesData} />
-
+        <MoviesCardList moviesData={moviesData} isSavedMovies={false} />
       </section>
       <Footer />
     </>
@@ -25,3 +24,4 @@ const Movies = ({ loggedIn }) => {
 }
 
 export default Movies
+

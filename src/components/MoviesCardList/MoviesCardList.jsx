@@ -1,14 +1,13 @@
-import React from 'react'
+import React from 'react';
 import './MoviesCardList.css';
-import MoviesCard from "../MoviesCard/MoviesCard";
+import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = (props) => {
-
+const MoviesCardList = ({ moviesData, isSavedMovies }) => {
   return (
     <section className='movies-card-list'>
       <div className='movies-card-list__page'>
-        {props.moviesData.map((movie) => (
-          <MoviesCard key={movie.movieId} movie={movie} />
+        {moviesData.map((movie) => (
+          <MoviesCard key={movie.movieId} movie={movie} isSavedMovies={isSavedMovies} />
         ))}
       </div>
       <button className="movies-card-list__button hover" type="button">
@@ -16,10 +15,6 @@ const MoviesCardList = (props) => {
       </button>
     </section>
   );
-}
+};
 
 export default MoviesCardList;
-
-
-
-
