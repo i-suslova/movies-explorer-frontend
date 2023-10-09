@@ -15,7 +15,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-
 }
 
 .navigation__movies,
@@ -32,39 +31,40 @@
   font-weight: 500;
 }
 
-.navigation__logo {
+.navigation__link {
   grid-area: logo;
 }
 
-.burger-button-black {
+.burger-button {
   width: 44px;
   height: 44px;
   padding: 0;
   border: none;
-  background-image: url(../../images/burgerBlack.svg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: none;
+}
+
+.burger-button-black {
+  background-image: url(../../images/burgerBlack.svg);
 }
 
 .burger-button-white {
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: none;
   background-image: url(../../images/burgerWhite.svg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: none;
 }
 
-@media screen and (max-width: 885px) {
+@media screen and (max-width: 1160px) {
+  .navigation__wrapper {
+    grid-template-columns: auto 190px auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
 
   .navigation__movies,
   .navigation__movies_active,
-  .navigation__logo {
+  .navigation__link {
     display: none;
   }
 

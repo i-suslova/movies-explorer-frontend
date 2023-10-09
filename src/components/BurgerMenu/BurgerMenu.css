@@ -1,0 +1,123 @@
+/* @media screen and (min-width: 769px) {
+  .burger-menu {
+    display: none;
+  }
+} */
+
+.burger-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000004d;
+  z-index: 1;
+}
+
+.burger-menu_opened {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000004d;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.burger-menu__wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0000004d;
+  z-index: 1;
+  transition: all 0.4s linear;
+}
+
+
+.burger-menu__container {
+  position: fixed;
+  width: 68%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  box-shadow: 0px 4px 4px 0px #00000040, 0px 4px 4px 0px #00000040;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.burger-menu__close {
+  background: transparent url('../../images/delete.svg');
+  width: 32px;
+  height: 32px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 22.4px;
+  right: 22.4px;
+  z-index: 11;
+  opacity: 1;
+}
+
+.burger-menu__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  margin-top: 160px;
+  list-style: none;
+  color: red;
+}
+
+.burger-menu__item a {
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  padding-bottom: 6px;
+}
+
+.burger-menu__item :hover {
+  border-bottom: 2px solid #000;
+}
+
+.burger-menu__link {
+  margin-bottom: 98px;
+}
+
+@media screen and (max-width: 750px) {
+  .burger-menu__container {
+    width: 100%;
+  }
+
+  .burger-menu__link {
+    margin-bottom: 46px;
+  }
+
+  .burger-menu__list {
+    gap: 18px;
+    margin-top: 144px;
+  }
+
+  .burger-menu__close {
+    top: 14.4px;
+    right: 14.4px;
+  }
+}

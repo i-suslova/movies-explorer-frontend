@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import './Header.css';
@@ -10,6 +10,7 @@ const Header = ({ loggedIn }) => {
 
   const path = useLocation().pathname;
   const isMain = path === '/';
+
   return (
     <header className={`header ${isMain ? 'header_color' : ''}`}>
       <Link className="basic-form__logo hover" to="/">
