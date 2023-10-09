@@ -1,8 +1,8 @@
-/* @media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) {
   .burger-menu {
     display: none;
   }
-} */
+}
 
 .burger-menu {
   position: fixed;
@@ -40,7 +40,6 @@
   z-index: 1;
   transition: all 0.4s linear;
 }
-
 
 .burger-menu__container {
   position: fixed;

@@ -20,7 +20,7 @@ const Navigation = ({ loggedIn }) => {
 
   // устанавливаем активный пункт в зависимости от текущего пути
   React.useEffect(() => {
-    
+
     if (location.pathname === '/movies') {
 
       setActiveNavItem('Фильмы');
@@ -54,10 +54,6 @@ const Navigation = ({ loggedIn }) => {
     navigate("/saved-movies");
     handleNavItemClick('Сохранённые фильмы');
   };
-
-  // const handleProfileClick = () => {
-  //   navigate("/profile");
-  // };
 
   const handleBurgerButtonClick = () => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);

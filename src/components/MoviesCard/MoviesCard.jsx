@@ -5,12 +5,14 @@ import './MoviesCard.css';
 
 const MoviesCard = (props) => {
   const [isSaved, setIsSaved] = useState(false);
-
+  const isInSavedMovies = props.isSavedMovies;
   const handleSaveButtonClick = () => {
     setIsSaved(!isSaved);
   };
 
-  const buttonClass = `card__button hover ${isSaved ? 'card__button_saved_activ' : 'card__button_saved'}`;
+  const buttonClass = `card__button hover ${
+    isSaved ? (isInSavedMovies ? 'card__button_delete' : 'card__button_saved_activ') : 'card__button_saved'
+  }`;
 
   return (
     <article className="card">
