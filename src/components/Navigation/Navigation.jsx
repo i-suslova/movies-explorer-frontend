@@ -63,6 +63,7 @@ const Navigation = ({ loggedIn }) => {
     <nav className='navigation'>
 
       {!loggedIn ? (
+
         <>
           <div className='navigation__wrapper'>
 
