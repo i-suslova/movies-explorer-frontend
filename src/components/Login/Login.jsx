@@ -1,11 +1,19 @@
 import React from 'react'
 
 import './Login.css';
-import BasicForm from "../BasicForm/BasicForm";
+import BasicForm from '../BasicForm/BasicForm';
+import { useValidation } from '../../utils/validation';
 
 const Login = () => {
-  return (
+  const {
+    formData,
+    errors,
+    errorMessage,
+    handleChange,
+    // handleSubmit
+  } = useValidation({ email: '', password: '' });
 
+  return (
     <main>
       <BasicForm
         title={`Рады видеть!`}
@@ -13,35 +21,39 @@ const Login = () => {
         link={`/signup`}
         text={`Ещё не зарегистрированы?`}
         textLink={`Регистрация`}
+      // onSubmit={handleSubmit}
       >
 
-        <section className="basic-form__form basic-form__form-login">
-          <>
-            <label className='basic-form__label'>E-mail</label>
-            <input
-              className="basic-form__input"
-              type="email"
-              name="email"
-              required
-            />
-            <span className='basic-form__error'>222</span>
+        <section className='basic-form__form basic-form__form-login'>
 
-            <label className='basic-form__label'>Пароль</label>
-            <input
-              className="basic-form__input"
-              type="password"
-              name="password"
-              required
-            />
-            <span className='basic-form__error'>333</span>
-          </>
+          <label className='basic-form__label'>E-mail</label>
+          <input
+            className='basic-form__input basic-form__input-login'
+            type='email'
+            name='email'
+            required
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <span className='basic-form__error'>{errors.email}</span>
+
+          <label className='basic-form__label'>Пароль</label>
+          <input
+            className='basic-form__input basic-form__input-login'
+            type='password'
+            name='password'
+            required
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <span className='basic-form__error'>{errors.password}</span>
+
         </section>
 
       </BasicForm>
-      
-    </main>
 
-  )
-}
+    </main>
+  );
+};
 
 export default Login

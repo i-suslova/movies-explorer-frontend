@@ -10,7 +10,7 @@ const MoviesCardList = ({ moviesData, isSavedMovies }) => {
           <MoviesCard key={movie.movieId} movie={movie} isSavedMovies={isSavedMovies} />
         ))}
       </div>
-      <button className="movies-card-list__button hover" type="button">
+      <button className='movies-card-list__button hover' type='button'>
         Ещё
       </button>
     </section>

@@ -6,22 +6,22 @@ import './AboutProject.css'
 const AboutProject = () => {
   return (
 
-    <section className='about-project' id="about-project">
+    <section className='about-project' id='about-project'>
 
       <div className='app__wrapper'>
         <h2 className='app__title'>О проекте</h2>
 
-        <div className="app__line-stroke" />
+        <div className='app__line-stroke' />
 
         <div className='about-project__blocks'>
           <div className='about-project__block'>
-            <h3 className="about-project__block-title">Дипломный проект включал 5 этапов</h3>
+            <h3 className='about-project__block-title'>Дипломный проект включал 5 этапов</h3>
             <p className='about-project__block-text'>
               Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.
             </p>
           </div>
           <div className='about-project__block'>
-            <h3 className="about-project__block-title">На выполнение диплома ушло 5 недель</h3>
+            <h3 className='about-project__block-title'>На выполнение диплома ушло 5 недель</h3>
             <p className='about-project__block-text'>
               У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.
             </p>

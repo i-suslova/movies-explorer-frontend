@@ -4,8 +4,8 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './Navigation.css'
 import AuthNavigation from '../AuthNavigation/AuthNavigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
-import logoProfileWhite from "../../images/profileWhite.svg";
-import logoProfileBlack from "../../images/profileBlack.svg";
+import logoProfileWhite from '../../images/profileWhite.svg';
+import logoProfileBlack from '../../images/profileBlack.svg';
 
 const Navigation = ({ loggedIn }) => {
   const navigate = useNavigate();
@@ -46,12 +46,12 @@ const Navigation = ({ loggedIn }) => {
   };
 
   const handleMoviesClick = () => {
-    navigate("/movies");
+    navigate('/movies');
     handleNavItemClick('Фильмы');
   };
 
   const handleSavedMoviesClick = () => {
-    navigate("/saved-movies");
+    navigate('/saved-movies');
     handleNavItemClick('Сохранённые фильмы');
   };
 
@@ -63,7 +63,6 @@ const Navigation = ({ loggedIn }) => {
     <nav className='navigation'>
 
       {!loggedIn ? (
-
         <>
           <div className='navigation__wrapper'>
 
@@ -82,8 +81,8 @@ const Navigation = ({ loggedIn }) => {
               </li>
             </ul>
 
-            <Link className="navigation__link hover" to='/profile'>
-              <img src={logoType} alt="вход в аккаунт" />
+            <Link className='navigation__link hover' to='/profile'>
+              <img src={logoType} alt='вход в аккаунт' />
             </Link>
 
             <div className={`burger-button hover ${isMain ? 'burger-button-white' : 'burger-button-black '}`}

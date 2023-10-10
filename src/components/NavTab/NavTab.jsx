@@ -5,9 +5,9 @@ import './NavTab.css';
 const NavTab = () => {
 
   const links = [
-    { item: "О проекте", id: 'about-project' },
-    { item: "Технологии", id: 'techs' },
-    { item: "Студент", id: 'about-me' },
+    { item: 'О проекте', id: 'about-project' },
+    { item: 'Технологии', id: 'techs' },
+    { item: 'Студент', id: 'about-me' },
   ];
 
   return (

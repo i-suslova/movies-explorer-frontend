@@ -11,7 +11,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 1,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -24,7 +24,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 2,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -37,7 +37,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 3,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -50,7 +50,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 4,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -63,7 +63,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 5,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -76,7 +76,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 6,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -89,7 +89,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 7,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -102,7 +102,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 8,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -115,7 +115,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 9,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -126,9 +126,9 @@ export const moviesData = [
     image: 'images/aboutDesign.png',
     trailerLink: 'https://ya.ru/',
     thumbnail: 'https://ya.ru/',
-    movieId:10,
+    movieId: 10,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -141,7 +141,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 11,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -154,12 +154,12 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 12,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
 
 ]
 
- export const saveMoviesData= [
+export const saveMoviesData = [
   {
     country: 'Россия',
     director: 'Наталья Климчук',
@@ -171,7 +171,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 111,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -184,7 +184,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 112,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -197,7 +197,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 113,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
   {
     country: 'Россия',
@@ -210,7 +210,7 @@ export const moviesData = [
     thumbnail: 'https://ya.ru/',
     movieId: 114,
     nameRU: '33 слова о дизайне',
-    nameEN: "33 WORDS ABOUT DESIGN",
+    nameEN: '33 WORDS ABOUT DESIGN',
   },
 
 ]

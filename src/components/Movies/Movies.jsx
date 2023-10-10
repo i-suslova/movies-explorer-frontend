@@ -2,11 +2,11 @@ import React from 'react'
 
 import './Movies.css';
 import Header from '../Header/Header';
-import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { moviesData } from '../../utils/cardsMoviesData';
-// import Preloader from "../Preloader/Preloader";
+// import Preloader from '../Preloader/Preloader';
 
 const Movies = ({ loggedIn }) => {
   return (

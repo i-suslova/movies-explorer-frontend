@@ -1,5 +1,5 @@
 .app {
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   box-sizing: border-box;
@@ -13,7 +13,6 @@
   min-width: 320px;
   width: 100%;
   min-height: 100vh;
-  border: 0.1px solid red;
 }
 
 .hover:hover {
