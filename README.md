@@ -13,4 +13,4 @@
 
   :arrow_right: 
 
-## Макет-Figma light-2: [**_ССЫЛКА НА МАКЕТ_**]([https://practicum.yandex.ru/web/](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-298&mode=design&t=QcN12ku3XxkvDWHz-0)).
+ Макет-Figma light-2:   [**_ССЫЛКА НА МАКЕТ_**](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-298&mode=design&t=QcN12ku3XxkvDWHz-0).
