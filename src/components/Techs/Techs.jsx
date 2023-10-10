@@ -4,10 +4,10 @@ import './Techs.css';
 
 const Techs = () => {
   return (
-    <section className='techs' id="techs">
+    <section className='techs' id='techs'>
       <div className='app__wrapper'>
         <h2 className='app__title' >Технологии</h2>
-        <div className="app__line-stroke-black" />
+        <div className='app__line-stroke-black' />
 
         <h3 className='techs__subtitle'>7 технологий</h3>
         <p className='techs__text'>

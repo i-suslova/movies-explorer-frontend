@@ -2,7 +2,7 @@
   min-height: 74px;
   display: grid;
   grid-template-columns: auto 361px auto;
-  grid-template-areas: "wrapper spacer logo";
+  grid-template-areas: 'wrapper spacer logo';
   align-items: center;
   justify-content: space-between;
 }
@@ -69,7 +69,7 @@
   }
 
   .navigation__wrapper {
-    grid-template-areas: "wrapper spacer burger";
+    grid-template-areas: 'wrapper spacer burger';
   }
 
   .burger-button {

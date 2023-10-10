@@ -1,8 +1,8 @@
 import React from 'react'
 
 import './SearchForm.css';
-import find from "../../images/find.svg";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import find from '../../images/find.svg';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = () => {
   return (
@@ -12,12 +12,12 @@ const SearchForm = () => {
           type='text'
           placeholder='Фильм'
           className='search__input' />
-        <img className="search__button hover" src={find} alt="поиск" />
+        <img className='search__button hover' src={find} alt='поиск' />
       </form>
 
       <FilterCheckbox />
 
-      <div className="search__line-stroke" />
+      <div className='search__line-stroke' />
     </section>
   )
 }
