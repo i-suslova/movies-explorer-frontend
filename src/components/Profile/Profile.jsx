@@ -34,7 +34,7 @@ const Profile = () => {
             <input className='profile__input' id='profile-name' name='name' placeholder='Имя' minlength='2' maxlength='30' required='' />
           </label>
 
-          <div className='app__line-stroke-grey' />
+          <div className='profile__line-stroke-grey' />
 
           <label className='profile__label'> E-mail
             <input type='email'

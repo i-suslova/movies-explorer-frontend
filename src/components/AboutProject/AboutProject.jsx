@@ -8,10 +8,10 @@ const AboutProject = () => {
 
     <section className='about-project' id='about-project'>
 
-      <div className='app__wrapper'>
-        <h2 className='app__title'>О проекте</h2>
+      <div className='about-project__wrapper'>
+        <h2 className='about-project__title'>О проекте</h2>
 
-        <div className='app__line-stroke' />
+        <div className='about-project__line-stroke' />
 
         <div className='about-project__blocks'>
           <div className='about-project__block'>
