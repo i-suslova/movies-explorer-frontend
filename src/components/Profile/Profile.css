@@ -129,6 +129,22 @@
   margin-top: 20px;
 }
 
+.profile__line-stroke-black {
+  width: 100%;
+  max-width: 1140px;
+  height: 1px;
+  flex-shrink: 0;
+  background-color: #000;
+}
+
+.profile__line-stroke-grey {
+  width: 100%;
+  max-width: 1140px;
+  height: 1px;
+  flex-shrink: 0;
+  background-color: #E8E8E8;
+}
+
 @media screen and (max-width: 885px) {
   .profile {
     margin: 236px auto 0;

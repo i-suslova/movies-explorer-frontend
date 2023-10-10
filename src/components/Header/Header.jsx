@@ -13,7 +13,7 @@ const Header = ({ loggedIn }) => {
 
   return (
     <header className={`header ${isMain ? 'header_color' : ''}`}>
-      <Link className='basic-form__logo hover' to='/'>
+      <Link className='header__logo hover' to='/'>
         <img src={logo} alt='логотип сайта' />
       </Link>
       <Navigation loggedIn={loggedIn} />

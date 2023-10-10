@@ -6,10 +6,11 @@ import AboutMePhoto from '../../images/AboutMePhoto .png';
 const AboutMe = () => {
   return (
     <section className='about-me' id='about-me'>
-      <div className='app__wrapper '>
-        <h2 className='app__title'>Студент</h2>
+      <div className='about-me__wrapper '>
 
-        <div className='app__line-stroke-black' />
+        <h2 className='about-me__title'>Студент</h2>
+
+        <div className='about-me__line-stroke-black' />
         <div className='about-me__blok-info'>
           <div className='about-me__info'>
             <h3 className='about-me__subtitle'>Виталий</h3>
