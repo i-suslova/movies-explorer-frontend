@@ -15,15 +15,17 @@ const FilterCheckbox = () => {
   return (
 
     <section className='checkbox'>
-      <input
-        type='image'
-        id='checkbox'
-        className='checkbox__filter'
-        src={isChecked ? smalltumboff : smalltumb}
-        alt='выбор короткометражного фильма'
-        onClick={handleCheckboxClick}
-      />
-      <label htmlFor='checkbox' className='checkbox__label'>Короткометражки</label>
+      <form className='checkbox__form'>
+        <input
+          type='image'
+          id='checkbox'
+          className='checkbox__filter'
+          src={isChecked ? smalltumboff : smalltumb}
+          alt='выбор короткометражного фильма'
+          onClick={handleCheckboxClick}
+        />
+        <label htmlFor='checkbox' className='checkbox__label'>Короткометражки</label>
+      </form>
     </section>
   )
 }

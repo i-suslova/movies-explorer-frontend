@@ -100,23 +100,7 @@
   max-width: 600px;
   margin: 0;
   padding: 0;
-  padding-bottom: 23px;
-}
-
-.about-project__line-stroke-black {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #000;
-}
-
-.about-project__line-stroke-grey {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #E8E8E8;
+  padding-bottom: 25px;
 }
 
 @media screen and (max-width: 1160px) {
@@ -124,8 +108,6 @@
     max-width: 868px;
   }
 }
-
-
 
 @media screen and (max-width: 885px) {
   .about-project {

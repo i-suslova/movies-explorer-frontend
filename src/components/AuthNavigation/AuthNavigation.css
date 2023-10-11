@@ -2,12 +2,11 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.auth-navigation__item {
+.auth-navigation__button {
   width: 76px;
   height: 32px;
   font-size: 12px;
@@ -16,6 +15,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background-color: transparent;
 }
 
 .auth-navigation__wrapper-register {
@@ -25,6 +26,8 @@
 .auth-navigation__wrapper-register:hover {
   color: #000;
   border-radius: 3px;
+  width: 76px;
+  height: 32px;
   background: #2BE080;
   padding: 0 22px;
 }
@@ -34,8 +37,7 @@
   background: #2BE080;
 }
 
-.auth-navigation__wrapper-register:hover +
-.auth-navigation__wrapper-login {
+.auth-navigation__wrapper-register:hover+.auth-navigation__wrapper-login {
   background: none;
   color: #FFF;
 }
@@ -45,7 +47,7 @@
     gap: 14px;
   }
 
-  .auth-navigation__item {
+  .auth-navigation__button {
     width: 54px;
     height: 26px;
     font-size: 10px;

@@ -33,6 +33,7 @@ const Register = () => {
             name='name'
             minLength={2}
             required
+            placeholder='Виталий'
             value={formData.name}
             onChange={handleChange}
           />
@@ -44,6 +45,7 @@ const Register = () => {
             type='email'
             name='email'
             required
+            placeholder='pochta@yandex.ru'
             value={formData.email}
             onChange={handleChange}
           />
@@ -55,6 +57,7 @@ const Register = () => {
             type='password'
             name='password'
             required
+            placeholder='••••••••••••••'
             value={formData.password}
             onChange={handleChange}
           />

@@ -29,7 +29,23 @@
   flex-direction: column;
   list-style: none;
   padding: 0;
-  gap: 12px;
+  gap: 11px;
+}
+
+.portfolio__list li {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 14px;
+  list-style: none;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.portfolio__list li:last-of-type {
+  border-bottom: none;
 }
 
 .portfolio__item {
@@ -61,22 +77,6 @@
 
 .portfolio__item:hover {
   background-color: #F5F5F5;
-}
-
-.portfolio__line-stroke-black {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #000;
-}
-
-.portfolio__line-stroke-grey {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #E8E8E8;
 }
 
 @media screen and (max-width: 1160px) {

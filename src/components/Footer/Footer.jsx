@@ -8,7 +8,6 @@ const Footer = () => {
     <footer className='footer'>
       <div className='footer__wrapper'>
         <h2 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h2>
-        <div className='footer__line-stroke-grey' />
         <div className='footer__block'>
           <div className='footer__copyright'>© {todaytYear}</div>
           <ul className='footer__list'>

@@ -11,7 +11,7 @@ import { saveMoviesData } from '../../utils/cardsMoviesData';
 
 const SavedMovies = () => {
   return (
-    <>
+    <main>
       <Header
       />
       <section className='movies'>
@@ -19,7 +19,7 @@ const SavedMovies = () => {
         <MoviesCardList moviesData={saveMoviesData} isSavedMovies={true} />
       </section>
       <Footer />
-    </>
+    </main>
   )
 }
 
