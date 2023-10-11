@@ -19,6 +19,10 @@
   text-decoration-line: underline;
 }
 
+.nav-tab__link {
+  color: #000;
+}
+
 @media screen and (max-width: 750px) {
   .nav-tab__list {
     gap: 24px;

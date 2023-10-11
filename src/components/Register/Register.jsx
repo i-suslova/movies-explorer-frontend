@@ -23,11 +23,11 @@ const Register = () => {
       // onSubmit={handleSubmit}
       >
 
-        <section className='basic-form__form basic-form__form-register' >
+        <section className='basic-form__form' >
 
           <label className='basic-form__label'>Имя</label>
           <input
-            className='basic-form__input basic-form__input-register'
+            className='basic-form__input '
             type='text'
             id='name'
             name='name'
@@ -40,7 +40,7 @@ const Register = () => {
 
           <label className='basic-form__label'>E-mail</label>
           <input
-            className='basic-form__input basic-form__input-register'
+            className='basic-form__input '
             type='email'
             name='email'
             required
@@ -51,7 +51,7 @@ const Register = () => {
 
           <label className='basic-form__label'>Пароль</label>
           <input
-            className='basic-form__input basic-form__input-register'
+            className='basic-form__input'
             type='password'
             name='password'
             required
