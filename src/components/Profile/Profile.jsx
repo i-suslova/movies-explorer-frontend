@@ -4,13 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Header from '../Header/Header';
 import EditButton from '../EditButton/EditButton';
+import { useValidation } from '../../utils/validation';
 
 const Profile = () => {
+  const { formData, errors, handleChange } = useValidation({
+    name: '',
+    email: '',
+  });
   const [showEditForm, setShowEditForm] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/signup');
+    navigate('/');
   };
 
   const handleEditClick = () => {
@@ -21,7 +26,7 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <main>
       <Header />
 
       <section className='profile'>
@@ -31,17 +36,34 @@ const Profile = () => {
         <form className='profile__form' method='post' name='profile-form'>
 
           <label className='profile__label'> Имя
-            <input className='profile__input' id='profile-name' name='name' placeholder='Имя' minlength='2' maxlength='30' required='' />
+            <input
+              type='text'
+              className='profile__input'
+              id='profile-name'
+              name='name'
+              placeholder='Имя'
+              minLength={2}
+              maxlength='30'
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
           </label>
-
-          <div className='profile__line-stroke-grey' />
+          <span className='profile__error'>{errors.name}</span>
 
           <label className='profile__label'> E-mail
-            <input type='email'
+            <input
+              type='email'
+              className='profile__input'
               name='email'
-              className='profile__input' id='input-link' placeholder='E-mail' required='' />
-
+              id='input-link'
+              placeholder='E-mail'
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
           </label>
+          <span className='profile__error'>{errors.email}</span>
 
         </form>
 
@@ -49,22 +71,18 @@ const Profile = () => {
           <EditButton onClick={handleCancelEdit} buttonText='Сохранить' />
         ) : (
 
-          <ul className='profile__list'>
-            <li>
-              <span className='profile__link-edit hover' onClick={handleEditClick}>
-                Редактировать
-              </span>
-            </li>
-            <li>
-              <span className='profile__link-exit hover' onClick={handleLogout}>
-                Выйти из аккаунта
-              </span>
-            </li>
-          </ul>
+          <div className='profile__list'>
+            <button className='profile__button-edit hover' onClick={handleEditClick}>
+              Редактировать
+            </button>
+            <button className='profile__button-exit hover' onClick={handleLogout}>
+              Выйти из аккаунта
+            </button>
+          </div>
         )}
 
       </section>
-    </>
+    </main>
   );
 };
 

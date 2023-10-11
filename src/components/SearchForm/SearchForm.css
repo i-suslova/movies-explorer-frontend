@@ -24,7 +24,7 @@
   background: #F9F9F9;
 }
 
-.search__input:focus {
+.search__input:hover {
   outline: 2px solid #FF6838;
   color: #000;
   font-size: 14px;

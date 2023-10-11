@@ -27,7 +27,7 @@ const BasicForm = (props) => {
         />
       </Link>
 
-      <h2 className='basic-form__title'>{title}</h2>
+      <h1 className='basic-form__title'>{title}</h1>
 
       {children}
 

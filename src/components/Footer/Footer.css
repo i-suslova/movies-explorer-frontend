@@ -7,7 +7,7 @@
 .footer__wrapper {
   margin: 0 auto;
   max-width: 1140px;
-  padding: 74px 0 20px;
+  padding: 61px 0 20px;
 }
 
 .footer__title {
@@ -19,6 +19,7 @@
   margin: 0;
   padding: 0;
   padding-bottom: 20px;
+  border-bottom: 1px solid #E8E8E8;
 }
 
 .footer__block {
@@ -64,22 +65,6 @@
   .footer__title {
     padding-bottom: 19px;
   }
-}
-
-.footer__line-stroke-black {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #000;
-}
-
-.footer__line-stroke-grey {
-  width: 100%;
-  max-width: 1140px;
-  height: 1px;
-  flex-shrink: 0;
-  background-color: #E8E8E8;
 }
 
 @media screen and (max-width: 750px) {

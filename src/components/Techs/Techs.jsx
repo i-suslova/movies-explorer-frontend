@@ -7,7 +7,6 @@ const Techs = () => {
     <section className='techs' id='techs'>
       <div className='techs__wrapper'>
         <h2 className='techs__title' >Технологии</h2>
-        <div className='techs__line-stroke-black' />
 
         <h3 className='techs__subtitle'>7 технологий</h3>
         <p className='techs__text'>

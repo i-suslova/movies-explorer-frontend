@@ -9,9 +9,10 @@ const SearchForm = () => {
     <section className='search'>
       <form className='search__form'>
         <input
+          required
           type='text'
           placeholder='Фильм'
-          className='search__input' />
+          className='search__input hover' />
         <img className='search__button hover' src={find} alt='поиск' />
       </form>
 

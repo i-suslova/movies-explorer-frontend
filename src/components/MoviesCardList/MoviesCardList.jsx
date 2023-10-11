@@ -5,11 +5,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 const MoviesCardList = ({ moviesData, isSavedMovies }) => {
   return (
     <section className='movies-card-list'>
-      <div className='movies-card-list__page'>
+      <ul className='movies-card-list__page'>
         {moviesData.map((movie) => (
-          <MoviesCard key={movie.movieId} movie={movie} isSavedMovies={isSavedMovies} />
+          <li key={movie.movieId} className='movies-card-list__item'>
+            <MoviesCard movie={movie} isSavedMovies={isSavedMovies} />
+          </li>
         ))}
-      </div>
+      </ul>
       <button className='movies-card-list__button hover' type='button'>
         Ещё
       </button>

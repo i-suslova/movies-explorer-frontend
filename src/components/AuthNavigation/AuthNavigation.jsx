@@ -15,18 +15,18 @@ const AuthNavigation = () => {
 
   return (
     <nav className='auth-navigation'>
-      <ul className='auth-navigation__list'>
-        <li className='auth-navigation__wrapper-register' onClick={handleRegisterClick}>
-          <div className='auth-navigation__item'>
+      <div className='auth-navigation__list'>
+        <div className='auth-navigation__wrapper-register' onClick={handleRegisterClick}>
+          <button className='auth-navigation__button hover'>
             Регистрация
-          </div>
-        </li>
-        <li className='auth-navigation__wrapper-login' onClick={handleLoginClick}>
-          <div className='auth-navigation__item'>
+          </button>
+        </div>
+        <div className='auth-navigation__wrapper-login hover' onClick={handleLoginClick}>
+          <button className='auth-navigation__button'>
             Войти
-          </div>
-        </li>
-      </ul>
+          </button>
+        </div>
+      </div>
     </nav>
   );
 };

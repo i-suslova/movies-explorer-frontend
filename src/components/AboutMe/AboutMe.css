@@ -72,10 +72,10 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.88px;
-  max-width: 600px;
   margin: 0;
   padding: 0;
   padding-bottom: 23px;
+  border-bottom: 1px solid #E8E8E8;
 }
 
 .about-me__line-stroke-black {

@@ -32,6 +32,7 @@ const Login = () => {
             type='email'
             name='email'
             required
+            placeholder='pochta@yandex.ru'
             value={formData.email}
             onChange={handleChange}
           />
@@ -43,6 +44,7 @@ const Login = () => {
             type='password'
             name='password'
             required
+            placeholder='••••••••••••••'
             value={formData.password}
             onChange={handleChange}
           />

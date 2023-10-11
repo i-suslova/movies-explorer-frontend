@@ -10,7 +10,7 @@ import { moviesData } from '../../utils/cardsMoviesData';
 
 const Movies = ({ loggedIn }) => {
   return (
-    <>
+    <main>
       <Header
         isLoggedIn={loggedIn}
       />
@@ -19,7 +19,7 @@ const Movies = ({ loggedIn }) => {
         <MoviesCardList moviesData={moviesData} isSavedMovies={false} />
       </section>
       <Footer />
-    </>
+    </main>
   )
 }
 
