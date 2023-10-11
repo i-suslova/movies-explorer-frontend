@@ -52,6 +52,7 @@
 
 .footer__link {
   text-decoration: none;
+  color: #000;
 }
 
 @media screen and (max-width: 885px) {
