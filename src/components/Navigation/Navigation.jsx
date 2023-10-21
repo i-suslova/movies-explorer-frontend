@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 
 import './Navigation.css'
 import AuthNavigation from '../AuthNavigation/AuthNavigation';
@@ -7,7 +7,8 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import logoProfileWhite from '../../images/profileWhite.svg';
 import logoProfileBlack from '../../images/profileBlack.svg';
 
-const Navigation = ({ loggedIn }) => {
+const Navigation = (props) => {
+  const { loggedIn } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const path = useLocation().pathname;
@@ -19,7 +20,7 @@ const Navigation = ({ loggedIn }) => {
   const [activeNavItem, setActiveNavItem] = useState('');
 
   // устанавливаем активный пункт в зависимости от текущего пути
-  React.useEffect(() => {
+ useEffect(() => {
 
     if (location.pathname === '/movies') {
 
@@ -62,7 +63,7 @@ const Navigation = ({ loggedIn }) => {
   return (
     <nav className='navigation'>
 
-      {!loggedIn ? (
+      {loggedIn ? (
         <>
           <div className='navigation__wrapper'>
 
@@ -93,11 +94,13 @@ const Navigation = ({ loggedIn }) => {
         </>
       ) : (
         <AuthNavigation />
-      )}
+      )
+      }
 
-    </nav>
+    </nav >
   )
 };
 
 export default Navigation;
+
 

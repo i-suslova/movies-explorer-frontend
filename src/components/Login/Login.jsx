@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
 import './Login.css';
-import BasicForm from '../BasicForm/BasicForm';
-import { useValidation } from '../../utils/validation';
 
-const Login = () => {
-  const {
-    formData,
-    errors,
-    errorMessage,
-    handleChange,
-    // handleSubmit
-  } = useValidation({ email: '', password: '' });
+import BasicForm from '../BasicForm/BasicForm';
+import useForm from '../../hooks/useForm';
+
+// const Login = ({onLogin}) => {
+const Login = (props) => {
+  const { onLogin, errorMessage, setErrorMessage } = props;
+  const { inputValues, handleChange, errors, isValidForm } = useForm();
+
+  const handleLoginSubmit = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    if (!inputValues.email || !inputValues.password) {
+      return;
+    }
+    onLogin(inputValues.email, inputValues.password);
+  }
+
+  const handleInputClick = () => {
+    setErrorMessage('');
+  };
+
+  useEffect(() => {
+    return () => {
+      setErrorMessage('');
+    };
+  }, [setErrorMessage]);
 
   return (
     <main>
@@ -21,7 +38,9 @@ const Login = () => {
         link={`/signup`}
         text={`Ещё не зарегистрированы?`}
         textLink={`Регистрация`}
-      // onSubmit={handleSubmit}
+        onSubmit={handleLoginSubmit}
+        isValidFormBtn={isValidForm}
+        errorMessage={errorMessage}
       >
 
         <section className='basic-form__form basic-form__form-login'>
@@ -32,9 +51,11 @@ const Login = () => {
             type='email'
             name='email'
             required
-            placeholder='pochta@yandex.ru'
-            value={formData.email}
+            placeholder="Ваш email"
+            value={inputValues.email || ""}
             onChange={handleChange}
+            onClick={handleInputClick}
+            autoComplete="email"
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -44,9 +65,11 @@ const Login = () => {
             type='password'
             name='password'
             required
-            placeholder='••••••••••••••'
-            value={formData.password}
+            placeholder='Ваш пароль'
+            value={inputValues.password || ""}
             onChange={handleChange}
+            onClick={handleInputClick}
+            autoComplete="new-password"
           />
           <span className='basic-form__error'>{errors.password}</span>
 

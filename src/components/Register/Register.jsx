@@ -1,16 +1,45 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './Register.css';
 
 import BasicForm from '../BasicForm/BasicForm';
-import { useValidation } from '../../utils/validation';
+import useForm from '../../hooks/useForm';
 
-const Register = () => {
-  const {
-    formData,
-    errors,
-    errorMessage,
-    handleChange,
-    // handleSubmit
-  } = useValidation({ name: '', email: '', password: '' });
+  const Register = (props) => {
+    const navigate = useNavigate();
+
+  const { loggedIn, onRegistration , errorMessage, setErrorMessage, isSuccessResponse, setIsSuccessResponse } = props;
+  const { inputValues, handleChange, errors, isValidForm , resetForm} = useForm();
+
+  const handleRegisterSubmit = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    onRegistration(inputValues.name, inputValues.email, inputValues.password);
+  }
+
+  const handleInputClick = () => {
+    setErrorMessage('');
+  };
+
+  useEffect(() => {
+    if ( loggedIn) resetForm();
+  }, [ loggedIn, resetForm]);
+  useEffect(() => {
+    return () => {
+      setErrorMessage('');
+    };
+  }, [setErrorMessage]);
+
+  useEffect(() => {
+    if (isSuccessResponse) {
+      const timeoutId = setTimeout(() => {
+        setIsSuccessResponse(false);
+        navigate('/movies');
+      }, 3000);
+    }
+  }, [isSuccessResponse, navigate, setIsSuccessResponse]);
 
   return (
     <main>
@@ -20,9 +49,11 @@ const Register = () => {
         link={`/signin`}
         text={`Уже зарегистрированы?`}
         textLink={`Войти`}
-      // onSubmit={handleSubmit}
+        onSubmit={handleRegisterSubmit}
+        isValidFormBtn={isValidForm}
+        errorMessage={errorMessage}
+        isSuccessResponse={isSuccessResponse}
       >
-
         <section className='basic-form__form' >
 
           <label className='basic-form__label'>Имя</label>
@@ -31,11 +62,12 @@ const Register = () => {
             type='text'
             id='name'
             name='name'
-            minLength={2}
             required
-            placeholder='Виталий'
-            value={formData.name}
+            placeholder='Ваше имя'
+            value={inputValues.name || ""}
             onChange={handleChange}
+            onClick={handleInputClick}
+            autoComplete="off"
           />
           <span className='basic-form__error'>{errors.name}</span>
 
@@ -45,9 +77,11 @@ const Register = () => {
             type='email'
             name='email'
             required
-            placeholder='pochta@yandex.ru'
-            value={formData.email}
+            placeholder="Ваш email"
+            value={inputValues.email || ""}
             onChange={handleChange}
+            onClick={handleInputClick}
+            autoComplete="off"
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -57,9 +91,11 @@ const Register = () => {
             type='password'
             name='password'
             required
-            placeholder='••••••••••••••'
-            value={formData.password}
+            placeholder='Ваш пароль'
+            value={inputValues.password || ""}
             onChange={handleChange}
+            onClick={handleInputClick}
+            autoComplete="new-password"
           />
           <span className='basic-form__error'>{errors.password}</span>
 
@@ -72,4 +108,3 @@ const Register = () => {
 };
 
 export default Register
-

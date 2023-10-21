@@ -6,7 +6,8 @@ import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
-const Header = ({ loggedIn }) => {
+const Header = (props) => {
+  const { loggedIn } = props;
 
   const path = useLocation().pathname;
   const isMain = path === '/';

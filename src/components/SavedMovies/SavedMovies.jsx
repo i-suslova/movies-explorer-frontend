@@ -9,11 +9,11 @@ import Footer from '../Footer/Footer';
 import { saveMoviesData } from '../../utils/cardsMoviesData';
 // import Preloader from '../Preloader/Preloader';
 
-const SavedMovies = () => {
+const SavedMovies = (props) => {
+  const { loggedIn } = props;
   return (
     <main>
-      <Header
-      />
+       <Header loggedIn={loggedIn} />
       <section className='movies'>
         <SearchForm />
         <MoviesCardList moviesData={saveMoviesData} isSavedMovies={true} />

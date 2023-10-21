@@ -8,11 +8,13 @@ import Footer from '../Footer/Footer';
 import { moviesData } from '../../utils/cardsMoviesData';
 // import Preloader from '../Preloader/Preloader';
 
-const Movies = ({ loggedIn }) => {
+const Movies = (props) => {
+  const { loggedIn } = props;
   return (
     <main>
       <Header
-        isLoggedIn={loggedIn}
+        loggedIn={loggedIn}
+
       />
       <section className='movies'>
         <SearchForm />

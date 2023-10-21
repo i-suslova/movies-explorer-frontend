@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './BasicForm.css';
@@ -6,7 +6,13 @@ import './BasicForm.css';
 import logo from '../../images/logo.svg';
 
 const BasicForm = (props) => {
-  const { children, title, buttonText, text, textLink, link, onSubmit } = props;
+  const { children, title, buttonText, text, textLink, link, onSubmit, isValidFormBtn, errorMessage, isSuccessResponse } = props;
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    onSubmit();
+  }
+
 
   return (
     <form
@@ -14,8 +20,8 @@ const BasicForm = (props) => {
       method='post'
       className='basic-form'
       name='basic-form-form'
-      noValidate
-      onSubmit={onSubmit}
+      onSubmit={handleFormSubmit}
+      // onClick={onSubmit}
     >
       <Link
         className='basic-form__logo hover'
@@ -32,11 +38,22 @@ const BasicForm = (props) => {
       {children}
 
       <div className='basic-form__submit'>
-        <span className='basic-form__main-error'></span>
+
+        {isSuccessResponse ? (
+          <span className='basic-form__main-error'>Профиль успешно создан.</span>
+        ) : (
+          <span className='basic-form__main-error'>{errorMessage}</span>
+        )}
         <button
           type='submit'
-          className='basic-form__button hover'>{buttonText}
+          aria-label="Сохранение данных профиля"
+
+          className={`basic-form__button hover ${isValidFormBtn && !errorMessage ? '' : 'basic-form__button_disabled'}`}
+          disabled={!isValidFormBtn || !!errorMessage}
+        >
+          {buttonText}
         </button>
+
       </div>
 
       <div className='basic-form__wrapper'>
@@ -51,4 +68,3 @@ const BasicForm = (props) => {
 }
 
 export default BasicForm
-
