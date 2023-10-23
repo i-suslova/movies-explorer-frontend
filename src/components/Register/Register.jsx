@@ -26,6 +26,7 @@ import useForm from '../../hooks/useForm';
   useEffect(() => {
     if ( loggedIn) resetForm();
   }, [ loggedIn, resetForm]);
+  
   useEffect(() => {
     return () => {
       setErrorMessage('');

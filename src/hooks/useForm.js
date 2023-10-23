@@ -25,8 +25,9 @@ const useForm = () => {
           return 'Пароль должен содержать минимум 6 символов, включая хотя бы одну букву и одну цифру.';
         }
         if (name === 'name' && !nameRegex.test(value)) {
-          return 'Имя должно содержать от 2 до 30 символов.';
+          return 'Имя должно содержать от 2 до 30 символов и может включать буквы, пробелы, дефисы.';
         }
+
         return target.validationMessage;
       })(),
     });
@@ -39,7 +40,7 @@ const useForm = () => {
       isNameValid && isEmailValid && passwordValid &&
       target.closest("form").checkValidity()
     );
-    // setIsValidForm(target.closest("form").checkValidity());
+
   };
 
   const resetForm = useCallback(
@@ -51,6 +52,7 @@ const useForm = () => {
     [setInputValues, setErrors, setIsValidForm]
   );
 
-  return { inputValues, handleChange, errors, isValidForm, resetForm };
+
+  return { inputValues, handleChange, errors, isValidForm, resetForm, setErrors };
 }
 export default useForm

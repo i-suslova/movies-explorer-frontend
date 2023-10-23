@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate, useLocation, } from "react-router-dom";
 import './App.css';
 
 import mainApi from "../../utils/MainApi";
-// import moviesApi from "../../utils/MoviesApi";
+import moviesApi from "../../utils/MoviesApi";
 // import useServerResponse from '../../hooks/useServerResponse';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute";
@@ -32,7 +32,8 @@ const App = () => {
   //сохраняем электронную почту
   // const [userEmail, setUserEmail] = useState("");
   //сохраняем массив фильмов
-  const [movies, setMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
+  const [moviesData, setMoviesData] = useState([]);
   //сохраняем массив фильмов, сохраненных пользователем
   const [savedMovies, setSavedMovies] = useState([]);
   //сохраняем массив загруженных фильмов
@@ -69,6 +70,10 @@ const App = () => {
       } else {
         setErrorMessage('При обновлении профиля произошла ошибка.');
       }
+    } else if (err.includes('500')) {
+      setErrorMessage('На сервере произошла ошибка. На дисплее возникла ошибка.');
+    } else if (err.includes('404')) {
+      setErrorMessage('Страница по указанному маршруту не найдена.');
     } else {
       setErrorMessage('Что-то пошло не так. Попробуйте позже');
     }
@@ -207,7 +212,7 @@ const App = () => {
     handleSubmit(() => {
       return mainApi.deleteMovie(movie.movieId)
         .then(() => {
-          setMovies((state) => state.filter((c) => c._id !== movie._id));
+          setMoviesData((state) => state.filter((c) => c._id !== movie._id));
         })
         .catch((error) => {
           console.error("Delete movie error:", error);
@@ -250,13 +255,14 @@ const App = () => {
                   element={Movies}
                   loggedIn={isLoggedIn}
                   setIsLoading={setIsLoading}
-                  movies={movies}
+                  setMoviesData={setMoviesData}
+                  moviesData={moviesData}
                   savedMovies={savedMovies}
                   isLoading={isLoading}
                   onSaveMovie={handleSaveMovie}
                   onMovieDelete={handleDeleteMovie}
 
-                  setMovies={setMovies}
+
                 />}
             />
 
@@ -267,7 +273,7 @@ const App = () => {
                   element={SavedMovies}
                   loggedIn={isLoggedIn}
                   isLoading={isLoading}
-                  movies={movies}
+                  // movies={movies}
                   savedMovies={savedMovies}
                   onMovieDelete={handleDeleteMovie}
 

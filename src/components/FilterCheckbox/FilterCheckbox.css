@@ -1,6 +1,6 @@
 .checkbox {
   display: flex;
-  margin-top: 41px;
+  margin-top: 11px;
 }
 
 .checkbox__filter {
@@ -19,4 +19,12 @@
 .checkbox__form {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 750px) {
+  .checkbox__label {
+    font-size: 11px;
+    line-height: 18px;
+    background-color: #FFFFFF
+  }
 }

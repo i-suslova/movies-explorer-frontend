@@ -42,7 +42,6 @@ const Login = (props) => {
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
       >
-
         <section className='basic-form__form basic-form__form-login'>
 
           <label className='basic-form__label'>E-mail</label>
