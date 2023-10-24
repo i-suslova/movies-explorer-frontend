@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Register.css';
@@ -26,7 +26,7 @@ import useForm from '../../hooks/useForm';
   useEffect(() => {
     if ( loggedIn) resetForm();
   }, [ loggedIn, resetForm]);
-  
+
   useEffect(() => {
     return () => {
       setErrorMessage('');

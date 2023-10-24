@@ -5,10 +5,13 @@ import './SearchForm.css';
 import find from '../../images/find.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-const SearchForm = () => {
+const SearchForm = (props) => {
+
+  const { onSearch, onFilterChange, isChecked, searchResults } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState('');
+  const [duplicateError, setDuplicateError] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -17,6 +20,19 @@ const SearchForm = () => {
       setError('Нужно ввести ключевое слово.');
     } else {
       setError('');
+
+      // проверяем наличие похожего запроса
+        const isDuplicate = searchResults && searchResults.some(
+        (result) => result.searchText.toLowerCase() === searchValue.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        setDuplicateError('Такой запрос уже был.');
+      } else {
+        setDuplicateError('');
+        onSearch(searchValue);
+        setSearchValue('');
+      }
     }
   };
 
@@ -28,7 +44,6 @@ const SearchForm = () => {
   return (
     <section className='search'>
       <form className='search__form'
-        // onSubmit={handleSearch}
       >
         <input
           required
@@ -52,8 +67,9 @@ const SearchForm = () => {
       </form>
 
       {error && <span className='search__error'>{error}</span>}
+      {duplicateError && <span className='search__error'>{duplicateError}</span>}
 
-      <FilterCheckbox />
+      <FilterCheckbox onFilterChange={onFilterChange} isChecked={isChecked} />
 
       <div className='search__line-stroke' />
     </section>

@@ -145,7 +145,7 @@ const App = () => {
       .catch((err) => {
         handleError(err, 'register');
         console.error("Ошибка регистрации:", err);
-        setIsRegistrationStatus(false);
+        // setIsRegistrationStatus(false);
       })
     // .finally(() => {
     //   // setIsInfoTooltipOpen(true);
@@ -154,12 +154,15 @@ const App = () => {
     // });
   };
 
+
   const handleLogin = ({ email, password }) => {
+    // setMoviesData([]);
     // setIsLoading(true);
     mainApi
       .login(email, password)
       .then(updateUserAndToken)
       .then(() => {
+        // setCurrentUserContext({ user: currentUser, movies: [] });
         navigate('/movies')
       })
       .catch((err) => {
@@ -220,14 +223,24 @@ const App = () => {
     });
   };
 
-  //удаляем JWT токен из локального хранилища браузера
+  const clearUserData = () => {
+    localStorage.removeItem('JWT');
+    localStorage.removeItem('searchResults');
+    localStorage.removeItem('searchText');
+    localStorage.removeItem('isShortFilm');
+  };
+
   const handleSignOut = () => {
     if (localStorage.getItem("JWT")) {
-      localStorage.removeItem("JWT");
+      clearUserData(); 
     }
     setIsLoggedIn(false);
     mainApi.setAuthorization("");
-    setCurrentUser({ name: '', email: '', });
+    setCurrentUser({});
+    // setMoviesData([]);
+    // setSavedMovies([]);
+    // setDownloadedMovies(false);
+    // setCurrentUser({ name: '', email: '' });
     // navigate("/", { replace: true });
     navigate("/");
   };

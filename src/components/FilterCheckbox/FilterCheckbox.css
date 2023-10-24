@@ -7,13 +7,21 @@
   width: 36px;
   height: 20px;
   margin-right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: #FFFFFF;
+  padding: 0;
 }
 
 .checkbox__label {
   font-size: 14px;
   line-height: 18px;
   /* 128.571% */
-  background-color: #FFFFFF
+  background-color: #FFFFFF;
+  display: flex;
+  margin: 30px auto 0;
 }
 
 .checkbox__form {
