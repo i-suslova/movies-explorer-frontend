@@ -1,4 +1,4 @@
-import { MAIN_API, MOVIES_API } from './constants'
+import { MAIN_API, MOVIES_API , MOVIES_API_URL} from './constants'
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -89,7 +89,7 @@ class Api {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `${MOVIES_API}${movie.image.url}`,
+        image: `${MOVIES_API_URL}${movie.image.url}`,
         trailerLink: movie.trailerLink,
         thumbnail: `${MOVIES_API}${movie.image.formats.thumbnail.url}`,
         movieId: movie.id,
@@ -98,7 +98,6 @@ class Api {
       }),
     });
   }
-
 
   deleteMovie(movieId) {
     return this._request(`movies/${movieId}`, {

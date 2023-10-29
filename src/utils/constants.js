@@ -7,3 +7,5 @@ export const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 export const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
 
 
+
+

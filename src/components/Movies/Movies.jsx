@@ -8,17 +8,18 @@ import Footer from '../Footer/Footer';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import moviesApi from "../../utils/MoviesApi";
 import filterMovies from '../../utils/filterMovies';
-// import Preloader from '../Preloader/Preloader';
+import Preloader from '../Preloader/Preloader';
 
 const Movies = (props) => {
-  const { loggedIn, setMoviesData, moviesData } = props;
+  const { loggedIn, setMoviesData, moviesData, onSaveMovie, onDeleteMovie, savedMovies } = props;
 
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
+  const [isMovieFound, setIsMovieFound] = useState(true);
 
-  // const handleSearch = (searchText) => {
+
   const handleSearch = (searchText, isDuplicate) => {
     const newFilteredMovies = filterMovies(moviesData, searchText, isShortFilm);
 
@@ -30,6 +31,16 @@ const Movies = (props) => {
 
       setSearchResults(updatedSearchResults);
       setSearchText(searchText);
+
+      if (newFilteredMovies.length > 0) {
+        setFilteredMovies(newFilteredMovies);
+
+        setIsMovieFound(true);
+      } else {
+        setIsMovieFound(false);
+      }
+    } else {
+      setIsMovieFound(false);
     }
   };
 
@@ -57,8 +68,8 @@ const Movies = (props) => {
       .catch((error) => {
         console.error('Ошибка:', error);
       });
-    }, []);
-  // }, [setMoviesData]);
+
+  }, [setMoviesData]);
 
   return (
     <main>
@@ -66,15 +77,24 @@ const Movies = (props) => {
         loggedIn={loggedIn}
       />
       <section className='movies'>
+
         <SearchForm
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
           isChecked={isShortFilm}
           searchResults={searchResults}
+          isMovieFound={isMovieFound}
+          setIsMovieFound={setIsMovieFound}
         />
 
         {(searchText || searchResults.length > 0) && filteredMovies.length > 0 && (
-          <MoviesCardList searchResults={searchResults} />
+          <MoviesCardList
+            searchResults={searchResults}
+            onSaveMovie={onSaveMovie}
+            onDeleteMovie={onDeleteMovie}
+            savedMovies={savedMovies}
+            isSavedMovies={false}
+          />
         )}
 
       </section>
@@ -84,6 +104,4 @@ const Movies = (props) => {
 }
 
 export default Movies
-
-
 

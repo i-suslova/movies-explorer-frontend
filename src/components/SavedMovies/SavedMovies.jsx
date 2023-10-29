@@ -6,17 +6,25 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-// import { saveMoviesData } from '../../utils/cardsMoviesData';
+import filterMovies from '../../utils/filterMovies';
 // import Preloader from '../Preloader/Preloader';
 
 const SavedMovies = (props) => {
-  const { loggedIn } = props;
+  const { loggedIn, savedMovies, onDeleteMovie  } = props;
+
   return (
     <main>
-       <Header loggedIn={loggedIn} />
+      <Header loggedIn={loggedIn} />
       <section className='movies'>
-        <SearchForm />
-        {/* <MoviesCardList moviesData={saveMoviesData} isSavedMovies={true} /> */}
+    
+      <SearchForm  />
+
+        <MoviesCardList
+          savedMovies={savedMovies}
+          isSavedMovies={true}
+          onDeleteMovie={onDeleteMovie}
+        />
+
       </section>
       <Footer />
     </main>

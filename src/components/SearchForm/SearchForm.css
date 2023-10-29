@@ -26,11 +26,6 @@
   outline: 2px solid #FF6838;
 }
 
-.search__input:hover {
-  font-size: 14px;
-  line-height: 18px;
-}
-
 .search__input {
   border: none;
   outline: none;

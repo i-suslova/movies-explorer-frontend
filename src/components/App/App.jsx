@@ -36,6 +36,7 @@ const App = () => {
   const [moviesData, setMoviesData] = useState([]);
   //сохраняем массив фильмов, сохраненных пользователем
   const [savedMovies, setSavedMovies] = useState([]);
+
   //сохраняем массив загруженных фильмов
   const [downloadedMovies, setDownloadedMovies] = useState(false);
   //отслеживанем успешное завершенияе регистрации
@@ -89,12 +90,13 @@ const App = () => {
     const getAllData = async () => {
       try {
         setAuthorization(localStorage.getItem("JWT"));
-        const [userData, SavedMovies] = await Promise.all([
+        const [userData, savedMovies] = await Promise.all([
           mainApi.getUserInfo(),
           mainApi.getMovies(),
         ]);
         setCurrentUser(userData);
-        setSavedMovies(SavedMovies.reverse());
+
+        setSavedMovies(savedMovies.reverse());
         setDownloadedMovies(true);
       } catch (error) {
         console.error(error)
@@ -124,7 +126,6 @@ const App = () => {
     }
   }, [isLoggedIn]);
 
-
   const updateUserAndToken = (userDataAndToken) => {
     localStorage.setItem("JWT", userDataAndToken.token);
     mainApi.setAuthorization(userDataAndToken.token);
@@ -153,7 +154,6 @@ const App = () => {
 
     // });
   };
-
 
   const handleLogin = ({ email, password }) => {
     // setMoviesData([]);
@@ -195,30 +195,54 @@ const App = () => {
         .then(setCurrentUser);
     };
     handleSubmit(makeRequest, 'editUserId');
-
   };
 
   const handleSaveMovie = (movie) => {
     handleSubmit(() => {
-      return mainApi.saveMovie(movie).
-        then((movie) => {
-          const newMovie = savedMovies;
-          setSavedMovies([newMovie, ...savedMovies]);
+      return mainApi
+        .saveMovie(movie)
+        .then((savedMovie) => {
+          setSavedMovies([...savedMovies, savedMovie]);
+          setIsSuccessResponse(true);
         })
         .catch((error) => {
+          setIsErrorHandled(true);
+          setIsSuccessResponse(false);
           console.error("Save movie error:", error);
         });
     });
   };
 
-  const handleDeleteMovie = (movie) => {
+
+  // const handleDeleteMovie = (movie) => {
+  //   if (!movie || !movie.movieId) {
+  //     console.error('Invalid movie object or movie ID');
+  //     return;
+  //   }
+
+  //   mainApi
+  //     .deleteMovie(movie._id)
+  //     .then(() => {
+  //       setSavedMovies((prevSavedMovies) => prevSavedMovies.filter((item) => item._id !== movie._id));
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error deleting movie:', error);
+  //     });
+  // };
+  const handleDeleteMovie = (movieId) => {
     handleSubmit(() => {
-      return mainApi.deleteMovie(movie.movieId)
+      console.log('Before deletion:', savedMovies);
+      // return mainApi.deleteMovie(movie.movieId)
+      return mainApi.deleteMovie(movieId)
         .then(() => {
-          setMoviesData((state) => state.filter((c) => c._id !== movie._id));
+
+          // const updatedSavedMovies = setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
+          const updatedSavedMovies = savedMovies.filter(movie => movie._id !== movieId);
+
+          console.log('After deletion:', updatedSavedMovies);
         })
         .catch((error) => {
-          console.error("Delete movie error:", error);
+          console.error("Ошибка удаления фильма:", error);
         });
     });
   };
@@ -231,20 +255,12 @@ const App = () => {
   };
 
   const handleSignOut = () => {
-    if (localStorage.getItem("JWT")) {
-      clearUserData(); 
-    }
+    clearUserData();
     setIsLoggedIn(false);
     mainApi.setAuthorization("");
     setCurrentUser({});
-    // setMoviesData([]);
-    // setSavedMovies([]);
-    // setDownloadedMovies(false);
-    // setCurrentUser({ name: '', email: '' });
-    // navigate("/", { replace: true });
     navigate("/");
   };
-
 
   return (
     <div className='app'>
@@ -257,7 +273,6 @@ const App = () => {
               path='/'
               element={<Main
                 loggedIn={isLoggedIn}
-
               />}
             />
 
@@ -273,7 +288,7 @@ const App = () => {
                   savedMovies={savedMovies}
                   isLoading={isLoading}
                   onSaveMovie={handleSaveMovie}
-                  onMovieDelete={handleDeleteMovie}
+                  onDeleteMovie={handleDeleteMovie}
 
 
                 />}
@@ -288,8 +303,8 @@ const App = () => {
                   isLoading={isLoading}
                   // movies={movies}
                   savedMovies={savedMovies}
-                  onMovieDelete={handleDeleteMovie}
-
+                  onSaveMovie={handleSaveMovie}
+                  onDeleteMovie={handleDeleteMovie}
                 />}
             />
 

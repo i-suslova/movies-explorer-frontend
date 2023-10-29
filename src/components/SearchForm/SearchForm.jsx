@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './SearchForm.css';
 
@@ -7,7 +7,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = (props) => {
 
-  const { onSearch, onFilterChange, isChecked, searchResults } = props;
+  const { onSearch, onFilterChange, isChecked, searchResults, isMovieFound, setIsMovieFound } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState('');
@@ -18,20 +18,30 @@ const SearchForm = (props) => {
 
     if (searchValue.trim() === '') {
       setError('Нужно ввести ключевое слово.');
+      // setIsMovieFound(true);
+      if (typeof setIsMovieFound === 'function') {
+        setIsMovieFound(true);
+      }
     } else {
       setError('');
 
       // проверяем наличие похожего запроса
-        const isDuplicate = searchResults && searchResults.some(
+      const isDuplicate = searchResults && searchResults.some(
         (result) => result.searchText.toLowerCase() === searchValue.toLowerCase()
       );
 
       if (isDuplicate) {
         setDuplicateError('Такой запрос уже был.');
       } else {
-        setDuplicateError('');
-        onSearch(searchValue);
+        // onSearch(searchValue);
+        if (typeof onSearch === 'function') {
+          onSearch(searchValue);
+        }
         setSearchValue('');
+        setDuplicateError('');
+        if (typeof setIsMovieFound === 'function') {
+          setIsMovieFound(true);
+        }
       }
     }
   };
@@ -39,6 +49,7 @@ const SearchForm = (props) => {
   const handleChange = (e) => {
     setSearchValue(e.target.value);
     setError('');
+    setDuplicateError('');
   };
 
   return (
@@ -68,6 +79,9 @@ const SearchForm = (props) => {
 
       {error && <span className='search__error'>{error}</span>}
       {duplicateError && <span className='search__error'>{duplicateError}</span>}
+      {isMovieFound !== undefined && !isMovieFound && (
+        <span className='search__error'>Фильм не найден. Попробуйте другой запрос.</span>
+      )}
 
       <FilterCheckbox onFilterChange={onFilterChange} isChecked={isChecked} />
 
