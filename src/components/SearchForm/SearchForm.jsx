@@ -7,49 +7,43 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = (props) => {
 
-  const { onSearch, onFilterChange, isChecked, searchResults, isMovieFound, setIsMovieFound } = props;
+  const { onSearch, onFilterChange, isChecked, searchResults, isMovieFound, setIsMovieFound, componentType, } = props;
 
   const [searchValue, setSearchValue] = useState('');
-  const [error, setError] = useState('');
-  const [duplicateError, setDuplicateError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
 
     if (searchValue.trim() === '') {
-      setError('Нужно ввести ключевое слово.');
-      // setIsMovieFound(true);
-      if (typeof setIsMovieFound === 'function') {
+      setErrorMessage('Нужно ввести ключевое слово.');
+
+      if (setIsMovieFound && typeof setIsMovieFound === 'function') {
         setIsMovieFound(true);
       }
     } else {
-      setError('');
+      setErrorMessage('');
 
-      // проверяем наличие похожего запроса
       const isDuplicate = searchResults && searchResults.some(
-        (result) => result.searchText.toLowerCase() === searchValue.toLowerCase()
+        (result) => result.searchText.toLowerCase()
+          === searchValue.toLowerCase()
+        // && result.isShortFilm === isShortFilm
+        && result.componentType === componentType
       );
 
       if (isDuplicate) {
-        setDuplicateError('Такой запрос уже был.');
-      } else {
-        // onSearch(searchValue);
-        if (typeof onSearch === 'function') {
-          onSearch(searchValue);
-        }
+        setErrorMessage('Такой запрос уже был.');
         setSearchValue('');
-        setDuplicateError('');
-        if (typeof setIsMovieFound === 'function') {
-          setIsMovieFound(true);
-        }
+      } else {
+        onSearch(searchValue);
+        setSearchValue('');
       }
     }
   };
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
-    setError('');
-    setDuplicateError('');
+    setErrorMessage('');
   };
 
   return (
@@ -66,7 +60,6 @@ const SearchForm = (props) => {
           onChange={handleChange}
           onClick={handleSearch}
         />
-
         <img
           className='search__button hover'
           type='submit'
@@ -74,11 +67,8 @@ const SearchForm = (props) => {
           alt='поиск'
           onClick={handleSearch}
         />
-
       </form>
-
-      {error && <span className='search__error'>{error}</span>}
-      {duplicateError && <span className='search__error'>{duplicateError}</span>}
+      {errorMessage && <span className='search__error'>{errorMessage}</span>}
       {isMovieFound !== undefined && !isMovieFound && (
         <span className='search__error'>Фильм не найден. Попробуйте другой запрос.</span>
       )}
@@ -91,3 +81,4 @@ const SearchForm = (props) => {
 }
 
 export default SearchForm
+

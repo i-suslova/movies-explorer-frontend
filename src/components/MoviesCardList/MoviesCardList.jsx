@@ -6,15 +6,15 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = (props) => {
-  const { searchResults, onSaveMovie, onDeleteMovie, savedMovies, isSavedMovies } = props;
+  const { searchResults, onSaveMovie, onDeleteMovie, savedMovies, isSavedMovies, setSavedMovies} = props;
   const [movies, setMovies] = useState(savedMovies);
+
   const path = useLocation().pathname;
   const isSavedMoviesPath = path === '/saved-movies';
 
   useEffect(() => {
     setMovies(savedMovies);
   }, [savedMovies]);
-
 
   return (
     <section className='movies-card-list'>
@@ -32,6 +32,8 @@ const MoviesCardList = (props) => {
                     savedMovies={savedMovies}
                     isSavedMovies={isSavedMovies}
                     onDeleteMovie={onDeleteMovie}
+                    setSavedMovies={setSavedMovies}
+                    onSaveMovie={onSaveMovie}
                   />
                 </li>
               ))
@@ -51,6 +53,8 @@ const MoviesCardList = (props) => {
                     onDeleteMovie={onDeleteMovie}
                     savedMovies={savedMovies}
                     isSavedMovies={isSavedMovies}
+                    setSavedMovies={setSavedMovies}
+
                   />
                 </li>
               ))

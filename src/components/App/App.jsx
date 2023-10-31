@@ -29,18 +29,12 @@ const App = () => {
   // const [isLoggedIn, setIsLoggedIn] = useState(true);
   //отслеживаем авторизацию
   const [tokenChecked, setTokenChecked] = useState(false);
-  //сохраняем электронную почту
-  // const [userEmail, setUserEmail] = useState("");
   //сохраняем массив фильмов
-  // const [movies, setMovies] = useState([]);
   const [moviesData, setMoviesData] = useState([]);
   //сохраняем массив фильмов, сохраненных пользователем
   const [savedMovies, setSavedMovies] = useState([]);
-
   //сохраняем массив загруженных фильмов
   const [downloadedMovies, setDownloadedMovies] = useState(false);
-  //отслеживанем успешное завершенияе регистрации
-  const [isRegistrationStatus, setIsRegistrationStatus] = useState(false);
   //отслеживанияем статус загрузки, Preloader
   const [isLoading, setIsLoading] = useState(false);
   //отслеживанияем статус информации для пользователя
@@ -202,49 +196,29 @@ const App = () => {
       return mainApi
         .saveMovie(movie)
         .then((savedMovie) => {
-          setSavedMovies([...savedMovies, savedMovie]);
-          setIsSuccessResponse(true);
+          setSavedMovies((prevSavedMovies) => [...prevSavedMovies, savedMovie]);
         })
         .catch((error) => {
           setIsErrorHandled(true);
           setIsSuccessResponse(false);
-          console.error("Save movie error:", error);
+          console.error("Ошибка загрузки фильма:", error);
         });
     });
   };
 
-
-  // const handleDeleteMovie = (movie) => {
-  //   if (!movie || !movie.movieId) {
-  //     console.error('Invalid movie object or movie ID');
-  //     return;
-  //   }
-
-  //   mainApi
-  //     .deleteMovie(movie._id)
-  //     .then(() => {
-  //       setSavedMovies((prevSavedMovies) => prevSavedMovies.filter((item) => item._id !== movie._id));
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error deleting movie:', error);
-  //     });
-  // };
   const handleDeleteMovie = (movieId) => {
     handleSubmit(() => {
-      console.log('Before deletion:', savedMovies);
-      // return mainApi.deleteMovie(movie.movieId)
       return mainApi.deleteMovie(movieId)
         .then(() => {
-
-          // const updatedSavedMovies = setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
-          const updatedSavedMovies = savedMovies.filter(movie => movie._id !== movieId);
-
-          console.log('After deletion:', updatedSavedMovies);
+          setSavedMovies((prevSavedMovies) => prevSavedMovies.filter(movie => movie._id !== movieId));
         })
         .catch((error) => {
+          setIsErrorHandled(true);
+          setIsSuccessResponse(false);
           console.error("Ошибка удаления фильма:", error);
         });
-    });
+    }
+    );
   };
 
   const clearUserData = () => {
@@ -289,7 +263,7 @@ const App = () => {
                   isLoading={isLoading}
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
-
+                  setSavedMovies={setSavedMovies}
 
                 />}
             />
@@ -301,10 +275,11 @@ const App = () => {
                   element={SavedMovies}
                   loggedIn={isLoggedIn}
                   isLoading={isLoading}
-                  // movies={movies}
+                  setSavedMovies={setSavedMovies}
                   savedMovies={savedMovies}
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
+
                 />}
             />
 
