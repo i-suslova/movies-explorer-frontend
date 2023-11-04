@@ -1,4 +1,3 @@
-
 const filterMovies = (moviesData, searchText, isShortFilm) => {
   const lowerCaseSearchText = searchText.toLowerCase();
 
@@ -16,3 +15,7 @@ const filterMovies = (moviesData, searchText, isShortFilm) => {
 };
 
 export default filterMovies;
+
+
+
+

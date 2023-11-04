@@ -11,16 +11,24 @@ import filterMovies from '../../utils/filterMovies';
 // import Preloader from '../Preloader/Preloader';
 
 const SavedMovies = (props) => {
-  const { loggedIn, savedMovies, onDeleteMovie, setSavedMovies, onSaveMovie} = props;
+  const { loggedIn, savedMovies, onDeleteMovie, setSavedMovies, onSaveMovie } = props;
 
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
   const [searchResults, setSearchResults] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
- 
+  const [isMovieFound, setIsMovieFound] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
+  const [componentType, setComponentType] = useState('savedMovies');
 
   const handleSearch = (searchText, isDuplicate) => {
-    const newFilteredMovies = filterMovies(savedMovies, searchText, isChecked, isShortFilm);
+    const newFilteredMovies = filterMovies(
+      savedMovies,
+      searchText,
+      isShortFilm,
+      // componentType === 'savedMovies' ? isShortSavedMovies : false
+    );
 
     if (!isDuplicate) {
       const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
@@ -28,6 +36,7 @@ const SavedMovies = (props) => {
       const updatedSearchResults = [...searchResults, newSearchResults];
 
       setSearchResults(updatedSearchResults);
+      setSearchText(searchText);
 
       // Обновляем состояние filteredMovies
       setFilteredMovies(newFilteredMovies);
@@ -37,55 +46,65 @@ const SavedMovies = (props) => {
   const handleFilterChange = (isChecked) => {
     setIsShortFilm(isChecked);
     setIsChecked(isChecked);
-    // Фильтруем фильмы в зависимости от состояния isShortFilm
-    // const newFilteredMovies = filterMovies(savedMovies, '', isChecked, isShortFilm);
-    const newFilteredMovies = filterMovies(savedMovies, '', isChecked, isChecked);
 
+    const newFilteredMovies = filterMovies(
+      savedMovies,
+      '',
+      isChecked,
+      componentType === 'savedMovies' ? isShortSavedMovies : false
+    );
     // Обновляем состояние filteredMovies
     setFilteredMovies(newFilteredMovies);
+  };
+
+  const handleCheckboxClick = () => {
+    if (componentType === 'savedMovies') {
+      setIsShortSavedMovies(!isShortSavedMovies);
+    }
   };
 
   useEffect(() => {
     const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
     setSearchResults(Array.isArray(storedSearchResults) ? storedSearchResults : []);
-     // При изменении savedMovies обновляем filteredMovies
-    //  setFilteredMovies(savedMovies);
+    // При изменении savedMovies обновляем filteredMovies
     setFilteredMovies([...savedMovies]);
-  }, [savedMovies, isChecked]);
-// }, [savedMovies, isChecked, isShortFilm]);
+  }, [savedMovies, isChecked, isShortFilm, isShortSavedMovies]);
 
-    return (
-      <main>
-        <Header loggedIn={loggedIn} />
+  return (
+    <main>
+      <Header loggedIn={loggedIn} />
 
-        <section className='movies'>
+      <section className='movies'>
 
-          <SearchForm
-            onSearch={handleSearch}
-            onFilterChange={handleFilterChange}
-            isChecked={isChecked}
+        <SearchForm
+          onSearch={handleSearch}
+          onFilterChange={handleFilterChange}
+          isChecked={isChecked}
+          searchResults={searchResults}
+          isMovieFound={isMovieFound}
+          // componentType={componentType}
+          componentType="savedMovies"
+          handleCheckboxClick={handleCheckboxClick}
+        />
+
+        {filteredMovies.length > 0 && (
+          <MoviesCardList
             searchResults={searchResults}
-            componentType="savedMovies"
-            />
+            onDeleteMovie={onDeleteMovie}
+            isSavedMovies={true}
+            setSavedMovies={setSavedMovies}
+            onSaveMovie={onSaveMovie}
+            savedMovies={savedMovies}
+          />
+        )}
 
-          {filteredMovies.length > 0 && (
-            <MoviesCardList
-              searchResults={searchResults}
-              onDeleteMovie={onDeleteMovie}
-              isSavedMovies={true}
-              setSavedMovies={setSavedMovies}
-              onSaveMovie={onSaveMovie}
-              savedMovies={savedMovies}
-            />
-          )}
+      </section>
+      <Footer />
+    </main>
+  )
+}
 
-        </section>
-        <Footer />
-      </main>
-    )
-  }
-
-  export default SavedMovies
+export default SavedMovies;
 
 
 

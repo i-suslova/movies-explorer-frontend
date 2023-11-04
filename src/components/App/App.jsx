@@ -74,6 +74,35 @@ const App = () => {
     }
   };
 
+   // useEffect(() => {
+  //   if (!localStorage.getItem("JWT")) return;
+//
+  //   if (!downloadedMovies) {
+  //     setIsLoading(true);
+  //     const setAuthorization = (token) => {
+  //       mainApi.setAuthorization(token);
+  //     };
+  //     const getAllData = async () => {
+  //       try {
+  //         setAuthorization(localStorage.getItem("JWT"));
+  //         const [userData, savedMovies] = await Promise.all([
+  //           mainApi.getUserInfo(),
+  //           mainApi.getMovies(),
+  //         ]);
+  //         setCurrentUser(userData);
+
+  //         setSavedMovies(savedMovies.reverse());
+  //       } catch (error) {
+  //         console.error(error)
+  //           .finally(() => {
+  //             setIsLoading(false);
+  //           });
+  //       }
+  //     };
+  //     getAllData();
+  //     setDownloadedMovies(true);
+  //   }
+  // }, [isLoggedIn, downloadedMovies]);
   useEffect(() => {
     if (!localStorage.getItem("JWT")) return;
 
