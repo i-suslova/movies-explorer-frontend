@@ -1,4 +1,5 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
+
 import './SearchForm.css';
 import find from '../../images/find.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
@@ -12,51 +13,60 @@ const SearchForm = (props) => {
     componentType,
     setIsMovieFound,
     isShortFilm,
-    setIsShortFilm
+    setIsShortFilm,
+    handleRestoreMovies,
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-const handleSearch = (e) => {
-  e.preventDefault();
+  const handleSearch = (e) => {
 
-  if (searchValue.trim() === '') {
-    setErrorMessage('Нужно ввести ключевое слово.');
+    e.preventDefault();
 
-    if (setIsMovieFound && typeof setIsMovieFound === 'function') {
-      setIsMovieFound(true);
+    if (searchValue.trim() === '') {
+      setErrorMessage('Нужно ввести ключевое слово.');
+
+      if (setIsMovieFound && typeof setIsMovieFound === 'function') {
+
+        setIsMovieFound(true);
+        setSearchValue('');
+
+        if (componentType === 'savedMovies' && typeof handleRestoreMovies === 'function') {
+          handleRestoreMovies();
+        }
+      }
+    } else {
       setSearchValue('');
+      setErrorMessage('');
+
+      const isDuplicateWithoutCheckbox = searchResults.some(
+        (result) =>
+          result.searchText.toLowerCase() === searchValue.toLowerCase() &&
+          !result.isShortFilm
+      );
+
+      const isDuplicateWithCheckbox = searchResults.some(
+        (result) =>
+          result.searchText.toLowerCase() === searchValue.toLowerCase() &&
+          result.isShortFilm
+      );
+
+      if ((!isShortFilm && isDuplicateWithoutCheckbox) ||
+        (isShortFilm && isDuplicateWithCheckbox)) {
+
+        setErrorMessage('Такой запрос уже был.');
+        return;
+      }
+
+      onSearch(searchValue, isShortFilm);
+
     }
-  } else {
-    setSearchValue('');
-    setErrorMessage('');
-
-    const isDuplicateWithoutCheckbox = searchResults.some(
-      (result) =>
-        result.searchText.toLowerCase() === searchValue.toLowerCase() &&
-        !result.isShortFilm
-    );
-
-    const isDuplicateWithCheckbox = searchResults.some(
-      (result) =>
-        result.searchText.toLowerCase() === searchValue.toLowerCase() &&
-        result.isShortFilm
-    );
-
-    if ((!isShortFilm && isDuplicateWithoutCheckbox) ||
-    (isShortFilm && isDuplicateWithCheckbox)) {
-
-      setErrorMessage('Такой запрос уже был.');
-      return;
-    }
-
-    onSearch(searchValue, isShortFilm);
-  }
-};
+  };
 
   const handleFilterChange = () => {
     setIsShortFilm(!isShortFilm);
+    onSearch(searchValue, !isShortFilm);
   };
 
   const handleChange = (e) => {
@@ -95,13 +105,13 @@ const handleSearch = (e) => {
       )}
 
       {componentType === 'movies' && (
-      //  <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isChecked} />
-      <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isShortFilm} />
+
+        <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isShortFilm} />
       )}
 
-      {/* {componentType === 'savedMovies' && (
-        <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isChecked} />
-      )} */}
+      {componentType === 'savedMovies' && (
+        <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isShortFilm} />
+      )}
 
       <div className='search__line-stroke' />
     </section>

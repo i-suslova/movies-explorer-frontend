@@ -6,7 +6,15 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = (props) => {
-  const { searchResults, onSaveMovie, onDeleteMovie, savedMovies, isSavedMovies, setSavedMovies, isChecked } = props;
+  const {
+    searchResults,
+    onSaveMovie,
+    onDeleteMovie,
+    savedMovies,
+    isSavedMovies,
+    setSavedMovies
+  } = props;
+
   const [movies, setMovies] = useState(savedMovies);
 
   const path = useLocation().pathname;
@@ -45,7 +53,7 @@ const MoviesCardList = (props) => {
           <>
             {searchResults && searchResults.map((searchResult) => (
               searchResult.movies && searchResult.movies.map((movie) => (
-       
+
                 <li key={movie.id} className='movies-card-list__item'>
                   <MoviesCard
                     key={movie._id}
@@ -55,7 +63,6 @@ const MoviesCardList = (props) => {
                     savedMovies={savedMovies}
                     isSavedMovies={isSavedMovies}
                     setSavedMovies={setSavedMovies}
-
                   />
                 </li>
               ))
@@ -63,6 +70,7 @@ const MoviesCardList = (props) => {
           </>
         )}
       </ul>
+
       <button className='movies-card-list__button hover' type='button'>
         Ещё
       </button>

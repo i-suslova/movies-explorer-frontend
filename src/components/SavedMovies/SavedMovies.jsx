@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 
 import './SavedMovies.css';
 
@@ -8,83 +9,73 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import filterMovies from '../../utils/filterMovies';
 
-// import Preloader from '../Preloader/Preloader';
-
 const SavedMovies = (props) => {
-  const { loggedIn, savedMovies, onDeleteMovie, setSavedMovies, onSaveMovie } = props;
+  const {
+    loggedIn,
+    savedMovies,
+    onDeleteMovie,
+    setSavedMovies,
+    onSaveMovie,
+    isLoading,
+    setIsLoading,
+  } = props;
 
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
   const [searchResults, setSearchResults] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
   const [searchText, setSearchText] = useState('');
-  const [isShortSavedMovies, setIsShortSavedMovies] = useState(false);
-  const [componentType, setComponentType] = useState('savedMovies');
+  const [restoreMovies, setRestoreMovies] = useState(savedMovies);
 
-  const handleSearch = (searchText, isDuplicate) => {
-    const newFilteredMovies = filterMovies(
-      savedMovies,
-      searchText,
-      isShortFilm,
-      // componentType === 'savedMovies' ? isShortSavedMovies : false
-    );
+  const handleSearch = (newSearchText, newIsShortFilm) => {
 
-    if (!isDuplicate) {
-      const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
+    setIsLoading(true);
 
-      const updatedSearchResults = [...searchResults, newSearchResults];
+    const newFilteredMovies = filterMovies(savedMovies, newSearchText, newIsShortFilm);
 
-      setSearchResults(updatedSearchResults);
-      setSearchText(searchText);
+    setSearchResults([
+      { searchText: newSearchText, movies: newFilteredMovies, isShortFilm: newIsShortFilm },
+    ]);
 
-      // Обновляем состояние filteredMovies
+    setSearchText(newSearchText);
+
+    if (newFilteredMovies.length > 0) {
       setFilteredMovies(newFilteredMovies);
+      setIsMovieFound(true);
+    } else {
+      setFilteredMovies([]);
+      setIsMovieFound(false);
+    }
+    setIsLoading(false);
+  };
+
+  const handleFilterChange = (newIsShortFilm) => {
+    localStorage.setItem('isShortSavedFilm', JSON.stringify(newIsShortFilm));
+    setIsShortFilm((prevIsShortFilm) => !prevIsShortFilm);
+  };
+
+  const handleRestoreMovies = () => {
+    if (restoreMovies.length > 0) {
+      setFilteredMovies(restoreMovies);
+      setIsMovieFound(true);
     }
   };
-
-  const handleFilterChange = (isChecked) => {
-    setIsShortFilm(isChecked);
-    setIsChecked(isChecked);
-
-    const newFilteredMovies = filterMovies(
-      savedMovies,
-      '',
-      isChecked,
-      componentType === 'savedMovies' ? isShortSavedMovies : false
-    );
-    // Обновляем состояние filteredMovies
-    setFilteredMovies(newFilteredMovies);
-  };
-
-  const handleCheckboxClick = () => {
-    if (componentType === 'savedMovies') {
-      setIsShortSavedMovies(!isShortSavedMovies);
-    }
-  };
-
-  useEffect(() => {
-    const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
-    setSearchResults(Array.isArray(storedSearchResults) ? storedSearchResults : []);
-    // При изменении savedMovies обновляем filteredMovies
-    setFilteredMovies([...savedMovies]);
-  }, [savedMovies, isChecked, isShortFilm, isShortSavedMovies]);
 
   return (
     <main>
       <Header loggedIn={loggedIn} />
 
       <section className='movies'>
-
         <SearchForm
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
-          isChecked={isChecked}
+          isShortFilm={isShortFilm}
+          setIsShortFilm={setIsShortFilm}
           searchResults={searchResults}
           isMovieFound={isMovieFound}
-          // componentType={componentType}
           componentType="savedMovies"
-          handleCheckboxClick={handleCheckboxClick}
+          setIsMovieFound={setIsMovieFound}
+          handleRestoreMovies={handleRestoreMovies}
         />
 
         {filteredMovies.length > 0 && (
@@ -94,18 +85,15 @@ const SavedMovies = (props) => {
             isSavedMovies={true}
             setSavedMovies={setSavedMovies}
             onSaveMovie={onSaveMovie}
-            savedMovies={savedMovies}
+            savedMovies={filteredMovies}
+            isShortFilm={isShortFilm}
           />
         )}
 
       </section>
       <Footer />
     </main>
-  )
-}
+  );
+};
 
 export default SavedMovies;
-
-
-
-

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './FilterCheckbox.css';
 import smalltumb from '../../images/smalltumb.svg';
 import smalltumboff from '../../images/smalltumboff.svg';
@@ -17,9 +17,7 @@ const FilterCheckbox = (props) => {
           <button
             type='button'
             className='checkbox__filter'
-            // onClick={handleCheckboxClick}
-            onClick={() => handleCheckboxClick(isChecked)}
-
+            onClick={handleCheckboxClick}
           >
             <img
               src={isChecked ? smalltumb : smalltumboff}

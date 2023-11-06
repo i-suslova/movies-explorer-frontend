@@ -54,7 +54,7 @@ const Login = (props) => {
             value={inputValues.email || ""}
             onChange={handleChange}
             onClick={handleInputClick}
-            autoComplete="email"
+            // autoComplete="email"
           />
           <span className='basic-form__error'>{errors.email}</span>
 

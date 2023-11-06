@@ -11,19 +11,24 @@ import filterMovies from '../../utils/filterMovies';
 import Preloader from '../Preloader/Preloader';
 
 const Movies = (props) => {
-  const { loggedIn, setMoviesData, moviesData, onSaveMovie, onDeleteMovie, savedMovies } = props;
+  const {
+    loggedIn,
+    setMoviesData,
+    moviesData,
+    onSaveMovie,
+    onDeleteMovie,
+    savedMovies,
+    isLoading,
+    setIsLoading,
+  } = props;
 
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
-
   const [isMovieFound, setIsMovieFound] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [componentType, setComponentType] = useState('movies');
 
   const handleSearch = (searchText) => {
-    setIsLoading(true);
 
     const newFilteredMovies = filterMovies(moviesData, searchText, isShortFilm);
 
@@ -39,10 +44,9 @@ const Movies = (props) => {
       setFilteredMovies(newFilteredMovies);
       setIsMovieFound(true);
     } else {
-  
+
       setIsMovieFound(false);
     }
-    setIsLoading(false);
   };
 
   const handleFilterChange = (isShortFilm) => {
@@ -56,20 +60,43 @@ const Movies = (props) => {
     setSearchText(storedSearchText);
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
+
   }, []);
 
-  useEffect(() => {
-    if (!moviesData.length) {
-      moviesApi.getInitialMovies()
-        .then((movies) => {
-          setMoviesData(movies);
-          setFilteredMovies(movies);
-        })
-        .catch((error) => {
-          console.error('Ошибка:', error);
-        });
-    }
-  }, [moviesData]);
+    useEffect(() => {
+      setIsLoading(true);
+    moviesApi.getInitialMovies()
+      .then((movies) => {
+        setMoviesData(movies);
+        setFilteredMovies(movies);
+
+      })
+      .catch((error) => {
+        console.error('Ошибка:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+  }, []);
+
+  // useEffect(() => {
+  //   if (!moviesData.length) {
+  //     setIsLoading(true); // Set loading to true when starting the data fetch
+  //     moviesApi.getInitialMovies()
+  //       .then((movies) => {
+  //         setMoviesData(movies);
+  //         setFilteredMovies(movies);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Ошибка:', error);
+  //       })
+  //       .finally(() => {
+  //         setIsLoading(false); // Set loading to false when data fetching is complete
+  //       });
+  //   }
+  // }, [moviesData]);
+
 
   return (
     <main>
@@ -88,7 +115,9 @@ const Movies = (props) => {
           componentType="movies"
         />
 
-        {!isLoading &&
+        {isLoading ? (
+          <Preloader />
+        ) : (
           (searchText || searchResults.length > 0) &&
           filteredMovies.length > 0 && (
             <MoviesCardList
@@ -98,7 +127,8 @@ const Movies = (props) => {
               savedMovies={savedMovies}
               isSavedMovies={false}
             />
-          )}
+          )
+        )}
 
       </section>
       <Footer />

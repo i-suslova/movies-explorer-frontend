@@ -17,6 +17,8 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
+
+
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,7 +28,6 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   //отслеживанем данные входа
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
   //отслеживаем авторизацию
   const [tokenChecked, setTokenChecked] = useState(false);
   //сохраняем массив фильмов
@@ -36,7 +37,7 @@ const App = () => {
   //сохраняем массив загруженных фильмов
   const [downloadedMovies, setDownloadedMovies] = useState(false);
   //отслеживанияем статус загрузки, Preloader
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   //отслеживанияем статус информации для пользователя
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -74,38 +75,11 @@ const App = () => {
     }
   };
 
-   // useEffect(() => {
-  //   if (!localStorage.getItem("JWT")) return;
-//
-  //   if (!downloadedMovies) {
-  //     setIsLoading(true);
-  //     const setAuthorization = (token) => {
-  //       mainApi.setAuthorization(token);
-  //     };
-  //     const getAllData = async () => {
-  //       try {
-  //         setAuthorization(localStorage.getItem("JWT"));
-  //         const [userData, savedMovies] = await Promise.all([
-  //           mainApi.getUserInfo(),
-  //           mainApi.getMovies(),
-  //         ]);
-  //         setCurrentUser(userData);
-
-  //         setSavedMovies(savedMovies.reverse());
-  //       } catch (error) {
-  //         console.error(error)
-  //           .finally(() => {
-  //             setIsLoading(false);
-  //           });
-  //       }
-  //     };
-  //     getAllData();
-  //     setDownloadedMovies(true);
-  //   }
-  // }, [isLoggedIn, downloadedMovies]);
   useEffect(() => {
-    if (!localStorage.getItem("JWT")) return;
-
+    if (!localStorage.getItem("JWT")) {
+      setIsLoggedIn(false);
+      return;
+    }
     setIsLoading(true);
     const setAuthorization = (token) => {
       mainApi.setAuthorization(token);
@@ -118,19 +92,17 @@ const App = () => {
           mainApi.getMovies(),
         ]);
         setCurrentUser(userData);
-
         setSavedMovies(savedMovies.reverse());
         setDownloadedMovies(true);
+
       } catch (error) {
-        console.error(error)
-          .finally(() => {
-            setIsLoading(false);
-          });
+        console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getAllData();
   }, [isLoggedIn, downloadedMovies]);
-
 
   useEffect(() => {
     const JWT = localStorage.getItem("JWT");
@@ -146,6 +118,8 @@ const App = () => {
           console.log(err);
           setIsLoggedIn(false);
         });
+      } else {
+        setIsLoggedIn(false);
     }
   }, [isLoggedIn]);
 
@@ -179,13 +153,13 @@ const App = () => {
   };
 
   const handleLogin = ({ email, password }) => {
-    // setMoviesData([]);
-    // setIsLoading(true);
+    setIsLoading(true);
     mainApi
       .login(email, password)
       .then(updateUserAndToken)
       .then(() => {
-        // setCurrentUserContext({ user: currentUser, movies: [] });
+        setIsLoading(true);
+        setMoviesData([]);
         navigate('/movies')
       })
       .catch((err) => {
@@ -193,10 +167,10 @@ const App = () => {
         handleError(err, 'login');
         // setIsRegistrationStatus(false);
       })
-    // .finally(() => {
-    //   setIsInfoTooltipOpen(true);
-    //   setIsLoading(false);
-    // });
+      .finally(() => {
+        // setIsInfoTooltipOpen(true);
+        setIsLoading(false);
+      });
   };
 
   // универсальная функция для обработки запросов
@@ -225,8 +199,10 @@ const App = () => {
       return mainApi
         .saveMovie(movie)
         .then((savedMovie) => {
-          setSavedMovies((prevSavedMovies) => [...prevSavedMovies, savedMovie]);
+          setSavedMovies((prevSavedMovies) =>
+          [...prevSavedMovies, savedMovie]);
         })
+
         .catch((error) => {
           setIsErrorHandled(true);
           setIsSuccessResponse(false);
@@ -239,7 +215,8 @@ const App = () => {
     handleSubmit(() => {
       return mainApi.deleteMovie(movieId)
         .then(() => {
-          setSavedMovies((prevSavedMovies) => prevSavedMovies.filter(movie => movie._id !== movieId));
+          setSavedMovies((prevSavedMovies) =>
+          prevSavedMovies.filter(movie => movie._id !== movieId));
         })
         .catch((error) => {
           setIsErrorHandled(true);
@@ -256,12 +233,13 @@ const App = () => {
     localStorage.removeItem('searchText');
     localStorage.removeItem('isShortFilm');
   };
-
   const handleSignOut = () => {
+
     clearUserData();
     setIsLoggedIn(false);
-    mainApi.setAuthorization("");
+    mainApi.setAuthorization(false);
     setCurrentUser({});
+    setSavedMovies([]);
     navigate("/");
   };
 
@@ -285,15 +263,14 @@ const App = () => {
                 <ProtectedRoute
                   element={Movies}
                   loggedIn={isLoggedIn}
-                  setIsLoading={setIsLoading}
                   setMoviesData={setMoviesData}
                   moviesData={moviesData}
                   savedMovies={savedMovies}
                   isLoading={isLoading}
+                  setIsLoading={setIsLoading}
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
                   setSavedMovies={setSavedMovies}
-
                 />}
             />
 
@@ -303,12 +280,12 @@ const App = () => {
                 <ProtectedRoute
                   element={SavedMovies}
                   loggedIn={isLoggedIn}
-                  isLoading={isLoading}
                   setSavedMovies={setSavedMovies}
                   savedMovies={savedMovies}
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
-
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
                 />}
             />
 
