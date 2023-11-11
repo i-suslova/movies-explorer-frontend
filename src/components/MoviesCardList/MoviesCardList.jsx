@@ -58,26 +58,33 @@ const MoviesCardList = (props) => {
     ? removeDuplicateMovies(searchResults.map(result => result.movies).flat())
     : [];
 
-  const handleResize = () => {
-    const screenWidth = window.innerWidth;
-
-    if (screenWidth > 865) {
-      setCardsPerPage(cardsPerPage || 16);
-    } else if (screenWidth > 750) {
-      setCardsPerPage(cardsPerPage || 12);
-    } else {
-      setCardsPerPage(cardsPerPage || 5);
-    }
-  };
-
   useEffect(() => {
+    let resizeTimer;
+
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth > 865) {
+          setCardsPerPage(cardsPerPage || 16);
+        } else if (screenWidth > 750) {
+          setCardsPerPage(cardsPerPage || 12);
+        } else if (screenWidth >= 318) {
+          setCardsPerPage(cardsPerPage || 5);
+        } else {
+          setCardsPerPage(0);
+        }
+      }, 200);
+    };
+
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [cardsPerPage]);
 
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
