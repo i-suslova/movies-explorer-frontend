@@ -1,11 +1,17 @@
-import React, { useState} from 'react';
-
+import React, { useState } from 'react';
 
 import './MoviesCard.css';
 import { MOVIES_API_URL } from '../../utils/constants'
 
 const MoviesCard = (props) => {
-  const { movie, onSaveMovie, onDeleteMovie, savedMovies, isSavedMovies } = props;
+  const {
+    movie,
+    onSaveMovie,
+    onDeleteMovie,
+    savedMovies,
+    isSavedMovies
+  } = props;
+  
   const isSavedInThisComponent = isSavedMovies
     ? savedMovies.some(savedMovie => savedMovie._id === movie._id)
     : savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
@@ -20,7 +26,7 @@ const MoviesCard = (props) => {
 
   const handleToggleClick = () => {
     if (isSavedMovies) {
-      // компонент сохраненных фильмов
+
       if (onDeleteMovie) {
         const savedMovie = savedMovies.some(savedMovie => savedMovie._id === movie._id);
         if (savedMovie) {
@@ -28,7 +34,7 @@ const MoviesCard = (props) => {
         }
       }
     } else {
-      // компоненте фильмов
+
       if (isSaved) {
         if (onDeleteMovie) {
           const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);

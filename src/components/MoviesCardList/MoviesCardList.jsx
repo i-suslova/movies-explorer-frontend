@@ -1,39 +1,106 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
 import './MoviesCardList.css';
-
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = (props) => {
   const {
+
     searchResults,
     onSaveMovie,
     onDeleteMovie,
     savedMovies,
     isSavedMovies,
-    setSavedMovies
+    setSavedMovies,
+    componentType,
   } = props;
 
   const [movies, setMovies] = useState(savedMovies);
-
-  const path = useLocation().pathname;
-  const isSavedMoviesPath = path === '/saved-movies';
 
   useEffect(() => {
     setMovies(savedMovies);
   }, [savedMovies]);
 
+  const path = useLocation().pathname;
+  const isSavedMoviesPath = path === '/saved-movies';
+
+  const [cardsPerPage, setCardsPerPage] = useState(0);
+
+  // считаем все карточки из поисковой строки
+  const calculateTotalMovies = () => {
+    let total = 0;
+
+    if (searchResults) {
+      searchResults.forEach((searchResult) => {
+        total += searchResult.movies ? searchResult.movies.length : 0;
+      });
+    }
+    return total;
+  };
+  const totalMovies = calculateTotalMovies();
+
+  // отфильтровываем карточки с одинаковым ключом {movie._id}
+  const removeDuplicateMovies = (movies) => {
+    const uniqueMovies = [];
+    const movieIds = new Set();
+
+    movies.forEach((movie) => {
+      if (movie && movie.id && !movieIds.has(movie.id)) {
+        uniqueMovies.push(movie);
+        movieIds.add(movie.id);
+      }
+    });
+
+    return uniqueMovies;
+  };
+
+  const filteredMovies = searchResults && searchResults.length > 0
+    ? removeDuplicateMovies(searchResults.map(result => result.movies).flat())
+    : [];
+
+  const handleResize = () => {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth > 865) {
+      setCardsPerPage(cardsPerPage || 16);
+    } else if (screenWidth > 750) {
+      setCardsPerPage(cardsPerPage || 12);
+    } else {
+      setCardsPerPage(cardsPerPage || 5);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // загрузка дополнительных карточек при помощи кнопки
+  const handleLoadMore = () => {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth >= 865) {
+      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 4);
+    } else {
+      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 2);
+    }
+  };
+
+   console.log('totalMovies', totalMovies)
+
   return (
     <section className='movies-card-list'>
-
       <ul className='movies-card-list__page'>
-
         {isSavedMoviesPath && (
           <>
             {savedMovies
               ? savedMovies.map((movie) => (
-                <li key={movie._id || movie.movieId} className='movies-card-list__item'>
+                <li key={movie._id || movie.movieId}
+                  className='movies-card-list__item'>
                   <MoviesCard
                     key={movie._id}
                     movie={movie}
@@ -45,36 +112,45 @@ const MoviesCardList = (props) => {
                   />
                 </li>
               ))
-              : null
-            }
+              : null}
           </>
         )}
         {!isSavedMoviesPath && (
-          <>
-            {searchResults && searchResults.map((searchResult) => (
-              searchResult.movies && searchResult.movies.map((movie) => (
 
-                <li key={movie.id} className='movies-card-list__item'>
-                  <MoviesCard
-                    key={movie._id}
-                    movie={movie}
-                    onSaveMovie={onSaveMovie}
-                    onDeleteMovie={onDeleteMovie}
-                    savedMovies={savedMovies}
-                    isSavedMovies={isSavedMovies}
-                    setSavedMovies={setSavedMovies}
-                  />
-                </li>
-              ))
+          <>
+            {filteredMovies
+            .slice(0, cardsPerPage)
+
+            .map((movie) => (
+              <li key={movie.id} className='movies-card-list__item'>
+                <MoviesCard
+                  key={movie._id}
+                  movie={movie}
+                  onSaveMovie={onSaveMovie}
+                  onDeleteMovie={onDeleteMovie}
+                  savedMovies={savedMovies}
+                  isSavedMovies={isSavedMovies}
+                  setSavedMovies={setSavedMovies}
+                />
+              </li>
             ))}
           </>
         )}
       </ul>
 
-      <button className='movies-card-list__button hover' type='button'>
-        Ещё
-      </button>
-    </section>
+      {componentType === 'movies' &&
+        searchResults && filteredMovies.length > cardsPerPage  && (
+          <button
+            className='movies-card-list__button hover'
+            type='button'
+            onClick={handleLoadMore}
+          >
+            Ещё
+          </button>
+        )
+        // )
+      }
+    </section >
   );
 };
 

@@ -17,13 +17,11 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
-
-
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = useLocation().pathname;
-
+ 
   //данные текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
   //отслеживанем данные входа
@@ -234,7 +232,6 @@ const App = () => {
     localStorage.removeItem('isShortFilm');
   };
   const handleSignOut = () => {
-
     clearUserData();
     setIsLoggedIn(false);
     mainApi.setAuthorization(false);

@@ -5,7 +5,6 @@ import find from '../../images/find.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = (props) => {
-
   const {
     onSearch,
     searchResults,
@@ -15,13 +14,14 @@ const SearchForm = (props) => {
     isShortFilm,
     setIsShortFilm,
     handleRestoreMovies,
+    isShortFilmChecked,
+    setIsShortFilmChecked,
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSearch = (e) => {
-
     e.preventDefault();
 
     if (searchValue.trim() === '') {
@@ -58,16 +58,21 @@ const SearchForm = (props) => {
         setErrorMessage('Такой запрос уже был.');
         return;
       }
-
       onSearch(searchValue, isShortFilm);
-
     }
   };
 
-  const handleFilterChange = () => {
+  const handleFilterChangeMovies = () => {
     setIsShortFilm(!isShortFilm);
+  };
+
+  const handleFilterChangeSavedMovies = () => {
+    setIsShortFilm(!isShortFilm);
+    setIsShortFilmChecked(!isShortFilmChecked);
     onSearch(searchValue, !isShortFilm);
   };
+
+
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
@@ -106,11 +111,11 @@ const SearchForm = (props) => {
 
       {componentType === 'movies' && (
 
-        <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isShortFilm} />
+        <FilterCheckbox onFilterChange={handleFilterChangeMovies} isChecked={isShortFilm} />
       )}
 
       {componentType === 'savedMovies' && (
-        <FilterCheckbox onFilterChange={handleFilterChange} isChecked={isShortFilm} />
+        <FilterCheckbox onFilterChange={handleFilterChangeSavedMovies} isChecked={isShortFilmChecked} />
       )}
 
       <div className='search__line-stroke' />

@@ -63,13 +63,12 @@ const Movies = (props) => {
 
   }, []);
 
-    useEffect(() => {
-      setIsLoading(true);
+  useEffect(() => {
+    setIsLoading(true);
     moviesApi.getInitialMovies()
       .then((movies) => {
         setMoviesData(movies);
         setFilteredMovies(movies);
-
       })
       .catch((error) => {
         console.error('Ошибка:', error);
@@ -79,24 +78,6 @@ const Movies = (props) => {
       });
 
   }, []);
-
-  // useEffect(() => {
-  //   if (!moviesData.length) {
-  //     setIsLoading(true); // Set loading to true when starting the data fetch
-  //     moviesApi.getInitialMovies()
-  //       .then((movies) => {
-  //         setMoviesData(movies);
-  //         setFilteredMovies(movies);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Ошибка:', error);
-  //       })
-  //       .finally(() => {
-  //         setIsLoading(false); // Set loading to false when data fetching is complete
-  //       });
-  //   }
-  // }, [moviesData]);
-
 
   return (
     <main>
@@ -126,6 +107,8 @@ const Movies = (props) => {
               onDeleteMovie={onDeleteMovie}
               savedMovies={savedMovies}
               isSavedMovies={false}
+              componentType="movies"
+
             />
           )
         )}

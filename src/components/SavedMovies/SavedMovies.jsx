@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './SavedMovies.css';
 
@@ -8,6 +7,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import filterMovies from '../../utils/filterMovies';
+import Preloader from '../Preloader/Preloader';
 
 const SavedMovies = (props) => {
   const {
@@ -16,19 +16,29 @@ const SavedMovies = (props) => {
     onDeleteMovie,
     setSavedMovies,
     onSaveMovie,
-    isLoading,
     setIsLoading,
+    isLoading,
   } = props;
 
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
   const [searchResults, setSearchResults] = useState([]);
   const [isShortFilm, setIsShortFilm] = useState(false);
+  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [restoreMovies, setRestoreMovies] = useState(savedMovies);
 
-  const handleSearch = (newSearchText, newIsShortFilm) => {
 
+  useEffect(() => {
+    setIsLoading(false);
+    setFilteredMovies(savedMovies);
+  }, [savedMovies, setIsLoading]);
+
+  useEffect(() => {
+    setIsShortFilm(isShortFilmChecked);
+  }, [isShortFilmChecked]);
+
+  const handleSearch = (newSearchText, newIsShortFilm) => {
     setIsLoading(true);
 
     const newFilteredMovies = filterMovies(savedMovies, newSearchText, newIsShortFilm);
@@ -58,6 +68,7 @@ const SavedMovies = (props) => {
     if (restoreMovies.length > 0) {
       setFilteredMovies(restoreMovies);
       setIsMovieFound(true);
+      setIsShortFilmChecked(false);
     }
   };
 
@@ -70,6 +81,8 @@ const SavedMovies = (props) => {
           onSearch={handleSearch}
           onFilterChange={handleFilterChange}
           isShortFilm={isShortFilm}
+          isShortFilmChecked={isShortFilmChecked}
+          setIsShortFilmChecked={setIsShortFilmChecked}
           setIsShortFilm={setIsShortFilm}
           searchResults={searchResults}
           isMovieFound={isMovieFound}
@@ -78,16 +91,20 @@ const SavedMovies = (props) => {
           handleRestoreMovies={handleRestoreMovies}
         />
 
-        {filteredMovies.length > 0 && (
-          <MoviesCardList
-            searchResults={searchResults}
-            onDeleteMovie={onDeleteMovie}
-            isSavedMovies={true}
-            setSavedMovies={setSavedMovies}
-            onSaveMovie={onSaveMovie}
-            savedMovies={filteredMovies}
-            isShortFilm={isShortFilm}
-          />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          (filteredMovies.length > 0 && (
+            <MoviesCardList
+              searchResults={searchResults}
+              onDeleteMovie={onDeleteMovie}
+              isSavedMovies={true}
+              setSavedMovies={setSavedMovies}
+              onSaveMovie={onSaveMovie}
+              savedMovies={filteredMovies}
+              isShortFilm={isShortFilm}
+            />
+          ))
         )}
 
       </section>
