@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import './MoviesCardList.css';
+
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = (props) => {
@@ -25,6 +27,7 @@ const MoviesCardList = (props) => {
   const isSavedMoviesPath = path === '/saved-movies';
 
   const [cardsPerPage, setCardsPerPage] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   // считаем все карточки из поисковой строки
   const calculateTotalMovies = () => {
@@ -62,19 +65,22 @@ const MoviesCardList = (props) => {
     let resizeTimer;
 
     const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const screenWidth = window.innerWidth;
 
-        if (screenWidth > 865) {
-          setCardsPerPage(cardsPerPage || 16);
-        } else if (screenWidth > 750) {
-          setCardsPerPage(cardsPerPage || 12);
-        } else if (screenWidth >= 318) {
-          setCardsPerPage(cardsPerPage || 5);
-        } else {
-          setCardsPerPage(0);
-        }
+        setCardsPerPage((prevCardsPerPage) => {
+          if (screenWidth > 865) {
+            return prevCardsPerPage || 16;
+          } else if (screenWidth > 750) {
+            return prevCardsPerPage || 12;
+          } else if (screenWidth >= 318) {
+            return prevCardsPerPage || 5;
+          } else {
+            return 0;
+          }
+        });
       }, 200);
     };
 
@@ -84,11 +90,11 @@ const MoviesCardList = (props) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
   }, [cardsPerPage]);
 
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
-    const screenWidth = window.innerWidth;
 
     if (screenWidth >= 865) {
       setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 4);
@@ -97,7 +103,24 @@ const MoviesCardList = (props) => {
     }
   };
 
-   console.log('totalMovies', totalMovies)
+  useEffect(() => {
+    const storedLoadMore = JSON.parse(localStorage.getItem('loadMore')) || {};
+    setCardsPerPage((prevCardsPerPage) => storedLoadMore.cardsPerPage || prevCardsPerPage);
+    setScreenWidth((prevScreenWidth) => storedLoadMore.screenWidth || prevScreenWidth);
+  }, []);
+
+  useEffect(() => {
+    const storedLoadMore = {
+      cardsPerPage,
+      screenWidth,
+    };
+    localStorage.setItem('loadMore', JSON.stringify(storedLoadMore));
+  }, [cardsPerPage, screenWidth]);
+
+
+  console.log('totalMovies', totalMovies)
+  console.log('cardsPerPage', cardsPerPage)
+  console.log('savedMovies', savedMovies)
 
   return (
     <section className='movies-card-list'>
@@ -105,7 +128,7 @@ const MoviesCardList = (props) => {
         {isSavedMoviesPath && (
           <>
             {savedMovies
-              ? savedMovies.map((movie) => (
+              ? savedMovies.slice(0, cardsPerPage).map((movie) => (
                 <li key={movie._id || movie.movieId}
                   className='movies-card-list__item'>
                   <MoviesCard
@@ -125,10 +148,7 @@ const MoviesCardList = (props) => {
         {!isSavedMoviesPath && (
 
           <>
-            {filteredMovies
-            .slice(0, cardsPerPage)
-
-            .map((movie) => (
+            {filteredMovies.slice(0, cardsPerPage).map((movie) => (
               <li key={movie.id} className='movies-card-list__item'>
                 <MoviesCard
                   key={movie._id}
@@ -146,7 +166,7 @@ const MoviesCardList = (props) => {
       </ul>
 
       {componentType === 'movies' &&
-        searchResults && filteredMovies.length > cardsPerPage  && (
+        searchResults && filteredMovies.length > cardsPerPage && (
           <button
             className='movies-card-list__button hover'
             type='button'
@@ -155,11 +175,11 @@ const MoviesCardList = (props) => {
             Ещё
           </button>
         )
-        // )
       }
     </section >
   );
 };
 
 export default MoviesCardList;
+
 
