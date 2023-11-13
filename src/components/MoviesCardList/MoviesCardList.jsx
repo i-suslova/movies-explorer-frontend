@@ -28,19 +28,20 @@ const MoviesCardList = (props) => {
 
   const [cardsPerPage, setCardsPerPage] = useState(0);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [loadMoreClicked, setLoadMoreClicked] = useState(false);
 
   // считаем все карточки из поисковой строки
-  const calculateTotalMovies = () => {
-    let total = 0;
+  // const calculateTotalMovies = () => {
+  //   let total = 0;
 
-    if (searchResults) {
-      searchResults.forEach((searchResult) => {
-        total += searchResult.movies ? searchResult.movies.length : 0;
-      });
-    }
-    return total;
-  };
-  const totalMovies = calculateTotalMovies();
+  //   if (searchResults) {
+  //     searchResults.forEach((searchResult) => {
+  //       total += searchResult.movies ? searchResult.movies.length : 0;
+  //     });
+  //   }
+  //   return total;
+  // };
+  // const totalMovies = calculateTotalMovies();
 
   // отфильтровываем карточки с одинаковым ключом {movie._id}
   const removeDuplicateMovies = (movies) => {
@@ -57,7 +58,7 @@ const MoviesCardList = (props) => {
     return uniqueMovies;
   };
 
-  const filteredMovies = searchResults && searchResults.length > 0
+  const filteredMoviesId = searchResults && searchResults.length > 0
     ? removeDuplicateMovies(searchResults.map(result => result.movies).flat())
     : [];
 
@@ -74,13 +75,14 @@ const MoviesCardList = (props) => {
           if (screenWidth > 865) {
             return prevCardsPerPage || 16;
           } else if (screenWidth > 750) {
-            return prevCardsPerPage || 12;
+            return prevCardsPerPage || 8;
           } else if (screenWidth >= 318) {
             return prevCardsPerPage || 5;
           } else {
             return 0;
           }
         });
+
       }, 200);
     };
 
@@ -95,7 +97,7 @@ const MoviesCardList = (props) => {
 
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
-
+    setLoadMoreClicked(true);
     if (screenWidth >= 865) {
       setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 4);
     } else {
@@ -106,21 +108,21 @@ const MoviesCardList = (props) => {
   useEffect(() => {
     const storedLoadMore = JSON.parse(localStorage.getItem('loadMore')) || {};
     setCardsPerPage((prevCardsPerPage) => storedLoadMore.cardsPerPage || prevCardsPerPage);
-    setScreenWidth((prevScreenWidth) => storedLoadMore.screenWidth || prevScreenWidth);
+    setScreenWidth((prevScreenWidth) => storedLoadMore.screenWidth || prevScreenWidth || window.innerWidth);
   }, []);
 
   useEffect(() => {
-    const storedLoadMore = {
-      cardsPerPage,
-      screenWidth,
-    };
-    localStorage.setItem('loadMore', JSON.stringify(storedLoadMore));
-  }, [cardsPerPage, screenWidth]);
+    if (loadMoreClicked) {
+      const storedLoadMore = {
+        cardsPerPage,
+        screenWidth,
+      };
+      localStorage.setItem('loadMore', JSON.stringify(storedLoadMore));
+    }
+  }, [cardsPerPage, screenWidth, loadMoreClicked]);
 
-
-  console.log('totalMovies', totalMovies)
-  console.log('cardsPerPage', cardsPerPage)
-  console.log('savedMovies', savedMovies)
+  // console.log('totalMovies', totalMovies)
+  // console.log('cardsPerPage', cardsPerPage)
 
   return (
     <section className='movies-card-list'>
@@ -148,7 +150,7 @@ const MoviesCardList = (props) => {
         {!isSavedMoviesPath && (
 
           <>
-            {filteredMovies.slice(0, cardsPerPage).map((movie) => (
+            {filteredMoviesId.slice(0, cardsPerPage).map((movie) => (
               <li key={movie.id} className='movies-card-list__item'>
                 <MoviesCard
                   key={movie._id}
@@ -166,11 +168,14 @@ const MoviesCardList = (props) => {
       </ul>
 
       {componentType === 'movies' &&
-        searchResults && filteredMovies.length > cardsPerPage && (
+        searchResults && filteredMoviesId.length > cardsPerPage && (
           <button
             className='movies-card-list__button hover'
             type='button'
-            onClick={handleLoadMore}
+            onClick={() => {
+              handleLoadMore();
+              setLoadMoreClicked(true);
+            }}
           >
             Ещё
           </button>

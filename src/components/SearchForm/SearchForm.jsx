@@ -61,7 +61,6 @@ const SearchForm = (props) => {
       onSearch(searchValue, isShortFilm);
     }
   };
-
   const handleFilterChangeMovies = () => {
     setIsShortFilm(!isShortFilm);
   };
@@ -71,8 +70,6 @@ const SearchForm = (props) => {
     setIsShortFilmChecked(!isShortFilmChecked);
     onSearch(searchValue, !isShortFilm);
   };
-
-
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);

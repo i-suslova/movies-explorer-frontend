@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import './Login.css';
 
 import BasicForm from '../BasicForm/BasicForm';
 import useForm from '../../hooks/useForm';
 
-// const Login = ({onLogin}) => {
 const Login = (props) => {
   const { onLogin, errorMessage, setErrorMessage } = props;
   const { inputValues, handleChange, errors, isValidForm } = useForm();
@@ -54,7 +53,6 @@ const Login = (props) => {
             value={inputValues.email || ""}
             onChange={handleChange}
             onClick={handleInputClick}
-            // autoComplete="email"
           />
           <span className='basic-form__error'>{errors.email}</span>
 

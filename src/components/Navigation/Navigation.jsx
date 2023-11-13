@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 import './Navigation.css'
+
 import AuthNavigation from '../AuthNavigation/AuthNavigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import logoProfileWhite from '../../images/profileWhite.svg';
@@ -16,30 +17,22 @@ const Navigation = (props) => {
   const [logoType, setLogoType] = useState(logoProfileBlack);
   // состояние для отслеживания открытия/закрытия бургер-меню
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  // состояние для отслеживания активного пункта навигации
   const [activeNavItem, setActiveNavItem] = useState('');
 
-  // устанавливаем активный пункт в зависимости от текущего пути
- useEffect(() => {
-
+  useEffect(() => {
     if (location.pathname === '/movies') {
-
       setActiveNavItem('Фильмы');
-
     } else if (location.pathname === '/saved-movies') {
       setActiveNavItem('Сохранённые фильмы');
-
     }
     else {
       setActiveNavItem('');
     }
-
     if (location.pathname === '/') {
       setLogoType(logoProfileWhite);
     } else {
       setLogoType(logoProfileBlack);
     }
-
   }, [location.pathname]);
 
   const handleNavItemClick = (itemName) => {
@@ -58,6 +51,15 @@ const Navigation = (props) => {
 
   const handleBurgerButtonClick = () => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  };
+
+  const handleLogoClick = (event) => {
+    event.preventDefault();
+    if (location.pathname === '/profile') {
+      navigate('/movies');
+    } else {
+      navigate('/profile');
+    }
   };
 
   return (
@@ -82,7 +84,7 @@ const Navigation = (props) => {
               </li>
             </ul>
 
-            <Link className='navigation__link hover' to='/profile'>
+            <Link className='navigation__link hover' to='/profile' onClick={handleLogoClick}>
               <img src={logoType} alt='вход в аккаунт' />
             </Link>
 

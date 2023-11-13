@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import './Register.css';
 
 import BasicForm from '../BasicForm/BasicForm';
 import useForm from '../../hooks/useForm';
 
-  const Register = (props) => {
-    const navigate = useNavigate();
 
-  const { loggedIn, onRegistration , errorMessage, setErrorMessage, isSuccessResponse, setIsSuccessResponse } = props;
-  const { inputValues, handleChange, errors, isValidForm , resetForm} = useForm();
+const Register = (props) => {
+  const {
+    loggedIn,
+    onRegistration,
+    errorMessage,
+    setErrorMessage,
+    isSuccessResponse,
+    setIsSuccessResponse
+  } = props;
+
+  const { inputValues, handleChange, errors, isValidForm, resetForm } = useForm();
 
   const handleRegisterSubmit = (e) => {
     if (e) {
@@ -24,23 +30,14 @@ import useForm from '../../hooks/useForm';
   };
 
   useEffect(() => {
-    if ( loggedIn) resetForm();
-  }, [ loggedIn, resetForm]);
+    if (loggedIn) resetForm();
+  }, [loggedIn, resetForm]);
 
   useEffect(() => {
     return () => {
       setErrorMessage('');
     };
   }, [setErrorMessage]);
-
-  useEffect(() => {
-    if (isSuccessResponse) {
-      const timeoutId = setTimeout(() => {
-        setIsSuccessResponse(false);
-        navigate('/movies');
-      }, 3000);
-    }
-  }, [isSuccessResponse, navigate, setIsSuccessResponse]);
 
   return (
     <main>
@@ -54,6 +51,7 @@ import useForm from '../../hooks/useForm';
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
         isSuccessResponse={isSuccessResponse}
+        setIsSuccessResponse={setIsSuccessResponse}
       >
         <section className='basic-form__form' >
 

@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
 import './Movies.css';
+
+import iconRefusal from "../../images/iconRefusal.svg";
+
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import moviesApi from "../../utils/MoviesApi";
 import filterMovies from '../../utils/filterMovies';
 import Preloader from '../Preloader/Preloader';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const Movies = (props) => {
   const {
     loggedIn,
     setMoviesData,
     moviesData,
+    savedMovies,
     onSaveMovie,
     onDeleteMovie,
-    savedMovies,
     isLoading,
     setIsLoading,
   } = props;
@@ -27,6 +30,7 @@ const Movies = (props) => {
   const [searchText, setSearchText] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
+  const [errorLoadingMovies, setErrorLoadingMovies] = useState(false);
 
   const handleSearch = (searchText) => {
 
@@ -60,24 +64,29 @@ const Movies = (props) => {
     setSearchText(storedSearchText);
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
-
   }, []);
 
   useEffect(() => {
+
     setIsLoading(true);
     moviesApi.getInitialMovies()
       .then((movies) => {
         setMoviesData(movies);
         setFilteredMovies(movies);
       })
-      .catch((error) => {
-        console.error('Ошибка:', error);
+      .catch(() => {
+        setErrorLoadingMovies(true);
+        console.error(
+          'Во время запроса произошла ошибка. ' +
+          'Возможно, проблема с соединением или сервер недоступен. ' +
+          'Подождите немного и попробуйте ещё раз.'
+        );
       })
       .finally(() => {
         setIsLoading(false);
       });
-
-  }, []);
+    }, [setIsLoading, setMoviesData]);
+  // }, []);
 
   return (
     <main>
@@ -98,6 +107,15 @@ const Movies = (props) => {
 
         {isLoading ? (
           <Preloader />
+        ) : errorLoadingMovies ? (
+          <InfoTooltip
+            isOpen={true}
+            onClose={() => setErrorLoadingMovies(false)}
+            iconImage={iconRefusal}
+            popupMessage="Во время запроса произошла ошибка.
+             Возможно, проблема с соединением или сервер недоступен.
+             Подождите немного и попробуйте ещё раз."
+          />
         ) : (
           (searchText || searchResults.length > 0) &&
           filteredMovies.length > 0 && (
@@ -108,7 +126,6 @@ const Movies = (props) => {
               savedMovies={savedMovies}
               isSavedMovies={false}
               componentType="movies"
-
             />
           )
         )}
@@ -120,3 +137,4 @@ const Movies = (props) => {
 }
 
 export default Movies;
+

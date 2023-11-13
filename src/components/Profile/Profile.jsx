@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import './Profile.css';
 
@@ -9,9 +8,17 @@ import EditButton from '../EditButton/EditButton';
 import useForm from '../../hooks/useForm';
 
 const Profile = (props) => {
-  const navigate = useNavigate();
 
-  const { loggedIn, onUpdateUser, onSignOut, errorMessage, setErrorMessage, isSuccessResponse, setIsSuccessResponse } = props;
+  const {
+    loggedIn,
+    onUpdateUser,
+    onSignOut,
+    errorMessage,
+    setErrorMessage,
+    isSuccessResponse,
+    setIsSuccessResponse,
+  } = props;
+
   const currentUser = React.useContext(CurrentUserContext);
   const { inputValues, handleChange, errors, isValidForm } = useForm();
   const [isDataChanged, setIsDataChanged] = useState(false);
@@ -43,15 +50,6 @@ const Profile = (props) => {
       setErrorMessage('');
     };
   }, [setErrorMessage]);
-
-  useEffect(() => {
-    if (isSuccessResponse) {
-      const timeoutId = setTimeout(() => {
-        setIsSuccessResponse(false);
-        navigate('/movies');
-      }, 3000);
-    }
-  }, [isSuccessResponse, navigate, setIsSuccessResponse]);
 
   return (
     <main>
@@ -114,7 +112,7 @@ const Profile = (props) => {
             onSubmit={handleProfileSubmit}
             errorMessage={errorMessage}
             isSuccessResponse={isSuccessResponse}
-
+            setIsSuccessResponse={setIsSuccessResponse}
           />
         ) : (
 

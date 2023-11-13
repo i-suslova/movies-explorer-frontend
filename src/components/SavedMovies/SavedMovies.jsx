@@ -13,11 +13,11 @@ const SavedMovies = (props) => {
   const {
     loggedIn,
     savedMovies,
-    onDeleteMovie,
     setSavedMovies,
     onSaveMovie,
-    setIsLoading,
+    onDeleteMovie,
     isLoading,
+    setIsLoading,
   } = props;
 
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
@@ -27,7 +27,6 @@ const SavedMovies = (props) => {
   const [isMovieFound, setIsMovieFound] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [restoreMovies, setRestoreMovies] = useState(savedMovies);
-
 
   useEffect(() => {
     setIsLoading(false);
