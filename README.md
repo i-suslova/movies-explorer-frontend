@@ -2,6 +2,8 @@
 
 Работа сделана в рамках дипломной работы при прохождении курса в [**_ЯндексПрактикум_**](https://practicum.yandex.ru/web/).
 
+## Вёрстка и JSX
+
 :arrow_right: Реализовано.
 
 - Проект адаптирован под различные разрешения экрана.
@@ -11,4 +13,20 @@
 - Инфраструктурные файлы проекта созданы через CRA.
 - Разметка портирована в JSX.
 
+## React и JS
+
+:arrow_right: Реализовано.
+
+- Регистрация, авторизация и аутентификация.
+- Асинхронные GET- и POST-запросы к API.
+- Ошибки от API обработанЫ, пользователю сообщается об ошибках.
+- Фильтрация данных на стороне клиента.
+- Подключена база данных фильмов.
+- Фильмы можно добавлять в сохраненные.
+- Карточки содержат ссылку на трейлер.
+
  :arrow_right:  Макет-Figma light-2:   [**_ССЫЛКА НА МАКЕТ_**](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-298&mode=design&t=QcN12ku3XxkvDWHz-0).
+
+ :arrow_right:  Макет-Figma light-2:   [**_ССЫЛКА НА PULL REQUEST_**](https://github.com/i-suslova/movies-explorer-frontend/tree/level-3).
+
+ :arrow_right:  Макет-Figma light-2:   [**_ССЫЛКА НА САЙТ_**](https://isus.movies.nomoredomainsicu.ru).
