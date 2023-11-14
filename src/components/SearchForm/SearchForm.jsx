@@ -76,6 +76,14 @@ const SearchForm = (props) => {
     setErrorMessage('');
   };
 
+  // обработчик `Enter`
+  const handleKey = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch(e);
+    }
+  };
+
   return (
     <section className='search'>
       <form className='search__form'
@@ -89,6 +97,7 @@ const SearchForm = (props) => {
           value={searchValue}
           onChange={handleChange}
           onClick={handleSearch}
+          onKeyDown={handleKey}
         />
         <img
           className='search__button hover'
