@@ -48,7 +48,6 @@ const Movies = (props) => {
       setFilteredMovies(newFilteredMovies);
       setIsMovieFound(true);
     } else {
-
       setIsMovieFound(false);
     }
   };
@@ -65,6 +64,7 @@ const Movies = (props) => {
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
   }, []);
+
 
   useEffect(() => {
 
@@ -85,8 +85,7 @@ const Movies = (props) => {
       .finally(() => {
         setIsLoading(false);
       });
-    }, [setIsLoading, setMoviesData]);
-  // }, []);
+  }, [setIsLoading, setMoviesData]);
 
   return (
     <main>

@@ -261,7 +261,6 @@ const App = () => {
                   onDeleteMovie={handleDeleteMovie}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
-                  // setSavedMovies={setSavedMovies}
                 />}
             />
 

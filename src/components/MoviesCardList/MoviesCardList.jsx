@@ -30,19 +30,6 @@ const MoviesCardList = (props) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [loadMoreClicked, setLoadMoreClicked] = useState(false);
 
-  // считаем все карточки из поисковой строки
-  // const calculateTotalMovies = () => {
-  //   let total = 0;
-
-  //   if (searchResults) {
-  //     searchResults.forEach((searchResult) => {
-  //       total += searchResult.movies ? searchResult.movies.length : 0;
-  //     });
-  //   }
-  //   return total;
-  // };
-  // const totalMovies = calculateTotalMovies();
-
   // отфильтровываем карточки с одинаковым ключом {movie._id}
   const removeDuplicateMovies = (movies) => {
     const uniqueMovies = [];
@@ -93,7 +80,7 @@ const MoviesCardList = (props) => {
       window.removeEventListener('resize', handleResize);
     };
 
-  }, [cardsPerPage]);
+  }, [cardsPerPage, screenWidth]);
 
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
@@ -120,9 +107,6 @@ const MoviesCardList = (props) => {
       localStorage.setItem('loadMore', JSON.stringify(storedLoadMore));
     }
   }, [cardsPerPage, screenWidth, loadMoreClicked]);
-
-  // console.log('totalMovies', totalMovies)
-  // console.log('cardsPerPage', cardsPerPage)
 
   return (
     <section className='movies-card-list'>
