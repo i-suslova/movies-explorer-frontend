@@ -29,4 +29,4 @@
 
  :arrow_right:  [**_ССЫЛКА НА PULL REQUEST_**](https://github.com/i-suslova/movies-explorer-frontend/tree/).
 
- :arrow_right:  [**_ССЫЛКА НА САЙТ_**](https://isus.movies.nomoredomainsicu.ru).
+ :arrow_right:  [**_ССЫЛКА НА САЙТ_**](https://isus.movies.nomoredomainsmonster.ru/movies).
