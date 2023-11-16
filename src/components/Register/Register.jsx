@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 
 import './Register.css';
@@ -38,6 +39,21 @@ const Register = (props) => {
       setErrorMessage('');
     };
   }, [setErrorMessage]);
+=======
+import './Register.css';
+
+import BasicForm from '../BasicForm/BasicForm';
+import { useValidation } from '../../utils/validation';
+
+const Register = () => {
+  const {
+    formData,
+    errors,
+    errorMessage,
+    handleChange,
+    // handleSubmit
+  } = useValidation({ name: '', email: '', password: '' });
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 
   return (
     <main>
@@ -47,12 +63,18 @@ const Register = (props) => {
         link={`/signin`}
         text={`Уже зарегистрированы?`}
         textLink={`Войти`}
+<<<<<<< HEAD
         onSubmit={handleRegisterSubmit}
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
         isSuccessResponse={isSuccessResponse}
         setIsSuccessResponse={setIsSuccessResponse}
       >
+=======
+      // onSubmit={handleSubmit}
+      >
+
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
         <section className='basic-form__form' >
 
           <label className='basic-form__label'>Имя</label>
@@ -61,12 +83,20 @@ const Register = (props) => {
             type='text'
             id='name'
             name='name'
+<<<<<<< HEAD
             required
             placeholder='Ваше имя'
             value={inputValues.name || ""}
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="off"
+=======
+            minLength={2}
+            required
+            placeholder='Виталий'
+            value={formData.name}
+            onChange={handleChange}
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           />
           <span className='basic-form__error'>{errors.name}</span>
 
@@ -76,11 +106,17 @@ const Register = (props) => {
             type='email'
             name='email'
             required
+<<<<<<< HEAD
             placeholder="Ваш email"
             value={inputValues.email || ""}
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="off"
+=======
+            placeholder='pochta@yandex.ru'
+            value={formData.email}
+            onChange={handleChange}
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -90,11 +126,17 @@ const Register = (props) => {
             type='password'
             name='password'
             required
+<<<<<<< HEAD
             placeholder='Ваш пароль'
             value={inputValues.password || ""}
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="new-password"
+=======
+            placeholder='••••••••••••••'
+            value={formData.password}
+            onChange={handleChange}
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           />
           <span className='basic-form__error'>{errors.password}</span>
 
@@ -107,3 +149,7 @@ const Register = (props) => {
 };
 
 export default Register
+<<<<<<< HEAD
+=======
+
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c

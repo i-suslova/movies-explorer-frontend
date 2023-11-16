@@ -7,7 +7,11 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0;
+<<<<<<< HEAD
   margin: 0 auto;
+=======
+  margin: 0;
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   background-color: #fcfcfc;
 }
 
@@ -17,13 +21,28 @@
   justify-content: space-between;
   width: 100%;
   max-width: 1140px;
+<<<<<<< HEAD
   margin: 60px auto 0;
+=======
+  margin: 0 auto;
+  margin: 0;
+  margin-top: 60px;
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   border-radius: 40px;
   background: #F9F9F9;
 }
 
+<<<<<<< HEAD
 .search__form:hover {
   outline: 2px solid #FF6838;
+=======
+.search__input:hover {
+  outline: 2px solid #FF6838;
+  color: #000;
+  font-size: 14px;
+  line-height: 18px;
+  /* 128.571% */
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 }
 
 .search__input {
@@ -44,6 +63,7 @@
   height: 34px;
 }
 
+<<<<<<< HEAD
 .search__error {
   width: 100%;
   max-width: 1090px;
@@ -55,6 +75,8 @@
   padding: 0 ;
 }
 
+=======
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 .search__line-stroke {
   background-color: #E8E8E8;
   height: 1px;
@@ -68,9 +90,12 @@
     margin-top: 78px;
     max-width: 708px;
   }
+<<<<<<< HEAD
   .search__error {
     max-width: 658px;
   }
+=======
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 }
 
 @media screen and (max-width: 750px) {
@@ -79,11 +104,14 @@
     padding: 0;
   }
 
+<<<<<<< HEAD
   .search__error {
     max-width: 258px;
     margin: 6px auto 15px;
   }
 
+=======
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   .search__input {
     padding: 0 13px;
   }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './MoviesCard.css';
+<<<<<<< HEAD
 import { MOVIES_API_URL } from '../../utils/constants'
 
 const MoviesCard = (props) => {
@@ -56,10 +57,23 @@ const MoviesCard = (props) => {
     : isSaved
       ? 'card__button_saved_activ'
       : 'card__button_saved'
+=======
+
+
+const MoviesCard = (props) => {
+  const [isSaved, setIsSaved] = useState(false);
+  const isInSavedMovies = props.isSavedMovies;
+  const handleSaveButtonClick = () => {
+    setIsSaved(!isSaved);
+  };
+
+  const buttonClass = `card__button hover ${isSaved ? (isInSavedMovies ? 'card__button_delete' : 'card__button_saved_activ') : 'card__button_saved'
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
     }`;
 
   return (
     <article className='card'>
+<<<<<<< HEAD
       <img
         onClick={() => window.open(movie.trailerLink, '_blank', 'noreferrer')}
         src={isSavedMovies ? movie.image : imageUrl}
@@ -70,15 +84,28 @@ const MoviesCard = (props) => {
       <p className='card__duration'>{durationMovie}</p>
 
 
+=======
+      <img src={props.movie.image}
+        alt={`Обложка фильма ${props.movie.nameRU}`}
+        className='card__photo' />
+      <h2 className='card__title'>{props.movie.nameRU}</h2>
+      <p className='card__duration'>{props.movie.duration}</p>
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
       <button
         type='button'
         className={buttonClass}
         aria-label='кнопка'
+<<<<<<< HEAD
         onClick={handleToggleClick}
       ></button>
 
 
     </article >
+=======
+        onClick={handleSaveButtonClick}
+      ></button>
+    </article>
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   );
 };
 

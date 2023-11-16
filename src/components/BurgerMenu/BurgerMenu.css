@@ -93,6 +93,13 @@
   padding-bottom: 6px;
 }
 
+<<<<<<< HEAD
+=======
+.burger-menu__item:nth-of-type(2) a {
+  border-bottom: 2px solid #000;
+}
+
+>>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 .burger-menu__item :hover {
   border-bottom: 2px solid #000;
 }
