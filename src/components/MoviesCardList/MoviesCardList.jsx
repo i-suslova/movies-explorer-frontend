@@ -16,7 +16,7 @@ const MoviesCardList = (props) => {
     setSavedMovies,
     componentType,
   } = props;
-
+// eslint-disable-next-line
   const [movies, setMovies] = useState(savedMovies);
 
   useEffect(() => {
