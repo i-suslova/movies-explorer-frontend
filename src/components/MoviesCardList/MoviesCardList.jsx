@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -167,32 +166,7 @@ const MoviesCardList = (props) => {
         )
       }
     </section >
-=======
-import React from 'react';
-import './MoviesCardList.css';
-import MoviesCard from '../MoviesCard/MoviesCard';
-
-const MoviesCardList = ({ moviesData, isSavedMovies }) => {
-  return (
-    <section className='movies-card-list'>
-      <ul className='movies-card-list__page'>
-        {moviesData.map((movie) => (
-          <li key={movie.movieId} className='movies-card-list__item'>
-            <MoviesCard movie={movie} isSavedMovies={isSavedMovies} />
-          </li>
-        ))}
-      </ul>
-      <button className='movies-card-list__button hover' type='button'>
-        Ещё
-      </button>
-    </section>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   );
 };
 
 export default MoviesCardList;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c

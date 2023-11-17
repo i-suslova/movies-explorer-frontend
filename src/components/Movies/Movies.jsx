@@ -1,20 +1,13 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 
 import './Movies.css';
 
 import iconRefusal from "../../images/iconRefusal.svg";
 
-=======
-import React from 'react'
-
-import './Movies.css';
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-<<<<<<< HEAD
 import moviesApi from "../../utils/MoviesApi";
 import filterMovies from '../../utils/filterMovies';
 import Preloader from '../Preloader/Preloader';
@@ -136,29 +129,11 @@ const Movies = (props) => {
           )
         )}
 
-=======
-import { moviesData } from '../../utils/cardsMoviesData';
-// import Preloader from '../Preloader/Preloader';
-
-const Movies = ({ loggedIn }) => {
-  return (
-    <main>
-      <Header
-        isLoggedIn={loggedIn}
-      />
-      <section className='movies'>
-        <SearchForm />
-        <MoviesCardList moviesData={moviesData} isSavedMovies={false} />
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
       </section>
       <Footer />
     </main>
   )
 }
 
-<<<<<<< HEAD
 export default Movies;
-=======
-export default Movies
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 

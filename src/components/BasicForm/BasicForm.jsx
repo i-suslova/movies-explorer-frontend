@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 import React from 'react';
-=======
-import React from 'react'
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 import { Link } from 'react-router-dom';
 
 import './BasicForm.css';
 
 import logo from '../../images/logo.svg';
-<<<<<<< HEAD
 import iconConsent from "../../images/iconConsent.svg";
 
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
@@ -32,11 +27,6 @@ const BasicForm = (props) => {
     e.preventDefault();
     onSubmit();
   }
-=======
-
-const BasicForm = (props) => {
-  const { children, title, buttonText, text, textLink, link, onSubmit } = props;
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 
   return (
     <form
@@ -44,12 +34,7 @@ const BasicForm = (props) => {
       method='post'
       className='basic-form'
       name='basic-form-form'
-<<<<<<< HEAD
       onSubmit={handleFormSubmit}
-=======
-      noValidate
-      onSubmit={onSubmit}
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
     >
       <Link
         className='basic-form__logo hover'
@@ -66,7 +51,6 @@ const BasicForm = (props) => {
       {children}
 
       <div className='basic-form__submit'>
-<<<<<<< HEAD
 
         {isSuccessResponse ? (
           <InfoTooltip
@@ -89,13 +73,6 @@ const BasicForm = (props) => {
           {buttonText}
         </button>
 
-=======
-        <span className='basic-form__main-error'></span>
-        <button
-          type='submit'
-          className='basic-form__button hover'>{buttonText}
-        </button>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
       </div>
 
       <div className='basic-form__wrapper'>
@@ -110,7 +87,3 @@ const BasicForm = (props) => {
 }
 
 export default BasicForm
-<<<<<<< HEAD
-=======
-
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
