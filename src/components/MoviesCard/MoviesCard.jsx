@@ -11,7 +11,7 @@ const MoviesCard = (props) => {
     savedMovies,
     isSavedMovies
   } = props;
-
+  
   const isSavedInThisComponent = isSavedMovies
     ? savedMovies.some(savedMovie => savedMovie._id === movie._id)
     : savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
