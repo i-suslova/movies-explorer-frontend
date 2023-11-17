@@ -27,7 +27,7 @@
 
  :arrow_right:  Макет-Figma light-2:   [**_ССЫЛКА НА МАКЕТ_**](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1-298&mode=design&t=QcN12ku3XxkvDWHz-0).
 
- :arrow_right:  [**_ССЫЛКА НА PULL REQUEST_**](https://github.com/i-suslova/movies-explorer-frontend/pull/2).
+ :arrow_right:  [**_ССЫЛКА НА PULL REQUEST_**](https://github.com/i-suslova/movies-explorer-frontend/pull/3).
 
  :arrow_right:  [**_ССЫЛКА НА САЙТ_**](https://isus.movies.nomoredomainsmonster.ru).
 
