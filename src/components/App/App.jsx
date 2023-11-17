@@ -37,6 +37,7 @@ const App = () => {
   const [isSuccessResponse, setIsSuccessResponse] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
+  // eslint-disable-next-line
   const [isErrorHandled, setIsErrorHandled] = useState(false);
 
   const handleError = (err, component) => {
@@ -114,6 +115,7 @@ const App = () => {
     } else {
       setIsLoggedIn(false);
     }
+    // eslint-disable-next-line
   }, [isLoggedIn]);
 
   const updateUserAndToken = (userDataAndToken) => {

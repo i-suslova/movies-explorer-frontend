@@ -25,7 +25,9 @@ const SavedMovies = (props) => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
+  // eslint-disable-next-line
   const [searchText, setSearchText] = useState('');
+  // eslint-disable-next-line
   const [restoreMovies, setRestoreMovies] = useState(savedMovies);
 
   useEffect(() => {
