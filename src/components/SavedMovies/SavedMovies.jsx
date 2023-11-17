@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
-=======
-import React from 'react'
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 
 import './SavedMovies.css';
 
@@ -10,7 +6,6 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-<<<<<<< HEAD
 import filterMovies from '../../utils/filterMovies';
 import Preloader from '../Preloader/Preloader';
 
@@ -118,25 +113,3 @@ const SavedMovies = (props) => {
 };
 
 export default SavedMovies;
-=======
-import { saveMoviesData } from '../../utils/cardsMoviesData';
-// import Preloader from '../Preloader/Preloader';
-
-const SavedMovies = () => {
-  return (
-    <main>
-      <Header
-      />
-      <section className='movies'>
-        <SearchForm />
-        <MoviesCardList moviesData={saveMoviesData} isSavedMovies={true} />
-      </section>
-      <Footer />
-    </main>
-  )
-}
-
-export default SavedMovies
-
-
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c

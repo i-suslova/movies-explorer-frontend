@@ -1,4 +1,4 @@
-// всё ок
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -17,7 +17,3 @@ root.render(
 );
 
 reportWebVitals();
-<<<<<<< HEAD
-
-=======
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c

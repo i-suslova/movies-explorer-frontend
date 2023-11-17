@@ -53,13 +53,8 @@
 }
 
 .preloader__container {
-<<<<<<< HEAD
   width: 200px;
   height: 200px;
-=======
-  width: 100px;
-  height: 100px;
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   position: relative;
 }
 
@@ -67,17 +62,11 @@
   width: 100px;
   height: 100px;
   position: absolute;
-<<<<<<< HEAD
   transform: translate(50%, 50%);
-=======
-  top: 0;
-  left: 0;
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   background: #FF6838;
   border-radius: 50px;
 }
 
-<<<<<<< HEAD
 .preloader__round-big {
   width: 200px;
   height: 200px;
@@ -86,15 +75,12 @@
   border-radius: 100px;
 }
 
-=======
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 .preloader__round::after,
 .preloader__round::before {
   content: '';
   width: 100px;
   height: 100px;
   position: absolute;
-<<<<<<< HEAD
   transform: translate(50%, 50%);
   border-radius: 50px;
 }
@@ -109,13 +95,6 @@
   border-radius: 100px;
 }
 
-=======
-  top: 0;
-  left: 0;
-  border-radius: 50px;
-}
-
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 .preloader__round::after {
   background: #F9F9F9;
   animation: preloader-inside-white 1s ease-in-out infinite;
@@ -126,12 +105,9 @@
   background: #FF6838;
   animation: preloader-inside-red 1s ease-in-out infinite;
 }
-<<<<<<< HEAD
 
 .preloader__round-big::before {
   z-index: 10;
   background: rgba(236, 235, 232, 0.274);
   animation: preloader-inside-red 2s ease-in-out infinite;
 }
-=======
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c

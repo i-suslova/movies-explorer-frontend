@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 
 import './Profile.css';
@@ -28,36 +27,11 @@ const Profile = (props) => {
   const handleEditClick = () => {
     setShowEditForm(true);
     setIsDataChanged(false);
-=======
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import './Profile.css';
-import Header from '../Header/Header';
-import EditButton from '../EditButton/EditButton';
-import { useValidation } from '../../utils/validation';
-
-const Profile = () => {
-  const { formData, errors, handleChange } = useValidation({
-    name: '',
-    email: '',
-  });
-  const [showEditForm, setShowEditForm] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    navigate('/');
-  };
-
-  const handleEditClick = () => {
-    setShowEditForm(true);
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
   };
   const handleCancelEdit = () => {
     setShowEditForm(false);
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     setIsDataChanged(
       (inputValues.name !== currentUser.name && inputValues.email !== currentUser.email)
@@ -84,21 +58,11 @@ const Profile = () => {
       <section className='profile'>
 
         <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
-=======
-  return (
-    <main>
-      <Header />
-
-      <section className='profile'>
-
-        <h1 className='profile__title'>Привет, Виталий!</h1>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
 
         <form className='profile__form' method='post' name='profile-form'>
 
           <label className='profile__label'> Имя
             <input
-<<<<<<< HEAD
               className='profile__input'
               type='text'
               id='profile-name'
@@ -115,25 +79,10 @@ const Profile = () => {
             />
           </label>
 
-=======
-              type='text'
-              className='profile__input'
-              id='profile-name'
-              name='name'
-              placeholder='Имя'
-              minLength={2}
-              maxlength='30'
-              required
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           <span className='profile__error'>{errors.name}</span>
 
           <label className='profile__label'> E-mail
             <input
-<<<<<<< HEAD
               className='profile__input'
               type='email'
               name='email'
@@ -150,23 +99,10 @@ const Profile = () => {
             />
           </label>
 
-=======
-              type='email'
-              className='profile__input'
-              name='email'
-              id='input-link'
-              placeholder='E-mail'
-              required
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           <span className='profile__error'>{errors.email}</span>
 
         </form>
 
-<<<<<<< HEAD
         {showEditForm || (isValidForm && isDataChanged) ? (
 
           <EditButton
@@ -202,19 +138,6 @@ const Profile = () => {
               Выйти из аккаунта
             </button>
 
-=======
-        {showEditForm ? (
-          <EditButton onClick={handleCancelEdit} buttonText='Сохранить' />
-        ) : (
-
-          <div className='profile__list'>
-            <button className='profile__button-edit hover' onClick={handleEditClick}>
-              Редактировать
-            </button>
-            <button className='profile__button-exit hover' onClick={handleLogout}>
-              Выйти из аккаунта
-            </button>
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
           </div>
         )}
 
@@ -224,7 +147,3 @@ const Profile = () => {
 };
 
 export default Profile;
-<<<<<<< HEAD
-
-=======
->>>>>>> bf9cc22b0577b4c86d720b17440c85215251ea5c
