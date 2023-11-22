@@ -42,6 +42,9 @@
 .search__button {
   width: 80px;
   height: 34px;
+  background: transparent url(../../images/find.svg) no-repeat center;
+  border: none;
+  outline: none;
 }
 
 .search__error {
@@ -52,7 +55,7 @@
   font-weight: 400;
   line-height: normal;
   margin: 6px auto 12px;
-  padding: 0 ;
+  padding: 0;
 }
 
 .search__line-stroke {
@@ -68,6 +71,7 @@
     margin-top: 78px;
     max-width: 708px;
   }
+
   .search__error {
     max-width: 658px;
   }

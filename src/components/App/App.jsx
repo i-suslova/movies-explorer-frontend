@@ -216,6 +216,7 @@ const App = () => {
     localStorage.removeItem('searchText');
     localStorage.removeItem('isShortFilm');
     localStorage.removeItem('loadMore');
+    localStorage.removeItem('moviesData');
   };
   const handleSignOut = () => {
     clearUserData();
