@@ -5,15 +5,12 @@ import './Register.css';
 import BasicForm from '../BasicForm/BasicForm';
 import useForm from '../../hooks/useForm';
 
-
 const Register = (props) => {
   const {
     loggedIn,
     onRegistration,
     errorMessage,
     setErrorMessage,
-    isSuccessResponse,
-    setIsSuccessResponse
   } = props;
 
   const { inputValues, handleChange, errors, isValidForm, resetForm } = useForm();
@@ -50,8 +47,6 @@ const Register = (props) => {
         onSubmit={handleRegisterSubmit}
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
-        isSuccessResponse={isSuccessResponse}
-        setIsSuccessResponse={setIsSuccessResponse}
       >
         <section className='basic-form__form' >
 

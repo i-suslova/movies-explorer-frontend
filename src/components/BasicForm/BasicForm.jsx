@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import './BasicForm.css';
 
 import logo from '../../images/logo.svg';
-import iconConsent from "../../images/iconConsent.svg";
-
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const BasicForm = (props) => {
   const {
@@ -19,8 +16,6 @@ const BasicForm = (props) => {
     onSubmit,
     isValidFormBtn,
     errorMessage,
-    isSuccessResponse,
-    setIsSuccessResponse,
   } = props;
 
   const handleFormSubmit = (e) => {
@@ -51,21 +46,10 @@ const BasicForm = (props) => {
       {children}
 
       <div className='basic-form__submit'>
-
-        {isSuccessResponse ? (
-          <InfoTooltip
-            isOpen={true}
-            onClose={setIsSuccessResponse}
-            iconImage={iconConsent}
-            popupMessage="Профиль успешно создан."
-          />
-        ) : (
-          <span className='basic-form__main-error'>{errorMessage}</span>
-        )}
+        <span className='basic-form__main-error'>{errorMessage}</span>
         <button
           type='submit'
           aria-label="Сохранение данных профиля"
-
           className={`basic-form__button hover
            ${isValidFormBtn && !errorMessage ? '' : 'basic-form__button_disabled'}`}
           disabled={!isValidFormBtn || !!errorMessage}
