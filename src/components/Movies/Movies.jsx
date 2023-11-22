@@ -14,6 +14,7 @@ import Preloader from '../Preloader/Preloader';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const Movies = (props) => {
+
   const {
     loggedIn,
     setMoviesData,
@@ -23,9 +24,11 @@ const Movies = (props) => {
     onDeleteMovie,
     isLoading,
     setIsLoading,
+
   } = props;
 
   const [searchResults, setSearchResults] = useState([]);
+  // eslint-disable-next-line
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
@@ -33,22 +36,59 @@ const Movies = (props) => {
   const [errorLoadingMovies, setErrorLoadingMovies] = useState(false);
 
   const handleSearch = (searchText) => {
+    setIsLoading(true);
 
-    const newFilteredMovies = filterMovies(moviesData, searchText, isShortFilm);
+    const storedData = JSON.parse(localStorage.getItem('moviesData')) || {};
+    const storedMoviesData = storedData.movies || [];
 
-    const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
+    if (storedMoviesData && storedMoviesData.length > 0) {
+      const newFilteredMovies = filterMovies(moviesData, searchText, isShortFilm);
+      const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
+      const updatedSearchResults = [...searchResults, newSearchResults];
 
-    const updatedSearchResults = [...searchResults, newSearchResults];
-    localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
+      localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
 
-    setSearchResults(updatedSearchResults);
-    setSearchText(searchText);
+      setSearchResults(updatedSearchResults);
+      setSearchText(searchText);
 
-    if (newFilteredMovies.length > 0) {
-      setFilteredMovies(newFilteredMovies);
-      setIsMovieFound(true);
+      if (newFilteredMovies.length > 0) {
+        setFilteredMovies(newFilteredMovies);
+        setIsMovieFound(true);
+      } else {
+        setIsMovieFound(false);
+      }
+      setIsLoading(false);
     } else {
-      setIsMovieFound(false);
+
+      moviesApi
+        .getInitialMovies()
+        .then((movies) => {
+          setMoviesData([...movies]);
+
+          localStorage.setItem('moviesData', JSON.stringify(movies));
+
+          const newFilteredMovies = filterMovies(movies, searchText, isShortFilm);
+          const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
+          const updatedSearchResults = [...searchResults, newSearchResults];
+
+          localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
+
+          setSearchResults(updatedSearchResults);
+          setSearchText(searchText);
+
+          if (newFilteredMovies.length > 0) {
+            setFilteredMovies(newFilteredMovies);
+            setIsMovieFound(true);
+          } else {
+            setIsMovieFound(false);
+          }
+        })
+        .catch(() => {
+          setErrorLoadingMovies(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
@@ -57,35 +97,29 @@ const Movies = (props) => {
   };
 
   useEffect(() => {
+
+    const storedMoviesData = JSON.parse(localStorage.getItem('moviesData')) || [];
+    setMoviesData(Array.isArray(storedMoviesData) ? storedMoviesData : []);
+
     const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
     setSearchResults(Array.isArray(storedSearchResults) ? storedSearchResults : []);
+
     const storedSearchText = localStorage.getItem('searchText') || '';
     setSearchText(storedSearchText);
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
+
+    if (storedSearchText && storedMoviesData.length > 0 && storedSearchResults.length > 0) {
+      handleSearch(storedSearchText, storedIsShortFilm);
+    }
+    // eslint-disable-next-line
   }, []);
 
-
   useEffect(() => {
-
-    setIsLoading(true);
-    moviesApi.getInitialMovies()
-      .then((movies) => {
-        setMoviesData(movies);
-        setFilteredMovies(movies);
-      })
-      .catch(() => {
-        setErrorLoadingMovies(true);
-        console.error(
-          'Во время запроса произошла ошибка. ' +
-          'Возможно, проблема с соединением или сервер недоступен. ' +
-          'Подождите немного и попробуйте ещё раз.'
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [setIsLoading, setMoviesData]);
+    if (searchResults.length > 0 || searchText) {
+      setIsLoading(false);
+    }
+  }, [searchResults, searchText, setIsLoading]);
 
   return (
     <main>
@@ -115,18 +149,16 @@ const Movies = (props) => {
              Возможно, проблема с соединением или сервер недоступен.
              Подождите немного и попробуйте ещё раз."
           />
-        ) : (
-          (searchText || searchResults.length > 0) &&
-          filteredMovies.length > 0 && (
-            <MoviesCardList
-              searchResults={searchResults}
-              onSaveMovie={onSaveMovie}
-              onDeleteMovie={onDeleteMovie}
-              savedMovies={savedMovies}
-              isSavedMovies={false}
-              componentType="movies"
-            />
-          )
+        ) : (searchResults.length > 0 && (
+          <MoviesCardList
+            searchResults={searchResults}
+            onSaveMovie={onSaveMovie}
+            onDeleteMovie={onDeleteMovie}
+            savedMovies={savedMovies}
+            isSavedMovies={false}
+            componentType="movies"
+          />
+        )
         )}
 
       </section>
@@ -136,4 +168,15 @@ const Movies = (props) => {
 }
 
 export default Movies;
+
+
+
+
+
+
+
+
+
+
+
 
