@@ -1,9 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 import './NotFoundPage.css';
 
-const NotFoundPage = () => {
+const NotFoundPage = ({ loggedIn }) => {
+
+  const navigate = useNavigate();
+  const path = useLocation().pathname;
+
+  const handleGoBack = () => {
+    if (loggedIn) {
+      navigate(-1);
+    } else {
+      navigate('/signin');
+    }
+  };
+
   return (
     <main>
       <section className='not-found-page'>
@@ -13,7 +25,10 @@ const NotFoundPage = () => {
           <h1 className='not-found-page__title'>404</h1>
           <span className='not-found-page__subtitle'>Страница не найдена</span>
 
-          <Link className='not-found-page__link hover' to='/'>
+          <Link
+            className='not-found-page__link hover'
+            onClick={handleGoBack}
+          >
             Назад
           </Link>
 

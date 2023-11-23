@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation, } from "react-router-dom";
 
-
 import './App.css';
 
 import mainApi from "../../utils/MainApi";
@@ -79,6 +78,7 @@ const App = () => {
     const setAuthorization = (token) => {
       mainApi.setAuthorization(token);
     };
+
     const getAllData = async () => {
       try {
         setAuthorization(localStorage.getItem("JWT"));
@@ -93,6 +93,7 @@ const App = () => {
       } catch (error) {
         console.error(error);
       } finally {
+        setIsLoggedIn(true);
       }
     };
     getAllData();
@@ -117,6 +118,12 @@ const App = () => {
     }
     // eslint-disable-next-line
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoggedIn && ["/signup", "/signin"].includes(path)) {
+      navigate("/*");
+    }
+  }, [path, isLoggedIn, navigate]);
 
   const updateUserAndToken = (userDataAndToken) => {
     localStorage.setItem("JWT", userDataAndToken.token);
@@ -324,7 +331,7 @@ const App = () => {
               path='*'
               element={
                 <NotFoundPage
-                  to="/signin" replace
+                  loggedIn={isLoggedIn}
                 />}
             />
           </Routes>
