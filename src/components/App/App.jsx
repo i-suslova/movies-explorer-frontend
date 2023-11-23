@@ -132,10 +132,12 @@ const App = () => {
       .then(updateUserAndToken)
       .then(() => {
         setIsErrorHandled(false);
+        setIsSuccessResponse(true);
         navigate('/movies');
       })
       .catch((err) => {
         handleError(err, 'register');
+        setIsSuccessResponse(false);
         console.error("Ошибка регистрации:", err);
       })
   };

@@ -20,6 +20,7 @@ const Profile = (props) => {
   } = props;
 
   const currentUser = React.useContext(CurrentUserContext);
+  const [currentUserName, setCurrentUserName] = useState(currentUser.name);
   const { inputValues, handleChange, errors, isValidForm } = useForm();
   const [isDataChanged, setIsDataChanged] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -34,7 +35,8 @@ const Profile = (props) => {
 
   useEffect(() => {
     setIsDataChanged(
-      (inputValues.name !== currentUser.name && inputValues.email !== currentUser.email)
+      (inputValues.name !== currentUser.name &&
+        inputValues.email !== currentUser.email)
     );
   }, [inputValues, currentUser, setErrorMessage]);
 
@@ -42,7 +44,10 @@ const Profile = (props) => {
     if (e) {
       e.preventDefault();
     }
-    onUpdateUser({ name: inputValues.name, email: inputValues.email });
+    onUpdateUser({
+      name: inputValues.name,
+      email: inputValues.email
+    });
   };
 
   useEffect(() => {
@@ -51,13 +56,18 @@ const Profile = (props) => {
     };
   }, [setErrorMessage]);
 
+  const handleInputChange = (e) => {
+    handleChange(e);
+    setCurrentUserName(e.target.value);
+  };
+
   return (
     <main>
       <Header loggedIn={loggedIn} />
 
       <section className='profile'>
 
-        <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
+        <h1 className='profile__title'>Привет, {currentUserName}!</h1>
 
         <form className='profile__form' method='post' name='profile-form'>
 
@@ -67,10 +77,9 @@ const Profile = (props) => {
               type='text'
               id='profile-name'
               name='name'
-              placeholder={currentUser.name}
               required
               value={inputValues.name || ""}
-              onChange={handleChange}
+              onChange={handleInputChange}
               onClick={() => {
                 handleEditClick(true);
                 setErrorMessage('');
@@ -87,7 +96,6 @@ const Profile = (props) => {
               type='email'
               name='email'
               id='input-link'
-              placeholder={currentUser.email}
               required
               value={inputValues.email || ""}
               onChange={handleChange}
