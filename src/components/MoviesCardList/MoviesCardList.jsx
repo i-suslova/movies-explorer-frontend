@@ -7,7 +7,6 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = (props) => {
   const {
-
     searchResults,
     onSaveMovie,
     onDeleteMovie,
@@ -16,7 +15,7 @@ const MoviesCardList = (props) => {
     setSavedMovies,
     componentType,
   } = props;
-// eslint-disable-next-line
+  // eslint-disable-next-line
   const [movies, setMovies] = useState(savedMovies);
 
   useEffect(() => {
@@ -57,19 +56,6 @@ const MoviesCardList = (props) => {
 
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-
-        setCardsPerPage((prevCardsPerPage) => {
-          if (screenWidth > 865) {
-            return prevCardsPerPage || 16;
-          } else if (screenWidth > 750) {
-            return prevCardsPerPage || 8;
-          } else if (screenWidth >= 318) {
-            return prevCardsPerPage || 5;
-          } else {
-            return 0;
-          }
-        });
-
       }, 200);
     };
 
@@ -80,13 +66,15 @@ const MoviesCardList = (props) => {
       window.removeEventListener('resize', handleResize);
     };
 
-  }, [cardsPerPage, screenWidth]);
+  }, [screenWidth]);
 
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
     setLoadMoreClicked(true);
-    if (screenWidth >= 865) {
+    if (screenWidth >= 1160) {
       setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 4);
+    } else if (screenWidth >= 866) {
+      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 3);
     } else {
       setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 2);
     }
@@ -107,6 +95,28 @@ const MoviesCardList = (props) => {
       localStorage.setItem('loadMore', JSON.stringify(storedLoadMore));
     }
   }, [cardsPerPage, screenWidth, loadMoreClicked]);
+
+  useEffect(() => {
+    setMovies(savedMovies.slice(0, cardsPerPage));
+  }, [cardsPerPage, savedMovies]);
+
+  const calculateCardsPerPage = (screenWidth) => {
+    if (screenWidth > 1160) {
+      return 16;
+    } else if (screenWidth > 866) {
+      return 12;
+    } else if (screenWidth > 750) {
+      return 8;
+    } else if (screenWidth >= 318) {
+      return 5;
+    } else {
+      return 0;
+    }
+  }
+
+  useEffect(() => {
+    setCardsPerPage(calculateCardsPerPage(screenWidth));
+  }, [screenWidth]);
 
   return (
     <section className='movies-card-list'>
