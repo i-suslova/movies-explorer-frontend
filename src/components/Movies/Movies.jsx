@@ -24,7 +24,6 @@ const Movies = (props) => {
     onDeleteMovie,
     isLoading,
     setIsLoading,
-
   } = props;
 
   const [searchResults, setSearchResults] = useState([]);

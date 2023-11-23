@@ -4,6 +4,19 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 
 import MoviesCard from '../MoviesCard/MoviesCard';
+import {
+  MOVIES_PER_PAGE_LARGE,
+  MOVIES_PER_PAGE_MEDIUM,
+  MOVIES_PER_PAGE_SMALL,
+  MOVIES_PER_PAGE_MOBILE,
+  SCREEN_WIDTH_LARGE,
+  SCREEN_WIDTH_MEDIUM,
+  SCREEN_WIDTH_SMALL,
+  SCREEN_WIDTH_MOBILE,
+  CARDS_PER_CLICK_LARGE,
+  CARDS_PER_CLICK_MEDIUM,
+  CARDS_PER_CLICK_MOBILE,
+} from '../../utils/constants';
 
 const MoviesCardList = (props) => {
   const {
@@ -71,19 +84,24 @@ const MoviesCardList = (props) => {
   // загрузка дополнительных карточек при помощи кнопки
   const handleLoadMore = () => {
     setLoadMoreClicked(true);
-    if (screenWidth >= 1160) {
-      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 4);
-    } else if (screenWidth >= 866) {
-      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 3);
+    if (screenWidth > SCREEN_WIDTH_LARGE) {
+      setCardsPerPage((prevCardsPerPage) =>
+        prevCardsPerPage + CARDS_PER_CLICK_LARGE);
+    } else if (screenWidth > SCREEN_WIDTH_MEDIUM) {
+      setCardsPerPage((prevCardsPerPage) =>
+        prevCardsPerPage + CARDS_PER_CLICK_MEDIUM);
     } else {
-      setCardsPerPage((prevCardsPerPage) => prevCardsPerPage + 2);
+      setCardsPerPage((prevCardsPerPage) =>
+        prevCardsPerPage + CARDS_PER_CLICK_MOBILE);
     }
   };
 
   useEffect(() => {
     const storedLoadMore = JSON.parse(localStorage.getItem('loadMore')) || {};
-    setCardsPerPage((prevCardsPerPage) => storedLoadMore.cardsPerPage || prevCardsPerPage);
-    setScreenWidth((prevScreenWidth) => storedLoadMore.screenWidth || prevScreenWidth || window.innerWidth);
+    setCardsPerPage((prevCardsPerPage) =>
+      storedLoadMore.cardsPerPage || prevCardsPerPage);
+    setScreenWidth((prevScreenWidth) =>
+      storedLoadMore.screenWidth || prevScreenWidth || window.innerWidth);
   }, []);
 
   useEffect(() => {
@@ -101,14 +119,14 @@ const MoviesCardList = (props) => {
   }, [cardsPerPage, savedMovies]);
 
   const calculateCardsPerPage = (screenWidth) => {
-    if (screenWidth > 1160) {
-      return 16;
-    } else if (screenWidth > 866) {
-      return 12;
-    } else if (screenWidth > 750) {
-      return 8;
-    } else if (screenWidth >= 318) {
-      return 5;
+    if (screenWidth > SCREEN_WIDTH_LARGE) {
+      return MOVIES_PER_PAGE_LARGE;
+    } else if (screenWidth > SCREEN_WIDTH_MEDIUM) {
+      return MOVIES_PER_PAGE_MEDIUM;
+    } else if (screenWidth > SCREEN_WIDTH_SMALL) {
+      return MOVIES_PER_PAGE_SMALL;
+    } else if (screenWidth >= SCREEN_WIDTH_MOBILE) {
+      return MOVIES_PER_PAGE_MOBILE;
     } else {
       return 0;
     }
