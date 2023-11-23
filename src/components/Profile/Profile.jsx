@@ -21,9 +21,14 @@ const Profile = (props) => {
 
   const currentUser = React.useContext(CurrentUserContext);
   const [currentUserName, setCurrentUserName] = useState(currentUser.name);
-  const { inputValues, handleChange, errors, isValidForm } = useForm();
+  const { handleChange, errors, isValidForm } = useForm();
   const [isDataChanged, setIsDataChanged] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const [inputValues, setInputValues] = useState({
+    name: currentUser.name || '',
+    email: currentUser.email || '',
+  });
 
   const handleEditClick = () => {
     setShowEditForm(true);
@@ -58,8 +63,29 @@ const Profile = (props) => {
 
   const handleInputChange = (e) => {
     handleChange(e);
-    setCurrentUserName(e.target.value);
+    const { name, value } = e.target;
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      [name]: value,
+    }));
+    setCurrentUserName(value);
   };
+
+  const handleEmailChange = (e) => {
+    handleChange(e);
+    const { name, value } = e.target;
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    setInputValues({
+      name: currentUser.name || '',
+      email: currentUser.email || '',
+    });
+  }, [currentUser]);
 
   return (
     <main>
@@ -98,7 +124,7 @@ const Profile = (props) => {
               id='input-link'
               required
               value={inputValues.email || ""}
-              onChange={handleChange}
+              onChange={handleEmailChange}
               onClick={() => {
                 handleEditClick(true);
                 setErrorMessage('');
