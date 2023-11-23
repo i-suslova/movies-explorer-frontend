@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './EditButton.css';
-
-import iconConsent from "../../images/iconConsent.svg";
-
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const EditButton = (props) => {
   const {
@@ -13,20 +9,24 @@ const EditButton = (props) => {
     onSubmit,
     errorMessage,
     isSuccessResponse,
-    setIsSuccessResponse,
+    setIsSuccessResponse
   } = props;
+
+  useEffect(() => {
+    if (isSuccessResponse) {
+      const timeoutId = setTimeout(() => {
+        setIsSuccessResponse(false);
+      }, 2000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isSuccessResponse, setIsSuccessResponse]);
 
   return (
     <>
       <div className='basic-form__submit-profile'>
 
         {isSuccessResponse ? (
-          <InfoTooltip
-            isOpen={true}
-            onClose={setIsSuccessResponse}
-            iconImage={iconConsent}
-            popupMessage="Профиль успешно изменен."
-          />
+          <span className='basic-form__main-error'>Профиль успешно изменен.</span>
         ) : (
           <span className='basic-form__main-error'>{errorMessage}</span>
         )}
