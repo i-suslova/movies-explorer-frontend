@@ -43,7 +43,7 @@ const InfoTooltip = (props) => {
           aria-label="закрыть"
           onClick={onClose}
         ></button>
-        <div>
+        
           <img
             src={iconImage}
             alt={popupMessage}
@@ -51,7 +51,7 @@ const InfoTooltip = (props) => {
           />
 
           <span className="popup__result-title">{popupMessage}</span>
-        </div>
+
       </div>
     </div>
   );
