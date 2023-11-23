@@ -239,12 +239,6 @@ const App = () => {
     setIsInfoTooltipOpen(false);
   };
 
-  const handleSuccessClose = () => {
-    setIsSuccessResponse(false);
-    setIsInfoTooltipOpen(false);
-    navigate('/movies');
-  };
-
   return (
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -301,7 +295,7 @@ const App = () => {
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
                   isSuccessResponse={isSuccessResponse}
-                  setIsSuccessResponse={handleSuccessClose}
+                  setIsSuccessResponse={setIsSuccessResponse}
                 />}
             />
 
