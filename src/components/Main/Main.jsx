@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
@@ -8,12 +8,11 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-const Main = ({loggedIn}) => {
-  // const currentUser = React.useContext(CurrentUserContext);
+const Main = ({ loggedIn }) => {
+
   return (
     <>
-      <Header loggedIn={loggedIn}/>
-        {/* <Header /> */}
+      <Header loggedIn={loggedIn} />
       <main>
         <Promo />
         <AboutProject />
