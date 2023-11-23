@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './MoviesCard.css';
-import { MOVIES_API_URL } from '../../utils/constants'
+import { MOVIES_API_URL, formatDuration } from '../../utils/constants';
 
 const MoviesCard = (props) => {
   const {
@@ -11,7 +11,7 @@ const MoviesCard = (props) => {
     savedMovies,
     isSavedMovies
   } = props;
-  
+
   const isSavedInThisComponent = isSavedMovies
     ? savedMovies.some(savedMovie => savedMovie._id === movie._id)
     : savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
@@ -20,15 +20,14 @@ const MoviesCard = (props) => {
 
   const imageUrl = `${MOVIES_API_URL}${movie.image.url}`;
 
-  const hours = Math.floor(movie.duration / 60);
-  const minutes = movie.duration % 60;
-  const durationMovie = `${hours}ч ${minutes}м`;
+  const durationMovie = formatDuration(movie.duration);
 
   const handleToggleClick = () => {
     if (isSavedMovies) {
 
       if (onDeleteMovie) {
-        const savedMovie = savedMovies.some(savedMovie => savedMovie._id === movie._id);
+        const savedMovie = savedMovies.some(savedMovie =>
+          savedMovie._id === movie._id);
         if (savedMovie) {
           onDeleteMovie(movie._id);
         }
@@ -37,7 +36,8 @@ const MoviesCard = (props) => {
 
       if (isSaved) {
         if (onDeleteMovie) {
-          const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+          const savedMovie = savedMovies.find(savedMovie =>
+            savedMovie.movieId === movie.id);
           if (savedMovie) {
             onDeleteMovie(savedMovie._id);
           }
