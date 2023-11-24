@@ -1,12 +1,10 @@
 import React from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import './NotFoundPage.css';
 
 const NotFoundPage = ({ loggedIn }) => {
-
   const navigate = useNavigate();
-  const path = useLocation().pathname;
 
   const handleGoBack = () => {
     if (loggedIn) {
