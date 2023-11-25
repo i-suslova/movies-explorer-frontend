@@ -32,7 +32,7 @@ const App = () => {
   //определяем, открыт ли попап информации
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSuccessResponse, setIsSuccessResponse] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -154,7 +154,6 @@ const App = () => {
       .login(email, password)
       .then(updateUserAndToken)
       .then(() => {
-        setIsLoading(true);
         setMoviesData([]);
         navigate('/movies')
       })
