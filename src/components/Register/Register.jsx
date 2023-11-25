@@ -62,6 +62,7 @@ const Register = (props) => {
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="off"
+            title=""
           />
           <span className='basic-form__error'>{errors.name}</span>
 
@@ -76,6 +77,7 @@ const Register = (props) => {
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="off"
+            title=""
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -90,6 +92,7 @@ const Register = (props) => {
             onChange={handleChange}
             onClick={handleInputClick}
             autoComplete="new-password"
+            title=""
           />
           <span className='basic-form__error'>{errors.password}</span>
 

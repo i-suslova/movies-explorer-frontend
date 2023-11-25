@@ -92,7 +92,7 @@ const SearchForm = (props) => {
 
   return (
     <section className='search'>
-      <form className='search__form'>
+      <form className='search__form' autoComplete="off">
         <input
           required
           type='text'
@@ -103,6 +103,8 @@ const SearchForm = (props) => {
           onChange={handleChange}
           onClick={handleSearchInputClick}
           onKeyDown={handleKey}
+          autoComplete="off"
+          title=""
         />
         <button
           className='search__button hover'
