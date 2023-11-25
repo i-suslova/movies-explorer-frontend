@@ -111,6 +111,7 @@ const Profile = (props) => {
                 setErrorMessage('');
               }}
               autoComplete="off"
+              title=""
             />
           </label>
 
@@ -130,6 +131,7 @@ const Profile = (props) => {
                 setErrorMessage('');
               }}
               autoComplete="email"
+              title=""
             />
           </label>
 
