@@ -138,6 +138,7 @@ const Movies = (props) => {
         />
 
         {isLoading ? (
+
           <Preloader />
         ) : errorLoadingMovies ? (
           <InfoTooltip
