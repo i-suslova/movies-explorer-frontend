@@ -6,7 +6,6 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 const SearchForm = (props) => {
   const {
     onSearch,
-    searchResults,
     isMovieFound,
     componentType,
     setIsMovieFound,
@@ -38,24 +37,6 @@ const SearchForm = (props) => {
       setSearchValue('');
       setErrorMessage('');
 
-      const isDuplicateWithoutCheckbox = searchResults.some(
-        (result) =>
-          result.searchText.toLowerCase() === searchValue.toLowerCase() &&
-          !result.isShortFilm
-      );
-
-      const isDuplicateWithCheckbox = searchResults.some(
-        (result) =>
-          result.searchText.toLowerCase() === searchValue.toLowerCase() &&
-          result.isShortFilm
-      );
-
-      if ((!isShortFilm && isDuplicateWithoutCheckbox) ||
-        (isShortFilm && isDuplicateWithCheckbox)) {
-
-        setErrorMessage('Такой запрос уже был.');
-        return;
-      }
       onSearch(searchValue, isShortFilm);
     }
   };
