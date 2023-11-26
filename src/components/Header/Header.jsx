@@ -7,7 +7,10 @@ import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
 const Header = (props) => {
-  const { loggedIn } = props;
+  const {
+    loggedIn,
+    resetProfileForm
+  } = props;
 
   const path = useLocation().pathname;
   const isMain = path === '/';
@@ -17,7 +20,10 @@ const Header = (props) => {
       <Link className='header__logo hover' to='/'>
         <img src={logo} alt='логотип сайта' />
       </Link>
-      <Navigation loggedIn={loggedIn} />
+      <Navigation
+        loggedIn={loggedIn}
+        resetProfileForm={resetProfileForm}
+      />
     </header>
   )
 };
