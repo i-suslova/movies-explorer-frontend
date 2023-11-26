@@ -25,19 +25,22 @@ const SavedMovies = (props) => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
-  // eslint-disable-next-line
   const [searchText, setSearchText] = useState('');
-  // eslint-disable-next-line
-  const [restoreMovies, setRestoreMovies] = useState(savedMovies);
 
   useEffect(() => {
     setIsLoading(false);
     setFilteredMovies(savedMovies);
+
   }, [savedMovies, setIsLoading]);
 
   useEffect(() => {
     setIsShortFilm(isShortFilmChecked);
   }, [isShortFilmChecked]);
+
+  useEffect(() => {
+    const updatedFilteredMovies = filterMovies(savedMovies, searchText, isShortFilm);
+    setFilteredMovies(updatedFilteredMovies);
+  }, [savedMovies, searchText, isShortFilm]);
 
   const handleSearch = (newSearchText, newIsShortFilm) => {
     setIsLoading(true);
@@ -65,14 +68,6 @@ const SavedMovies = (props) => {
     setIsShortFilm((prevIsShortFilm) => !prevIsShortFilm);
   };
 
-  const handleRestoreMovies = () => {
-    if (restoreMovies.length > 0) {
-      setFilteredMovies(restoreMovies);
-      setIsMovieFound(true);
-      setIsShortFilmChecked(false);
-    }
-  };
-
   return (
     <main>
       <Header loggedIn={loggedIn} />
@@ -89,7 +84,6 @@ const SavedMovies = (props) => {
           isMovieFound={isMovieFound}
           componentType="savedMovies"
           setIsMovieFound={setIsMovieFound}
-          handleRestoreMovies={handleRestoreMovies}
         />
 
         {isLoading ? (

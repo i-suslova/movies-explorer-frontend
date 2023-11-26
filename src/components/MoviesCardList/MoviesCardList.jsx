@@ -81,7 +81,7 @@ const MoviesCardList = (props) => {
 
   }, [screenWidth]);
 
-  // загрузка дополнительных карточек при помощи кнопки
+  // загрузка дополнительных карточек при помощи кнопки "ещё"
   const handleLoadMore = () => {
     setLoadMoreClicked(true);
     if (screenWidth > SCREEN_WIDTH_LARGE) {
@@ -118,23 +118,27 @@ const MoviesCardList = (props) => {
     setMovies(savedMovies.slice(0, cardsPerPage));
   }, [cardsPerPage, savedMovies]);
 
-  const calculateCardsPerPage = (screenWidth) => {
-    if (screenWidth > SCREEN_WIDTH_LARGE) {
-      return MOVIES_PER_PAGE_LARGE;
-    } else if (screenWidth > SCREEN_WIDTH_MEDIUM) {
-      return MOVIES_PER_PAGE_MEDIUM;
-    } else if (screenWidth > SCREEN_WIDTH_SMALL) {
-      return MOVIES_PER_PAGE_SMALL;
-    } else if (screenWidth >= SCREEN_WIDTH_MOBILE) {
-      return MOVIES_PER_PAGE_MOBILE;
-    } else {
-      return 0;
-    }
-  }
-
   useEffect(() => {
+    const calculateCardsPerPage = (screenWidth) => {
+      if (componentType === 'movies') {
+        if (screenWidth > SCREEN_WIDTH_LARGE) {
+          return MOVIES_PER_PAGE_LARGE;
+        } else if (screenWidth > SCREEN_WIDTH_MEDIUM) {
+          return MOVIES_PER_PAGE_MEDIUM;
+        } else if (screenWidth > SCREEN_WIDTH_SMALL) {
+          return MOVIES_PER_PAGE_SMALL;
+        } else if (screenWidth >= SCREEN_WIDTH_MOBILE) {
+          return MOVIES_PER_PAGE_MOBILE;
+        } else {
+          return 0;
+        }
+      } else {
+        return savedMovies.length;
+      }
+    };
+
     setCardsPerPage(calculateCardsPerPage(screenWidth));
-  }, [screenWidth]);
+  }, [screenWidth, componentType, savedMovies]);
 
   return (
     <section className='movies-card-list'>
