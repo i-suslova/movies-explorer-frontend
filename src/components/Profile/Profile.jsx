@@ -40,7 +40,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     setIsDataChanged(
-      (inputValues.name !== currentUser.name &&
+      (inputValues.name !== currentUser.name ||
         inputValues.email !== currentUser.email)
     );
   }, [inputValues, currentUser, setErrorMessage]);
@@ -87,9 +87,22 @@ const Profile = (props) => {
     });
   }, [currentUser]);
 
+
+  const resetProfileForm = () => {
+    setInputValues({
+      name: currentUser.name || '',
+      email: currentUser.email || '',
+    });
+    setCurrentUserName(currentUser.name);
+    setShowEditForm(false);
+  };
+
   return (
     <main>
-      <Header loggedIn={loggedIn} />
+      <Header
+      loggedIn={loggedIn}
+      resetProfileForm={resetProfileForm}
+      />
 
       <section className='profile'>
 

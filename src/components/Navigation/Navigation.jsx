@@ -9,7 +9,10 @@ import logoProfileWhite from '../../images/profileWhite.svg';
 import logoProfileBlack from '../../images/profileBlack.svg';
 
 const Navigation = (props) => {
-  const { loggedIn } = props;
+  const {
+    loggedIn,
+    resetProfileForm
+  } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const path = useLocation().pathname;
@@ -53,10 +56,10 @@ const Navigation = (props) => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
-  const handleLogoClick = (event) => {
-    event.preventDefault();
+  const handleLogoClick = (e) => {
+    e.preventDefault();
     if (location.pathname === '/profile') {
-      navigate('/movies');
+      resetProfileForm();
     } else {
       navigate('/profile');
     }

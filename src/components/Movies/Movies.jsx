@@ -98,7 +98,8 @@ const Movies = (props) => {
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
 
-    if (storedSearchText && storedMoviesData.length > 0 && storedSearchResults.length > 0) {
+    if (storedSearchText && storedMoviesData.length > 0 &&
+       storedSearchResults.length > 0 && !isLoading) {
       handleSearch(storedSearchText, storedIsShortFilm);
     }
     // eslint-disable-next-line
@@ -158,15 +159,3 @@ const Movies = (props) => {
 }
 
 export default Movies;
-
-
-
-
-
-
-
-
-
-
-
-
