@@ -11,7 +11,6 @@ const SearchForm = (props) => {
     setIsMovieFound,
     isShortFilm,
     setIsShortFilm,
-    handleRestoreMovies,
     isShortFilmChecked,
     setIsShortFilmChecked,
   } = props;
@@ -29,12 +28,8 @@ const SearchForm = (props) => {
       if (setIsMovieFound && typeof setIsMovieFound === 'function') {
         setIsMovieFound(true);
         setSearchValue('');
-        if (componentType === 'savedMovies' && typeof handleRestoreMovies === 'function') {
-          handleRestoreMovies();
-        }
       }
     } else {
-      setSearchValue('');
       setErrorMessage('');
 
       onSearch(searchValue, isShortFilm);
@@ -89,7 +84,7 @@ const SearchForm = (props) => {
         />
         <button
           className='search__button hover'
-          type='button'
+          type='submit'
           aria-label='поиск'
           onClick={handleSearch}
         />
