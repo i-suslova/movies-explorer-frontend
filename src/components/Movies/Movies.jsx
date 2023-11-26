@@ -18,7 +18,6 @@ const Movies = (props) => {
   const {
     loggedIn,
     setMoviesData,
-    moviesData,
     savedMovies,
     onSaveMovie,
     onDeleteMovie,
@@ -41,46 +40,20 @@ const Movies = (props) => {
     const storedMoviesData = storedData.movies || [];
 
     if (storedMoviesData && storedMoviesData.length > 0) {
-      const newFilteredMovies = filterMovies(moviesData, searchText, isShortFilm);
-      const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
-      const updatedSearchResults = [...searchResults, newSearchResults];
-
-      localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
-
-      setSearchResults(updatedSearchResults);
-      setSearchText(searchText);
-
-      if (newFilteredMovies.length > 0) {
-        setFilteredMovies(newFilteredMovies);
-        setIsMovieFound(true);
-      } else {
-        setIsMovieFound(false);
-      }
+      const newFilteredMovies = filterMovies(storedMoviesData, searchText, isShortFilm);
+      updateSearchResults(searchText, newFilteredMovies);
       setIsLoading(false);
     } else {
-
+      // запрос на сервер если нет данных в локальном хранилище
       moviesApi
         .getInitialMovies()
         .then((movies) => {
           setMoviesData([...movies]);
 
-          localStorage.setItem('moviesData', JSON.stringify(movies));
+          localStorage.setItem('moviesData', JSON.stringify({ movies }));
 
           const newFilteredMovies = filterMovies(movies, searchText, isShortFilm);
-          const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
-          const updatedSearchResults = [...searchResults, newSearchResults];
-
-          localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
-
-          setSearchResults(updatedSearchResults);
-          setSearchText(searchText);
-
-          if (newFilteredMovies.length > 0) {
-            setFilteredMovies(newFilteredMovies);
-            setIsMovieFound(true);
-          } else {
-            setIsMovieFound(false);
-          }
+          updateSearchResults(searchText, newFilteredMovies);
         })
         .catch(() => {
           setErrorLoadingMovies(true);
@@ -88,6 +61,23 @@ const Movies = (props) => {
         .finally(() => {
           setIsLoading(false);
         });
+    }
+  };
+
+  const updateSearchResults = (searchText, newFilteredMovies) => {
+    const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
+    const updatedSearchResults = [...searchResults, newSearchResults];
+
+    localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
+
+    setSearchResults(updatedSearchResults);
+    setSearchText(searchText);
+
+    if (newFilteredMovies.length > 0) {
+      setFilteredMovies(newFilteredMovies);
+      setIsMovieFound(true);
+    } else {
+      setIsMovieFound(false);
     }
   };
 
