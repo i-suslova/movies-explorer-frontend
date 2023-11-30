@@ -71,6 +71,26 @@ const App = () => {
   };
 
   useEffect(() => {
+    const JWT = localStorage.getItem("JWT");
+
+    if (JWT) {
+      mainApi
+        .getToken(JWT)
+        .then(() => {
+          setIsLoggedIn(true);
+          navigate(path, { replace: true });
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoggedIn(false);
+        });
+    } else {
+      setIsLoggedIn(false);
+    }
+    // eslint-disable-next-line
+  }, [isLoggedIn]);
+
+  useEffect(() => {
     if (!localStorage.getItem("JWT")) {
       setIsLoggedIn(false);
       return;
@@ -98,26 +118,6 @@ const App = () => {
     };
     getAllData();
   }, [isLoggedIn, downloadedMovies]);
-
-  useEffect(() => {
-    const JWT = localStorage.getItem("JWT");
-
-    if (JWT) {
-      mainApi
-        .getToken(JWT)
-        .then(() => {
-          setIsLoggedIn(true);
-          navigate(path, { replace: true });
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsLoggedIn(false);
-        });
-    } else {
-      setIsLoggedIn(false);
-    }
-    // eslint-disable-next-line
-  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isLoggedIn && ["/signup", "/signin"].includes(path)) {

@@ -12,6 +12,7 @@ import moviesApi from "../../utils/MoviesApi";
 import filterMovies from '../../utils/filterMovies';
 import Preloader from '../Preloader/Preloader';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { SHORT_FILM_DURATION } from '../../utils/constants';
 
 const Movies = (props) => {
 
@@ -32,6 +33,7 @@ const Movies = (props) => {
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
   const [errorLoadingMovies, setErrorLoadingMovies] = useState(false);
+  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
 
   const handleSearch = (searchText) => {
     setIsLoading(true);
@@ -64,27 +66,6 @@ const Movies = (props) => {
     }
   };
 
-  const updateSearchResults = (searchText, newFilteredMovies) => {
-    const newSearchResults = { searchText, movies: newFilteredMovies, isShortFilm };
-    const updatedSearchResults = [...searchResults, newSearchResults];
-
-    localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
-
-    setSearchResults(updatedSearchResults);
-    setSearchText(searchText);
-
-    if (newFilteredMovies.length > 0) {
-      setFilteredMovies(newFilteredMovies);
-      setIsMovieFound(true);
-    } else {
-      setIsMovieFound(false);
-    }
-  };
-
-  const handleFilterChange = (isShortFilm) => {
-    setIsShortFilm(isShortFilm);
-  };
-
   useEffect(() => {
 
     const storedMoviesData = JSON.parse(localStorage.getItem('moviesData')) || [];
@@ -95,21 +76,64 @@ const Movies = (props) => {
 
     const storedSearchText = localStorage.getItem('searchText') || '';
     setSearchText(storedSearchText);
+
     const storedIsShortFilm = JSON.parse(localStorage.getItem('isShortFilm')) || false;
     setIsShortFilm(storedIsShortFilm);
+    setIsShortFilmChecked(storedIsShortFilm);
 
     if (storedSearchText && storedMoviesData.length > 0 &&
-       storedSearchResults.length > 0 && !isLoading) {
+      storedSearchResults.length > 0 && !isLoading) {
       handleSearch(storedSearchText, storedIsShortFilm);
     }
     // eslint-disable-next-line
   }, []);
+
+  const updateSearchResults = (searchText, newFilteredMovies) => {
+
+    const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
+
+    const updatedSearchResults = isShortFilm
+      ? [...storedSearchResults, { searchText, movies: newFilteredMovies, isShortFilmChecked }]
+      : [...searchResults, { searchText, movies: newFilteredMovies, isShortFilmChecked }];
+
+    setSearchResults(updatedSearchResults);
+    setSearchText(searchText);
+
+    localStorage.setItem('searchText', searchText);
+    localStorage.setItem('isShortFilm', JSON.stringify(isShortFilm));
+    localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
+
+    if (newFilteredMovies.length > 0) {
+      setFilteredMovies(newFilteredMovies);
+      setIsMovieFound(true);
+    } else {
+      setIsMovieFound(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsShortFilm(isShortFilmChecked);
+  }, [isShortFilmChecked]);
 
   useEffect(() => {
     if (searchResults.length > 0 || searchText) {
       setIsLoading(false);
     }
   }, [searchResults, searchText, setIsLoading]);
+
+  const handleFilterChange = () => {
+    const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
+
+    const newFilteredMovies = isShortFilm
+      ? storedSearchResults
+      : storedSearchResults.map(result => ({
+        ...result,
+        movies: result.movies ? result.movies.filter(movie =>
+          movie.duration <= SHORT_FILM_DURATION) : [],
+      }));
+
+    setSearchResults(newFilteredMovies);
+  };
 
   return (
     <main>
@@ -119,13 +143,17 @@ const Movies = (props) => {
       <section className='movies'>
         <SearchForm
           onSearch={handleSearch}
-          onFilterChange={handleFilterChange}
           isShortFilm={isShortFilm}
           searchResults={searchResults}
           setIsShortFilm={setIsShortFilm}
           isMovieFound={isMovieFound}
           setIsMovieFound={setIsMovieFound}
           componentType="movies"
+          setIsShortFilmChecked={setIsShortFilmChecked}
+          isShortFilmChecked={isShortFilmChecked}
+          onShortFilm={handleFilterChange}
+          searchText={searchText}
+          setSearchText={setSearchText}
         />
 
         {isLoading ? (
@@ -148,6 +176,7 @@ const Movies = (props) => {
             savedMovies={savedMovies}
             isSavedMovies={false}
             componentType="movies"
+            isShortFilm={isShortFilm}
           />
         )
         )}
@@ -159,3 +188,4 @@ const Movies = (props) => {
 }
 
 export default Movies;
+
