@@ -16,6 +16,7 @@ import {
   CARDS_PER_CLICK_LARGE,
   CARDS_PER_CLICK_MEDIUM,
   CARDS_PER_CLICK_MOBILE,
+  SHORT_FILM_DURATION,
 } from '../../utils/constants';
 
 const MoviesCardList = (props) => {
@@ -27,6 +28,7 @@ const MoviesCardList = (props) => {
     isSavedMovies,
     setSavedMovies,
     componentType,
+    isShortFilm,
   } = props;
   // eslint-disable-next-line
   const [movies, setMovies] = useState(savedMovies);
@@ -140,6 +142,10 @@ const MoviesCardList = (props) => {
     setCardsPerPage(calculateCardsPerPage(screenWidth));
   }, [screenWidth, componentType, savedMovies]);
 
+  const filteredMovies = isShortFilm
+    ? filteredMoviesId.filter(movie => movie.duration <= SHORT_FILM_DURATION)
+    : filteredMoviesId;
+
   return (
     <section className='movies-card-list'>
       <ul className='movies-card-list__page'>
@@ -166,7 +172,7 @@ const MoviesCardList = (props) => {
         {!isSavedMoviesPath && (
 
           <>
-            {filteredMoviesId.slice(0, cardsPerPage).map((movie) => (
+            {filteredMovies.slice(0, cardsPerPage).map((movie) => (
               <li key={movie.id} className='movies-card-list__item'>
                 <MoviesCard
                   key={movie._id}
@@ -202,5 +208,3 @@ const MoviesCardList = (props) => {
 };
 
 export default MoviesCardList;
-
-

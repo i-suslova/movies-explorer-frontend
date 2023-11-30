@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 
 import './BurgerMenu.css';
 import logoProfileBlack from '../../images/profileBlack.svg';
@@ -11,29 +12,34 @@ const BurgerMenu = () => {
     setIsBurgerOpen(!isBurgerOpen);
   };
 
-  return (
-    <section className={`burger-menu ${isBurgerOpen ? 'burger-menu_opened' : ''}`}>
-      <div className={`burger-menu__wrapper `}>
-        <div className='burger-menu__container'>
-          <button type='button' className='burger-menu__close hover' onClick={closeMenu}></button>
-          <ul className='burger-menu__list'>
-            <li className='burger-menu__item'>
-              <a href='/' >Главная</a>
-            </li>
-            <li className='burger-menu__item'>
-              <a href='/movies' >Фильмы</a>
-            </li>
-            <li className='burger-menu__item'>
-              <a href='/saved-movies' >Сохранённые фильмы</a>
-            </li>
-          </ul>
-          <a href='/profile' className='burger-menu__link hover'>
-            <img src={logoProfileBlack} alt='вход в аккаунт' />
-          </a>
-        </div>
+return (
+  <section className={`burger-menu ${isBurgerOpen ? 'burger-menu_opened' : ''}`}>
+    <div className={`burger-menu__wrapper `}>
+      <div className='burger-menu__container'>
+        <button type='button' className='burger-menu__close hover' onClick={closeMenu}></button>
+        <ul className='burger-menu__list'>
+          <li className='burger-menu__item'>
+            <NavLink to='/' className='burger-menu__link'  onClick={closeMenu}>
+                Главная
+              </NavLink>
+          </li>
+          <li className='burger-menu__item'>
+          <NavLink to='/movies' className='burger-menu__link' onClick={closeMenu}>
+                Фильмы
+              </NavLink>
+          </li>
+          <li className='burger-menu__item'>
+          <NavLink to='/saved-movies' className='burger-menu__link' onClick={closeMenu}>
+                Сохранённые фильмы
+              </NavLink>
+          </li>
+        </ul>
+        <Link to='/profile' className='burger-menu__link hover' onClick={closeMenu}>
+          <img src={logoProfileBlack} alt='вход в аккаунт' />
+        </Link>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };
-
 export default BurgerMenu;

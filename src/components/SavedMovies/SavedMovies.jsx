@@ -26,29 +26,30 @@ const SavedMovies = (props) => {
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [isMovieFound, setIsMovieFound] = useState(true);
   const [searchText, setSearchText] = useState('');
-
-  useEffect(() => {
-    setIsLoading(false);
-    setFilteredMovies(savedMovies);
-
-  }, [savedMovies, setIsLoading]);
+  const [showAllMovies, setShowAllMovies] = useState(true);
 
   useEffect(() => {
     setIsShortFilm(isShortFilmChecked);
   }, [isShortFilmChecked]);
 
   useEffect(() => {
-    const updatedFilteredMovies = filterMovies(savedMovies, searchText, isShortFilm);
+    const updatedFilteredMovies =
+      filterMovies(savedMovies, searchText, isShortFilm);
     setFilteredMovies(updatedFilteredMovies);
   }, [savedMovies, searchText, isShortFilm]);
 
   const handleSearch = (newSearchText, newIsShortFilm) => {
     setIsLoading(true);
 
-    const newFilteredMovies = filterMovies(savedMovies, newSearchText, newIsShortFilm);
+    const newFilteredMovies = filterMovies
+      (savedMovies, newSearchText, newIsShortFilm);
 
     setSearchResults([
-      { searchText: newSearchText, movies: newFilteredMovies, isShortFilm: newIsShortFilm },
+      {
+        searchText: newSearchText,
+        movies: newFilteredMovies,
+        isShortFilm: newIsShortFilm,
+      },
     ]);
 
     setSearchText(newSearchText);
@@ -56,17 +57,33 @@ const SavedMovies = (props) => {
     if (newFilteredMovies.length > 0) {
       setFilteredMovies(newFilteredMovies);
       setIsMovieFound(true);
+      setShowAllMovies(false);
     } else {
-      setFilteredMovies([]);
       setIsMovieFound(false);
+      setShowAllMovies(!newIsShortFilm);
     }
     setIsLoading(false);
   };
 
-  const handleFilterChange = (newIsShortFilm) => {
-    localStorage.setItem('isShortSavedFilm', JSON.stringify(newIsShortFilm));
-    setIsShortFilm((prevIsShortFilm) => !prevIsShortFilm);
+  useEffect(() => {
+    setIsLoading(false);
+    setFilteredMovies(savedMovies);
+  }, [savedMovies, setIsLoading]);
+
+  useEffect(() => {
+    setShowAllMovies(!isShortFilmChecked);
+  }, [isShortFilmChecked]);
+
+  const handleDeleteMovie = (movieId) => {
+    onDeleteMovie(movieId);
+    const updatedFilteredMovies = filterMovies(savedMovies, searchText, isShortFilm);
+    setFilteredMovies(updatedFilteredMovies);
   };
+
+  useEffect(() => {
+    const updatedFilteredMovies = filterMovies(savedMovies, searchText, isShortFilm);
+    setFilteredMovies(updatedFilteredMovies);
+  }, [savedMovies, searchText, isShortFilm]);
 
   return (
     <main>
@@ -75,33 +92,31 @@ const SavedMovies = (props) => {
       <section className='movies'>
         <SearchForm
           onSearch={handleSearch}
-          onFilterChange={handleFilterChange}
           isShortFilm={isShortFilm}
           isShortFilmChecked={isShortFilmChecked}
           setIsShortFilmChecked={setIsShortFilmChecked}
           setIsShortFilm={setIsShortFilm}
-          searchResults={searchResults}
           isMovieFound={isMovieFound}
-          componentType="savedMovies"
           setIsMovieFound={setIsMovieFound}
+          componentType="savedMovies"
+          searchText={searchText}
+          setSearchText={setSearchText}
+
         />
 
         {isLoading ? (
           <Preloader />
         ) : (
-          (filteredMovies.length > 0 && (
-            <MoviesCardList
-              searchResults={searchResults}
-              onDeleteMovie={onDeleteMovie}
-              isSavedMovies={true}
-              setSavedMovies={setSavedMovies}
-              onSaveMovie={onSaveMovie}
-              savedMovies={filteredMovies}
-              isShortFilm={isShortFilm}
-            />
-          ))
+          <MoviesCardList
+            searchResults={searchResults}
+            // onDeleteMovie={onDeleteMovie}
+            onDeleteMovie={handleDeleteMovie}
+            isSavedMovies={true}
+            setSavedMovies={setSavedMovies}
+            onSaveMovie={onSaveMovie}
+            savedMovies={showAllMovies ? savedMovies : filteredMovies}
+          />
         )}
-
       </section>
       <Footer />
     </main>

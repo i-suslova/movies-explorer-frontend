@@ -9,7 +9,7 @@ const MoviesCard = (props) => {
     onSaveMovie,
     onDeleteMovie,
     savedMovies,
-    isSavedMovies
+    isSavedMovies,
   } = props;
 
   const isSavedInThisComponent = isSavedMovies

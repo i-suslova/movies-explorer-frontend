@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
@@ -6,19 +6,26 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 const SearchForm = (props) => {
   const {
     onSearch,
-    isMovieFound,
-    componentType,
-    setIsMovieFound,
     isShortFilm,
-    setIsShortFilm,
     isShortFilmChecked,
+    setIsShortFilm,
     setIsShortFilmChecked,
+    isMovieFound,
+    setIsMovieFound,
+    componentType,
+    onShortFilm,
+    setSearchText,
+    searchText,
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   // eslint-disable-next-line
   const [searchInputClicked, setSearchInputClicked] = useState(false);
+
+  useEffect(() => {
+    setSearchValue(searchText || '');
+  }, [searchText]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -31,13 +38,15 @@ const SearchForm = (props) => {
       }
     } else {
       setErrorMessage('');
-
       onSearch(searchValue, isShortFilm);
+      setSearchText(searchValue);
     }
   };
 
   const handleFilterChangeMovies = () => {
     setIsShortFilm(!isShortFilm);
+    setIsShortFilmChecked(!isShortFilmChecked);
+    onShortFilm();
   };
 
   const handleFilterChangeSavedMovies = () => {
