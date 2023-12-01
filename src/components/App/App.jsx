@@ -72,7 +72,6 @@ const App = () => {
 
   useEffect(() => {
     const JWT = localStorage.getItem("JWT");
-
     if (JWT) {
       mainApi
         .getToken(JWT)
@@ -84,44 +83,36 @@ const App = () => {
           console.log(err);
           setIsLoggedIn(false);
         });
-    } else {
-      setIsLoggedIn(false);
     }
     // eslint-disable-next-line
   }, [isLoggedIn]);
 
   useEffect(() => {
-    if (!localStorage.getItem("JWT")) {
-      setIsLoggedIn(false);
-      return;
+    if (isLoggedIn) {
+      const setAuthorization = (token) => {
+        mainApi.setAuthorization(token);
+      };
+      const getAllData = async () => {
+        try {
+          setAuthorization(localStorage.getItem("JWT"));
+          const [userData, savedMovies] = await Promise.all([
+            mainApi.getUserInfo(),
+            mainApi.getMovies(),
+          ]);
+          setCurrentUser(userData);
+          setSavedMovies(savedMovies.reverse());
+          setDownloadedMovies(true);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      getAllData();
     }
-    const setAuthorization = (token) => {
-      mainApi.setAuthorization(token);
-    };
-
-    const getAllData = async () => {
-      try {
-        setAuthorization(localStorage.getItem("JWT"));
-        const [userData, savedMovies] = await Promise.all([
-          mainApi.getUserInfo(),
-          mainApi.getMovies(),
-        ]);
-        setCurrentUser(userData);
-        setSavedMovies(savedMovies.reverse());
-        setDownloadedMovies(true);
-
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoggedIn(true);
-      }
-    };
-    getAllData();
   }, [isLoggedIn, downloadedMovies]);
 
   useEffect(() => {
     if (isLoggedIn && ["/signup", "/signin"].includes(path)) {
-  navigate("/*", { replace: true });
+      navigate("/*", { replace: true });
     }
   }, [path, isLoggedIn, navigate]);
 
