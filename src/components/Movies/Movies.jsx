@@ -38,6 +38,8 @@ const Movies = (props) => {
   const handleSearch = (searchText) => {
     setIsLoading(true);
 
+    setSearchResults([]);
+
     const storedData = JSON.parse(localStorage.getItem('moviesData')) || {};
     const storedMoviesData = storedData.movies || [];
 
@@ -89,19 +91,12 @@ const Movies = (props) => {
   }, []);
 
   const updateSearchResults = (searchText, newFilteredMovies) => {
-
-    const storedSearchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
-
-    const updatedSearchResults = isShortFilm
-      ? [...storedSearchResults, { searchText, movies: newFilteredMovies, isShortFilmChecked }]
-      : [...searchResults, { searchText, movies: newFilteredMovies, isShortFilmChecked }];
-
-    setSearchResults(updatedSearchResults);
+    setSearchResults([{ searchText, movies: newFilteredMovies, isShortFilmChecked }]);
     setSearchText(searchText);
 
     localStorage.setItem('searchText', searchText);
     localStorage.setItem('isShortFilm', JSON.stringify(isShortFilm));
-    localStorage.setItem('searchResults', JSON.stringify(updatedSearchResults));
+    localStorage.setItem('searchResults', JSON.stringify([{ searchText, movies: newFilteredMovies, isShortFilmChecked }]));
 
     if (newFilteredMovies.length > 0) {
       setFilteredMovies(newFilteredMovies);
