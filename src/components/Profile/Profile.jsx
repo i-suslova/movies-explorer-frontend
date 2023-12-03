@@ -17,6 +17,7 @@ const Profile = (props) => {
     setErrorMessage,
     isSuccessResponse,
     setIsSuccessResponse,
+    isFormDisabled,
   } = props;
 
   const currentUser = React.useContext(CurrentUserContext);
@@ -100,8 +101,8 @@ const Profile = (props) => {
   return (
     <main>
       <Header
-      loggedIn={loggedIn}
-      resetProfileForm={resetProfileForm}
+        loggedIn={loggedIn}
+        resetProfileForm={resetProfileForm}
       />
 
       <section className='profile'>
@@ -117,6 +118,7 @@ const Profile = (props) => {
               id='profile-name'
               name='name'
               required
+              disabled={isFormDisabled}
               value={inputValues.name || ""}
               onChange={handleInputChange}
               onClick={() => {
@@ -137,6 +139,7 @@ const Profile = (props) => {
               name='email'
               id='input-link'
               required
+              disabled={isFormDisabled}
               value={inputValues.email || ""}
               onChange={handleEmailChange}
               onClick={() => {
@@ -162,6 +165,7 @@ const Profile = (props) => {
             errorMessage={errorMessage}
             isSuccessResponse={isSuccessResponse}
             setIsSuccessResponse={setIsSuccessResponse}
+            isFormDisabled={isFormDisabled}
           />
         ) : (
 

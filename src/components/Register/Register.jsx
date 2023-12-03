@@ -11,6 +11,7 @@ const Register = (props) => {
     onRegistration,
     errorMessage,
     setErrorMessage,
+    isFormDisabled,
   } = props;
 
   const { inputValues, handleChange, errors, isValidForm, resetForm } = useForm();
@@ -47,6 +48,7 @@ const Register = (props) => {
         onSubmit={handleRegisterSubmit}
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
+        isFormDisabled={isFormDisabled}
       >
         <section className='basic-form__form' >
 
@@ -63,6 +65,7 @@ const Register = (props) => {
             onClick={handleInputClick}
             autoComplete="off"
             title=""
+            disabled={isFormDisabled}
           />
           <span className='basic-form__error'>{errors.name}</span>
 
@@ -78,6 +81,7 @@ const Register = (props) => {
             onClick={handleInputClick}
             autoComplete="off"
             title=""
+            disabled={isFormDisabled}
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -93,6 +97,7 @@ const Register = (props) => {
             onClick={handleInputClick}
             autoComplete="new-password"
             title=""
+            disabled={isFormDisabled}
           />
           <span className='basic-form__error'>{errors.password}</span>
 

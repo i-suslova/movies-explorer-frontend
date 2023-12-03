@@ -6,8 +6,13 @@ import BasicForm from '../BasicForm/BasicForm';
 import useForm from '../../hooks/useForm';
 
 const Login = (props) => {
-  const { onLogin, errorMessage, setErrorMessage } = props;
-  const { inputValues, handleChange, errors, isValidForm } = useForm();
+  const {
+    onLogin,
+    errorMessage,
+    setErrorMessage,
+    isFormDisabled,
+  } = props;
+  const { inputValues, handleChange, errors, isValidForm } = useForm()
 
   const handleLoginSubmit = (e) => {
     if (e) {
@@ -40,6 +45,7 @@ const Login = (props) => {
         onSubmit={handleLoginSubmit}
         isValidFormBtn={isValidForm}
         errorMessage={errorMessage}
+        isFormDisabled={isFormDisabled}
       >
         <section className='basic-form__form basic-form__form-login'>
 
@@ -55,6 +61,7 @@ const Login = (props) => {
             onClick={handleInputClick}
             autoComplete="off"
             title=""
+            disabled={isFormDisabled}
           />
           <span className='basic-form__error'>{errors.email}</span>
 
@@ -70,6 +77,7 @@ const Login = (props) => {
             onClick={handleInputClick}
             autoComplete="new-password"
             title=""
+            disabled={isFormDisabled}
           />
           <span className='basic-form__error'>{errors.password}</span>
 

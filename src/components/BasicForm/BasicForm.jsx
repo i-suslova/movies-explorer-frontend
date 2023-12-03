@@ -16,11 +16,14 @@ const BasicForm = (props) => {
     onSubmit,
     isValidFormBtn,
     errorMessage,
+    isFormDisabled,
   } = props;
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    if (!isFormDisabled) {
+      onSubmit();
+    }
   }
 
   return (
@@ -51,8 +54,8 @@ const BasicForm = (props) => {
           type='submit'
           aria-label="Сохранение данных профиля"
           className={`basic-form__button hover
-           ${isValidFormBtn && !errorMessage ? '' : 'basic-form__button_disabled'}`}
-          disabled={!isValidFormBtn || !!errorMessage}
+          ${isValidFormBtn && !errorMessage && !isFormDisabled ? '' : 'basic-form__button_disabled'}`}
+          disabled={isFormDisabled || !isValidFormBtn || !!errorMessage}
         >
           {buttonText}
         </button>

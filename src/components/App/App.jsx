@@ -38,6 +38,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   // eslint-disable-next-line
   const [isErrorHandled, setIsErrorHandled] = useState(false);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
 
   const handleError = (err, component) => {
     setIsErrorHandled(true);
@@ -124,6 +125,7 @@ const App = () => {
   };
 
   const handleRegister = ({ name, email, password }) => {
+    setIsFormDisabled(true);
     mainApi
       .register(name, email, password)
       .then(() => mainApi.login(email, password))
@@ -138,9 +140,13 @@ const App = () => {
         setIsSuccessResponse(false);
         console.error("Ошибка регистрации:", err);
       })
+      .finally(() => {
+        setIsFormDisabled(false);
+      });
   };
 
   const handleLogin = ({ email, password }) => {
+    setIsFormDisabled(true);
     mainApi
       .login(email, password)
       .then(updateUserAndToken)
@@ -153,10 +159,14 @@ const App = () => {
         handleError(err, 'login');
         setIsSuccessResponse(false);
       })
+      .finally(() => {
+        setIsFormDisabled(false);
+      });
   };
 
   // универсальная функция для обработки запросов
   const handleSubmit = (request, component) => {
+    setIsFormDisabled(true);
     request()
       .then(() => {
         setIsErrorHandled(false);
@@ -165,6 +175,9 @@ const App = () => {
       .catch((err) => {
         handleError(err, component);
         console.error(err);
+      })
+      .finally(() => {
+        setIsFormDisabled(false);
       });
   };
 
@@ -286,6 +299,7 @@ const App = () => {
                   setErrorMessage={setErrorMessage}
                   isSuccessResponse={isSuccessResponse}
                   setIsSuccessResponse={setIsSuccessResponse}
+                  isFormDisabled={isFormDisabled}
                 />}
             />
 
@@ -298,6 +312,7 @@ const App = () => {
                     handleRegister({ name, email, password })}
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
+                  isFormDisabled={isFormDisabled}
                 />}
             />
 
@@ -308,6 +323,7 @@ const App = () => {
                   onLogin={(email, password) => handleLogin({ email, password })}
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
+                  isFormDisabled={isFormDisabled}
                 />}
             />
 
