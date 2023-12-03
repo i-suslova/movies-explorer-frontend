@@ -9,7 +9,8 @@ const EditButton = (props) => {
     onSubmit,
     errorMessage,
     isSuccessResponse,
-    setIsSuccessResponse
+    setIsSuccessResponse,
+    isFormDisabled,
   } = props;
 
   useEffect(() => {
@@ -34,9 +35,9 @@ const EditButton = (props) => {
           type='submit'
           aria-label="Обновление данных профиля"
           className={`basic-form__button hover
-          ${isValidFormBtn && !errorMessage ? '' : 'basic-form__button_disabled'}`}
+          ${isValidFormBtn && !errorMessage && !isFormDisabled ? '' : 'basic-form__button_disabled'}`}
           onClick={onSubmit}
-          disabled={!isValidFormBtn || !!errorMessage}
+          disabled={isFormDisabled || !isValidFormBtn || !!errorMessage}
         >
           {buttonText}
         </button>
